@@ -1,0 +1,178 @@
+{ config,
+  pkgs,
+  lib,
+  inputs,
+  outputs,
+  system,
+  myLib,
+  stylix,
+  ...
+}: {
+    imports = [
+        ./hardware-configuration.nix
+        ../../nixosModules
+    ];
+    boot = {
+        loader.systemd-boot.enable = true;
+        loader.efi.canTouchEfiVariables = true;
+        plymouth.enable = true;
+    };
+
+    networking = {
+        extraHosts = ''
+            127.0.0.1 localhost.localdomain localhost
+        '';
+        hostName = "est";
+        networkmanager.enable = true;
+        firewall.enable = true;
+    };
+
+    time.timeZone = "America/Puerto_Rico";
+
+    i18n = {
+        defaultLocale = "en_US.UTF-8";
+
+        extraLocaleSettings = {
+            LC_ADDRESS = "es_PR.UTF-8";
+            LC_IDENTIFICATION = "es_PR.UTF-8";
+            LC_MEASUREMENT = "es_PR.UTF-8";
+            LC_MONETARY = "es_PR.UTF-8";
+            LC_NAME = "es_PR.UTF-8";
+            LC_NUMERIC = "es_PR.UTF-8";
+            LC_PAPER = "es_PR.UTF-8";
+            LC_TELEPHONE = "es_PR.UTF-8";
+            LC_TIME = "es_PR.UTF-8";
+        };
+# IME
+        inputMethod = {
+            type = "fcitx5";
+
+            fcitx5.addons = with pkgs; [
+                fcitx5-anthy
+                fcitx5-gtk
+                fcitx5-configtool
+            ];
+
+            ibus.engines = [ pkgs.ibus-engines.anthy ];
+        };
+    };
+
+    services = {
+        xserver = {
+            xkb = {
+                layout = "us";
+                variant = "dvorak";
+            };
+        };
+
+        getty.autologinUser = "diego";
+        openssh.enable = true;
+        pipewire = {
+            enable = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
+            pulse.enable = true;
+        };
+    };
+
+    console.keyMap = "dvorak";
+
+    users = {
+        groups."plugdev" = {};
+        users.diego = {
+            isNormalUser = true;
+            description = "diego";
+            extraGroups = [
+                "networkmanager"
+                "wheel"
+                "plugdev"
+                "adbusers"
+            ];
+            packages = with pkgs; [
+                home-manager
+                neovim
+                zsh
+            ];
+            shell = pkgs.zsh;
+        };
+    };
+
+    nixpkgs.config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+    };
+
+    environment = {
+        variables.GLFW_IM_MODULE = "ibus";
+        systemPackages = let
+            system = "x86_64-linux";
+        in [
+            pkgs.home-manager
+            pkgs.rsync
+            pkgs.borgbackup
+            pkgs.onedrive
+            pkgs.wget
+            pkgs.doas
+            pkgs.ed
+            pkgs.curl
+            pkgs.pass
+            pkgs.git
+            inputs.zen-browser.packages."${system}".default
+            inputs.zen-browser.packages."${system}".specific
+            inputs.zen-browser.packages."${system}".generic
+        ];
+    };
+
+# Fonts
+    fonts = {
+        packages = with pkgs; [
+            cozette
+            scientifica
+            ipafont
+            dejavu_fonts
+            ipaexfont
+            nasin-nanpa
+            linja-pi-pu-lukin
+            ibm-plex
+        ];
+        enableDefaultPackages = true;
+    };
+
+
+
+    programs = {
+        adb.enable = true;
+        zsh.enable = true;
+        gnupg.agent = {
+            enable = true;
+            enableSSHSupport = true;
+        };
+    };
+
+    system.stateVersion = "23.11"; # DO NOT CHANGE
+
+    security = {
+        sudo.enable = false;
+        polkit.enable = true;
+        rtkit.enable = true;
+        doas = {
+            enable = true;
+            extraRules = [{
+                users = ["diego"];
+                keepEnv = true;
+                persist = true;
+            }];
+        };
+    };
+
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    users.defaultUserShell = pkgs.zsh;
+    nix = {
+        package = pkgs.nixVersions.stable;
+        extraOptions = ''
+            experimental-features = nix-command flakes
+            warn-dirty = false
+        '';
+    };
+}
