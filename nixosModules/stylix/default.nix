@@ -8,7 +8,7 @@
             autoEnable = true;
             base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 
-            image = ./sakura.png;
+            image = ./sakura2.png;
 
             fonts = {
                 monospace = {
