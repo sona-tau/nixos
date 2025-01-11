@@ -27,6 +27,7 @@
         hyperfine       # binary benchmark
         imagemagick     # convert images
         imv             # image viewing software
+        inkscape        # vector editing software
         luajitPackages.lua-lsp  # lua-lsp for NeoVim
         mpv             # video playing software
         ncmpcpp         # music player
