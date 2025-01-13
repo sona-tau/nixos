@@ -28,9 +28,12 @@
                 ./hosts/fw13/configuration.nix
                 stylix.nixosModules.stylix
                 home-manager.nixosModules.home-manager {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.users.diego = import ./hosts/fw13/home.nix;
+                    home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.diego = import ./hosts/fw13/home.nix;
+                        backupFileExtension = "backup";
+                    };
                 }
             ];
         };
