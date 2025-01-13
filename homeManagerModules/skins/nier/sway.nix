@@ -2,6 +2,9 @@
 let cfg = config.rice.nier; in
 {
     config = lib.mkIf cfg.enable {
+        programs.eww = {
+            enable = true;
+        };
         home.packages = with pkgs; [
             wl-clipboard
             tofi
@@ -12,6 +15,11 @@ let cfg = config.rice.nier; in
             package = pkgs.swayfx;
             checkConfig = false;
             config = rec {
+                bars = [
+                    { command = "${pkgs.eww}/bin/eww open bar"; }
+                    { command = "${pkgs.eww}/bin/eww open clock"; }
+                    { command = "${pkgs.eww}/bin/eww open battery"; }
+                ];
                 modifier = "Mod4";
                 terminal = "alacritty";
                 startup = [
@@ -22,8 +30,9 @@ let cfg = config.rice.nier; in
                 left = "h";
                 menu = "tofi-run | xargs swaymsg exec --";
                 gaps = {
-                    inner = 2;
-                    outer = 2;
+                    top = 6;
+                    inner = 4;
+                    outer = 10;
                 };
                 input = {
                     "1:1:AT_Translated_Set_2_keyboard" = {
@@ -59,7 +68,7 @@ let cfg = config.rice.nier; in
                 };
             };
             extraConfig = ''
-                corner_radius 2
+                corner_radius 7
                 smart_corner_radius on
                 shadows on
                 blur enable
