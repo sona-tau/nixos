@@ -8,7 +8,7 @@
             autoEnable = true;
             base16Scheme = "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 
-            image = ./sakura2.png;
+            image = ./sakura2.png; # https://unsplash.com/photos/white-flowering-plant-1vuXf7ta_PU
 
             fonts = {
                 monospace = {

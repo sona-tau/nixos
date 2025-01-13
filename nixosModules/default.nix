@@ -4,6 +4,7 @@
 }: {
     imports = [
         ./stylix
+        ./i3.nix
     ];
 
     config = {
