@@ -1,80 +1,87 @@
 // My own colors
-$color-bg = #161616;
-$color-fg = #ffffff;
+$color-bg: #212121;
+$color-fg: #fefefe;
 
-$color-bright-grey	= #393939;
-$color-bright-red	= #ff7eb6;
-$color-bright-green	= #42be65;
-$color-bright-yellow	= #ffe97b;
-$color-bright-blue	= #33b1ff;
-$color-bright-magenta	= #ee5396;
-$color-bright-cyan	= #3ddbd9;
-$color-bright-white	= #ffffff;
+$color-bright-grey	: #393939;
+$color-bright-red	: #ff7eb6;
+$color-bright-green	: #42be65;
+$color-bright-yellow	: #ffe97b;
+$color-bright-blue	: #33b1ff;
+$color-bright-magenta	: #ee5396;
+$color-bright-cyan	: #3ddbd9;
+$color-bright-white	: #ffffff;
 
-$color-grey	= #262626;
-$color-red	= #ff7eb6;
-$color-green	= #42be65;
-$color-yellow	= #ffe97b;
-$color-blue	= #33b1ff;
-$color-magenta	= #ee5396;
-$color-cyan	= #3ddbd9;
-$color-white	= #dde1e6;
+$color-grey	: #262626;
+$color-red	: #ff7eb6;
+$color-green	: #42be65;
+$color-yellow	: #ffe97b;
+$color-blue	: #33b1ff;
+$color-magenta	: #ee5396;
+$color-cyan	: #3ddbd9;
+$color-white	: #dde1e6;
 
-$color-selection-background = #ee5396;
-$color-selection-foreground = #161616;
+$color-selection-background : #ee5396;
+$color-selection-foreground: #161616;
 
 * {
-	*
   all: unset; //Unsets everything so you can style everything from scratch
 }
 
 //Global Styles
 .bar {
-  background-color: $color-bg;
-  color: $color-fg;
-  padding: 10px;
+  // background-color: $color-bg;
+  // color: $color-fg;
 }
 
 // Styles on classes (see eww.yuck for more information)
-
-.sidestuff slider {
-  all: unset;
-  color: $color-red;
+.workspaces {
+    border-radius: 7px;
+    padding: 0.5rem;
+    margin: 0 1rem;
+    background-color: $color-bg;
 }
 
-.metric scale trough highlight {
-  all: unset;
-  background-color: $color-red;
-  color: #000000;
-  border-radius: 10px;
+.workspace {
+    border-radius: 10px;
+    background-color: $color-fg;
+    margin: 0 0.25rem;
+    padding: 0 0.7rem;
+
+    transition: 0.3s;
+
+    &.focused {
+        background-color: $color-bright-cyan;
+        padding: 0 2rem;
+    }
 }
-.metric scale trough {
-  all: unset;
-  background-color: $color-grey;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
+
+.workspace:hover {
+    background-color: mix($color-bg, $color-cyan, 70%);
+    &.focused {
+        background-color: mix($color-bg, $color-red, 70%);
+    }
 }
-.metric scale trough highlight {
-  all: unset;
-  background-color: $color-grey;
+
+.image {
+  background-color: rgba(0, 0, 0, 0);
+  background: rgba(0,0,0,0);
   color: $color-fg;
-  border-radius: 10px;
 }
-.metric scale trough {
-  all: unset;
-  background-color: $color-grey;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
+
+.clock {
+  background-color: $color-bg;
+  border-radius: 0 0 7 7px;
+  padding: 5 10px;
+  margin: 0 0.25rem;
+  transition: 0.3s;
 }
-.label-ram {
-  font-size: large;
-}
-.workspaces button:hover {
-  color: $color-red;
+
+.battery {
+    background-color: $color-bg;
+    color: $color-fg;
+    border-radius: 0 0 7 7px;
+    margin: 0 0.25rem;
+    padding: 5 10px;
+
+    transition: 0.3s;
 }
