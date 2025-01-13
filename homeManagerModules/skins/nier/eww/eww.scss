@@ -1,0 +1,80 @@
+// My own colors
+$color-bg = #161616;
+$color-fg = #ffffff;
+
+$color-bright-grey	= #393939;
+$color-bright-red	= #ff7eb6;
+$color-bright-green	= #42be65;
+$color-bright-yellow	= #ffe97b;
+$color-bright-blue	= #33b1ff;
+$color-bright-magenta	= #ee5396;
+$color-bright-cyan	= #3ddbd9;
+$color-bright-white	= #ffffff;
+
+$color-grey	= #262626;
+$color-red	= #ff7eb6;
+$color-green	= #42be65;
+$color-yellow	= #ffe97b;
+$color-blue	= #33b1ff;
+$color-magenta	= #ee5396;
+$color-cyan	= #3ddbd9;
+$color-white	= #dde1e6;
+
+$color-selection-background = #ee5396;
+$color-selection-foreground = #161616;
+
+* {
+	*
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+//Global Styles
+.bar {
+  background-color: $color-bg;
+  color: $color-fg;
+  padding: 10px;
+}
+
+// Styles on classes (see eww.yuck for more information)
+
+.sidestuff slider {
+  all: unset;
+  color: $color-red;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: $color-red;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: $color-grey;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: $color-grey;
+  color: $color-fg;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: $color-grey;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.label-ram {
+  font-size: large;
+}
+.workspaces button:hover {
+  color: $color-red;
+}

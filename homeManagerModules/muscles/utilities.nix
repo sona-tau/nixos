@@ -10,6 +10,7 @@
         brightnessctl   # brightness manager
         btop            # task manager
         calcurse        # calendar
+        coreutils-full  # all the coreutils
         du-dust         # check for space in disks
         ed              # the best text editor ever made
         eza             # terminal ls
@@ -28,6 +29,7 @@
         imagemagick     # convert images
         imv             # image viewing software
         inkscape        # vector editing software
+        jq              # json query language
         luajitPackages.lua-lsp  # lua-lsp for NeoVim
         mpv             # video playing software
         ncmpcpp         # music player
