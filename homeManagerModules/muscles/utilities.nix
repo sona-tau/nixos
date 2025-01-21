@@ -9,6 +9,7 @@
         borgbackup      # backup software
         brightnessctl   # brightness manager
         btop            # task manager
+        bunnyfetch      # cute system info display
         calcurse        # calendar
         coreutils-full  # all the coreutils
         du-dust         # check for space in disks
