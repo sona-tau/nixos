@@ -45,6 +45,7 @@
 # IME
         inputMethod = {
             type = "fcitx5";
+            enable = true;
 
             fcitx5.addons = with pkgs; [
                 fcitx5-anthy
@@ -90,6 +91,7 @@
             packages = with pkgs; [
                 home-manager
                 neovim
+                helix
                 zsh
             ];
             shell = pkgs.zsh;
