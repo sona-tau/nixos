@@ -1,0 +1,36 @@
+(include "modules/workspaces.yuck")
+(defwindow workspaces
+    :monitor 0
+    :geometry (geometry
+        :anchor "top center"
+        :width "200px"
+        :height "10px")
+    :stacking "bottom"
+    :exclusive true
+    (workspaces))
+
+(include "modules/clock.yuck")
+(defwindow clock
+    :monitor 0
+    :geometry (geometry
+        :anchor "top right"
+        :y "-19px"
+        :x "10px"
+        :width "100px"
+        :height "10px")
+    :stacking "bottom"
+    :exclusive true
+    (clock))
+
+(include "modules/battery.yuck")
+(defwindow battery
+    :monitor 0
+    :geometry (geometry
+        :anchor "top left"
+        :y "-19px"
+        :x "10px"
+        :width "100px"
+        :height "10px")
+    :stacking "bottom"
+    :exclusive true
+    (battery))
