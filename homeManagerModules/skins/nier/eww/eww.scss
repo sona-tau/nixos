@@ -1,0 +1,10 @@
+* {
+    all: unset;
+    font-family: JetBrainsMono;
+    font-weight: bold;
+}
+
+@import "scss/battery.scss";
+@import "scss/clock.scss";
+@import "scss/colors.scss";
+@import "scss/workspaces.scss";
