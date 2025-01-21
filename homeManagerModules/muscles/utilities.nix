@@ -52,6 +52,7 @@
         unzip           # unzip files
         uutils-coreutils-noprefix   # uutils
         vhs             # cool terminal gif maker
+        vesktop         # discord emulator
         wishlist        # ssh into different endpoints
         xh              # http request utility
         yt-dlp          # terminal YouTube
