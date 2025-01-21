@@ -2,8 +2,19 @@
 let cfg = config.rice.nier; in
 {
     config = lib.mkIf cfg.enable {
+
+        services.gammastep = {
+            enable = true;
+            dawnTime = "05:48-06:59";
+            duskTime = "17:47-19:04";
+            temperature = {
+                night = 2000;
+            };
+        };
+
         programs.eww = {
             enable = true;
+            configDir = ./eww;
         };
         home.packages = with pkgs; [
             wl-clipboard
@@ -30,7 +41,7 @@ let cfg = config.rice.nier; in
                 left = "h";
                 menu = "tofi-run | xargs swaymsg exec --";
                 gaps = {
-                    top = 6;
+                    top = 3;
                     inner = 4;
                     outer = 10;
                 };
@@ -72,6 +83,11 @@ let cfg = config.rice.nier; in
                 smart_corner_radius on
                 shadows on
                 blur enable
+
+                exec eww daemon
+                exec eww open workspaces
+                exec eww open clock
+                exec eww open battery
                 '';
             swaynag.enable = true;
         };
