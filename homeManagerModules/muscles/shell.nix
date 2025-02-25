@@ -14,24 +14,21 @@
             enable = true;
             enableZshIntegration = true;
             settings = {
-                add_newline = false;
+                add_newline = true;
                 format = lib.concatStrings [
-                    "[ ╭── ](white)[$directory](purple)[\${custom.time}](yellow)\n"
+                    "[ ╭── ](white)[$hostname](purple)$directory\n"
                     "[ ╰ ](white)$character"
                 ];
-                custom = {
-                    time = {
-                        command = "date --iso=seconds";
-                        shell = ["bash" "-c"];
-                    };
-                };
+                right_format = lib.concatStrings [
+                    "[$all](gray)"
+                ];
 
     # Get editor completions based on the config schema
                 "$schema" = "https://starship.rs/config-schema.json";
 
                 character = { # The name of the module we are configuring is 'character'
-                    success_symbol = "λ[.](green)";
-                    error_symbol = "λ[.](red)";
+                    success_symbol = "[λ](green)";
+                    error_symbol = "[λ](red)";
                 };
 
     # Disable the package module, hiding it from the prompt completely
@@ -66,6 +63,7 @@
                 "config" = "nvim \"~/nixos/hm-modules/rices/\"";
                 "rebuild" = "doas nixos-rebuild -L --flake ~/nixos#fw13 --show-trace";
                 "ls" = "eza";
+                "rm" = "rm -i";
             };
             envExtra = ''
 # XDG directories
