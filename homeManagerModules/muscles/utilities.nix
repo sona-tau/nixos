@@ -13,6 +13,7 @@
         calcurse        # calendar
         coreutils-full  # all the coreutils
         du-dust         # check for space in disks
+        delta           # diff pager for git
         ed              # the best text editor ever made
         eza             # terminal ls
         fd              # better version of find
