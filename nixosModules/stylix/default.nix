@@ -32,7 +32,7 @@
 
             fonts = {
                 monospace = {
-                    package = pkgs.nerdfonts;
+                    package = pkgs.nerd-fonts.mplus;
                     name = "IBM Plex Mono";
                 };
                 sansSerif = {

@@ -2,8 +2,8 @@
     description = "A very basic flake";
 
     inputs = {
-        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
         zen-browser.url = "github:MarceColl/zen-browser-flake";
         stylix.url = "github:danth/stylix";
         niri = {
