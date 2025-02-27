@@ -11,7 +11,7 @@ let cfg = config.rice.nier; in
                         x = 10;
                         y = 10;
                     };
-                    opacity = lib.mkForce 0.95;
+                    opacity = lib.mkForce 1.0;
                 };
             };
         };

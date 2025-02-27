@@ -28,7 +28,7 @@
                 base0F = "#949494";
             }; # "${pkgs.base16-schemes}/share/themes/material-darker.yaml";
 
-            image = ./sakura.png; # https://unsplash.com/photos/white-flowering-plant-1vuXf7ta_PU
+            image = ./solid.png;
 
             fonts = {
                 monospace = {

@@ -81,7 +81,9 @@ let cfg = config.rice.nier; in
             extraConfig = ''
                 corner_radius 7
                 smart_corner_radius on
-                shadows on
+                shadows enable
+                shadow_blur_radius 0
+                shadow_color #00000000
                 blur enable
 
                 exec eww daemon
