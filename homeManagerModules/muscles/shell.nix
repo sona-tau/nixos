@@ -1,8 +1,31 @@
 {
     config,
     lib,
+    environment,
     ...
 }: {
+    home.file = {
+        "$HOME/.local/bin/sh_prompt" = {
+            text = ''
+                #!/usr/bin/env bash
+                # dependencies: gum
+                set -e
+
+
+                dec="$(printf "%d\n" "$(head -c 1 /dev/random | od -A n -t u1)")"
+                hex="$(printf "%x\n" "$dec")"
+
+                val="$(gum input --header="What is 0x$hex in decimal?")"
+                while [ "$val" -ne "$dec" ]
+                do
+                    gum log -l "error" "Try again."
+                    val="$(gum input --header="What is 0x$hex in decimal?")"
+                done
+            '';
+            executable = true;
+        };
+    };
+
     programs = {
         direnv = {
             enable = true;
@@ -65,6 +88,7 @@
                 "ls" = "eza";
                 "rm" = "rm -i";
             };
+            initExtra = ''~/.local/bin/sh_prompt'';
             envExtra = ''
 # XDG directories
 export XDG_DATA_HOME="$HOME/.local/share"
