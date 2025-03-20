@@ -22,7 +22,8 @@ input {
 		// dwtp
 		natural-scroll
 		// accel-speed 0.2
-		// accel-profile "flat"
+		accel-profile "flat"
+                scroll-factor 0.1
 	}
 
 	mouse {
@@ -185,9 +186,9 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "mako"
-spawn-at-startup "daemonize $(which hydroxide) serve"
-spawn-at-startup "eww daemon"
-//spawn-at-startup "eww open bar"
+// spawn-at-startup "daemonize $(which hydroxide) serve"
+// spawn-at-startup "eww daemon"
+// spawn-at-startup "eww open bar"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -257,8 +258,12 @@ window-rule {
 	// This regular expression is intentionally made as specific as possible,
 	// since this is the default config, and we want no false positives.
 	// You can get away with just app-id="wezterm" if you want.
-	match app-id=r#"^org\.wezfurlong\.wezterm$"#
-	default-column-width {}
+	// match app-id=r#"^org\.wezfurlong\.wezterm$"#
+	// default-column-width {}
+
+        // Set rounded corners for all windows
+        geometry-corner-radius 12
+        clip-to-geometry true
 }
 
 // Example: block out two password managers from screen capture.
@@ -291,7 +296,7 @@ binds {
 	// Suggested binds for running programs: terminal, app launcher, screen locker.
 	Mod+Return { spawn "foot"; }
 	Mod+D { spawn "bash" "-c" "tofi-run | xargs exec"; }
-	Mod+G { spawn "floorp"; }
+	Mod+G { spawn "zen"; }
 	Super+Alt+L { spawn "swaylock"; }
 
 	// You can also use a shell:

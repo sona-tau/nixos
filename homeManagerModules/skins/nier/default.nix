@@ -4,6 +4,6 @@
         ./browser.nix
         ./foot.nix
         ./alacritty.nix
-        # ./stylix
+        ./niri
     ];
 }
