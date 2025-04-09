@@ -16,11 +16,20 @@ let cfg = config.rice.nier; in
             enable = true;
             configDir = ./eww;
         };
-        home.packages = with pkgs; [
-            wl-clipboard
-            tofi
-            (lib.hiPrio swayfx)
-        ];
+        home = {
+            packages = with pkgs; [
+                wl-clipboard
+                tofi
+                (lib.hiPrio swayfx)
+            ];
+
+            pointerCursor = {
+                enable = true;
+                name = "banana";
+                package = pkgs.banana-cursor;
+                size = lib.mkForce 64;
+            };
+        };
         wayland.windowManager.sway = {
             enable = true;
             package = pkgs.swayfx;
