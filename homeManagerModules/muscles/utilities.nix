@@ -5,13 +5,15 @@
     ...
 }: {
     home.packages = with pkgs; [
+        aerc            # terminal email
         bc              # calculator
         borgbackup      # backup software
         brightnessctl   # brightness manager
         btop            # task manager
         bunnyfetch      # cute system info display
-        calcurse        # calendar
+        calcure        # calendar
         coreutils-full  # all the coreutils
+        cloc            # count lines of code
         du-dust         # check for space in disks
         delta           # diff pager for git
         ed              # the best text editor ever made
@@ -26,12 +28,15 @@
         gpt4all         # LLM interface
         grim slurp      # screenshots
         gum             # terminal forms
+        has             # check for presence of terminal utilities
         hugo            # website builder
         hyperfine       # binary benchmark
+        hydroxide       # proton email syncer
         imagemagick     # convert images
         imv             # image viewing software
         inkscape        # vector editing software
         jq              # json query language
+        koji            # conventional git commits
         luajitPackages.lua-lsp  # lua-lsp for NeoVim
         mpv             # video playing software
         ncmpcpp         # music player
@@ -48,7 +53,10 @@
         rawtherapee     # image editing software
         ripgrep         # fast grep
         spotify         # music streaming service
+        syncthing       # synchronize files
         tealdeer        # man but short
+        taskwarrior3    # terminal todo
+        taskwarrior-tui # taskwarrior tui
         tmux            # terminal multiplexer
         tree            # see files in a dir
         unzip           # unzip files
