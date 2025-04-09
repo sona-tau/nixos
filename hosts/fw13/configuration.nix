@@ -87,6 +87,7 @@
                 "wheel"
                 "plugdev"
                 "adbusers"
+                "docker"
             ];
             packages = with pkgs; [
                 home-manager
@@ -131,6 +132,7 @@
             pkgs.curl
             pkgs.pass
             pkgs.git
+            pkgs.qemu
             inputs.zen-browser.packages."${system}".default
             inputs.zen-browser.packages."${system}".specific
             inputs.zen-browser.packages."${system}".generic
@@ -180,6 +182,17 @@
     };
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Docker settings
+    virtualisation.docker = {
+        enable = true;
+        /*
+        rootless = {
+            enable = true;
+            setSocketVariable = true;
+        };
+        */
+    };
 
     users.defaultUserShell = pkgs.zsh;
     nix = {
