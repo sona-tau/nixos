@@ -18,10 +18,6 @@ let cfg = config.rice.nier; in
                     lines = 10000;
                     multiplier = 3.0;
                 };
-                url = {
-                    launch = "xdg-open \${url}";
-                    protocols = "http, https, ftp, ftps, file, gemini, gopher";
-                };
 
                 cursor = {
                     style = "underline";
