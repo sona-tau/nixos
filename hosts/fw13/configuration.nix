@@ -95,7 +95,9 @@
             alsa.enable = true;
             alsa.support32Bit = true;
             pulse.enable = true;
+			jack.enable = true;
         };
+        udev.packages = [ pkgs.android-udev-rules ];
     };
 
     console.keyMap = "dvorak";
