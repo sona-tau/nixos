@@ -5,7 +5,7 @@
     ...
 }: {
     home.file = {
-        "$HOME/.local/bin/sh_prompt" = {
+        ".local/bin/sh_prompt" = {
             text = ''
                 #!/usr/bin/env bash
                 # dependencies: gum
