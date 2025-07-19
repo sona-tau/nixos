@@ -5,6 +5,12 @@ let cfg = config.rice.nier; in
         programs = {
             librewolf.enable = true;
             qutebrowser.enable = true;
+            firefox = {
+                enable = true;
+                policies = {
+                    BlockAboutConfig = true;
+                };
+            };
         };
 
         home.packages = [
