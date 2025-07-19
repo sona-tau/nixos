@@ -13,9 +13,30 @@
         ../../nixosModules
     ];
     boot = {
+        plymouth = {
+            enable = true;
+            theme = "blahaj";
+            themePackages = [ pkgs.plymouth-blahaj-theme ];
+        };
         loader = {
-            systemd-boot.enable = true;
-            efi.canTouchEfiVariables = true;
+            efi = {
+                canTouchEfiVariables = true;
+                efiSysMountPoint = "/boot";
+            };
+            grub = lib.mkForce {
+                enable = true;
+                device = "nodev";
+                configurationLimit = 4;
+                efiSupport = true;
+                theme = let
+                    yorha = pkgs.fetchFromGitHub {
+                        owner = "OliveThePuffin";
+                        repo = "yorha-grub-theme";
+                        rev = "4d9cd37baf56c4f5510cc4ff61be278f11077c81";
+                        sha256 = "sha256-XVzYDwJM7Q9DvdF4ZOqayjiYpasUeMhAWWcXtnhJ0WQ=";
+                    };
+                in "${yorha}/yorha-2256x1504";
+            };
         };
     };
 
