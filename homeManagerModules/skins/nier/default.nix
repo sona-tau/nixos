@@ -5,5 +5,6 @@
         ./foot.nix
         ./alacritty.nix
         ./niri
+        ./plymouth.nix
     ];
 }
