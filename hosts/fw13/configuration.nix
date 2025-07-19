@@ -152,6 +152,9 @@
             nasin-nanpa
             linja-pi-pu-lukin
             ibm-plex
+			ocr-a
+			apl386
+			bqn386
         ];
         enableDefaultPackages = true;
     };
