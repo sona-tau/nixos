@@ -83,8 +83,12 @@
     services = {
         xserver = {
             xkb = {
-                layout = "us";
-                variant = "dvorak";
+                layout = "mtgap-mod";
+				extraLayouts.mtgap-mod = {
+					description = "MTGAP Layout (modified)";
+					languages = ["eng"];
+					symbolsFile = ./mtgap-mod.xkb;
+				};
             };
         };
 
@@ -100,7 +104,7 @@
         udev.packages = [ pkgs.android-udev-rules ];
     };
 
-    console.keyMap = "dvorak";
+    console.useXkbConfig = true;
 
     users = {
         groups."plugdev" = {};
@@ -161,6 +165,7 @@
             inputs.zen-browser.packages."${system}".default
             inputs.zen-browser.packages."${system}".specific
             inputs.zen-browser.packages."${system}".generic
+			inputs.quickshell.packages."${system}".default
         ];
     };
 

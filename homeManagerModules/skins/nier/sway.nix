@@ -56,8 +56,7 @@ let cfg = config.rice.nier; in
                 };
                 input = {
                     "1:1:AT_Translated_Set_2_keyboard" = {
-                        xkb_layout = "us(dvorak)";
-                        xkb_options = "caps:swapescape,grp:switch";
+                        xkb_layout = "mtgap-mod";
                     };
                     "type:touchpad" = {
                         tap = "enabled";
