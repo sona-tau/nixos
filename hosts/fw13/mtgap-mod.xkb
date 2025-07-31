@@ -1,7 +1,7 @@
 xkb_symbols "mtgap-mod" {
 	include "us(basic)"
     name[group1]="English (MTGAP Modified)";
-    key  <ESC> { [       backslash,             bar ] };
+    key  <ESC> { [semicolon] };
     key <AE11> {
         type= "ALPHABETIC",
         symbols[Group1]= [q, Q]
@@ -96,10 +96,7 @@ xkb_symbols "mtgap-mod" {
         typ= "FOUR_LEVEL",
 		symbols[Group1]= [    bracketright,      braceright,      dead_tilde,        NoSymbol ]
 	};
-    key <TLDE> {
-        type= "ONE_LEVEL",
-		symbols[Group1]= [escape]
-    };
+    key <TLDE> { [backslash, bar] };
     key <LFSH> {         [         Shift_L ] };
     key <BKSL> {
 		type= "FOUR_LEVEL",
