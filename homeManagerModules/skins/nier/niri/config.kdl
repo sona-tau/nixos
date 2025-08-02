@@ -75,6 +75,14 @@ output "eDP-1" {
 	//position x=1280 y=0
 }
 
+cursor {
+	xcursor-theme "BreezeX-RosePine-Linux"
+	xcursor-size 32
+
+	hide-when-typing
+	hide-after-inactive-ms 1000
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout

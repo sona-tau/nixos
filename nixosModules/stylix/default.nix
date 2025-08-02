@@ -6,9 +6,9 @@
 	stylix = {
 		enable = true;
 		autoEnable = true;
-		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
-		image = ./fushitsushawp1.jpg;
+		image = ./waifu1.png;
 
 		fonts = {
 			monospace = {
@@ -32,12 +32,11 @@
 			};
 		};
 
-		/*
-		   cursor = {
-		   name = "banana-cursor";
-		   package = pkgs.banana-cursor;
-		   };
-		 */
+		cursor = {
+			name = lib.mkForce "BreezeX-RosePine-Linux";
+			package = lib.mkForce pkgs.rose-pine-cursor;
+			size = 32;
+		};
 
 		targets.plymouth.enable = false;
 

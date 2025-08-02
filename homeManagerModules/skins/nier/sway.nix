@@ -23,12 +23,14 @@ let cfg = config.rice.nier; in
                 (lib.hiPrio swayfx)
             ];
 
+			/*
             pointerCursor = {
                 enable = true;
                 name = "banana";
                 package = pkgs.banana-cursor;
                 size = lib.mkForce 64;
             };
+			*/
         };
         wayland.windowManager.sway = {
             enable = true;
