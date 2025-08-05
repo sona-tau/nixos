@@ -22,7 +22,7 @@ input {
 		natural-scroll
 		// accel-speed 0.2
 		accel-profile "flat"
-                scroll-factor 0.1
+		scroll-factor 0.1
 	}
 
 	mouse {
@@ -80,7 +80,7 @@ cursor {
 	xcursor-size 32
 
 	hide-when-typing
-	hide-after-inactive-ms 1000
+	hide-after-inactive-ms 5000
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -88,7 +88,7 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
 	// Set gaps around windows in logical pixels.
-	gaps 1
+	gaps 3
 
 	// When to center a column when changing focus, options are:
 	// - "never", default behavior, focusing an off-screen column will keep at the left
@@ -96,7 +96,7 @@ layout {
 	// - "always", the focused column will always be centered.
 	// - "on-overflow", focusing a column will center it if it doesn't fit
 	//   together with the previously focused column.
-	center-focused-column "never"
+	center-focused-column "always"
 
 	// You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
 	preset-column-widths {
@@ -130,10 +130,10 @@ layout {
 	// You can change how the focus ring looks.
 	focus-ring {
 		// Uncomment this line to disable the focus ring.
-		off
+		// off
 
 		// How many logical pixels the ring extends out from the windows.
-		width 1
+		width 2
 
 		// Colors can be set in a variety of ways:
 		// - CSS named colors: "red"
@@ -152,13 +152,13 @@ layout {
 		// defaulting to 180 (top-to-bottom gradient).
 		// You can use any CSS linear-gradient tool on the web to set these up.
 		//
-		active-gradient from="#80c8ff" to="#bbddff" angle=45
+		active-gradient from="#89dceb" to="#b4befe" angle=45 relative-to="workspace-view"
 
 		// You can also color the gradient relative to the entire view
 		// of the workspace, rather than relative to just the window itself.
 		// To do that, set relative-to="workspace-view".
 		//
-		inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+		inactive-gradient from="#eba0ac" to="#94e2d5" angle=45
 	}
 
 	// You can also add a border. It's similar to the focus ring, but always visible.
@@ -166,12 +166,13 @@ layout {
 		// The settings are the same as for the focus ring.
 		// If you enable the border, you probably want to disable the focus ring.
 
-		width 0
+		width 1
+		active-color "#f2cdcd"
 		// active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
 		// inactive-gradient from="#ffc880" to="#ffbb66" angle 45 relative-to="workspace-view"
 
-		active-gradient from="#EE5396" to="#78A9FF" angle=135
-		inactive-gradient from="#EE5396" to="#78A9FF" angle=135 relative-to="workspace-view"
+		// active-gradient from="#EE5396" to="#78A9FF" angle=135
+		// inactive-gradient from="#EE5396" to="#78A9FF" angle=135 relative-to="workspace-view"
 	}
 
 	// Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -180,10 +181,10 @@ layout {
 	// Top and bottom struts will simply add outer gaps in addition to the area occupied by
 	// layer-shell panels and regular gaps.
 	struts {
-		left -1
-		right -1
-		top -1
-		bottom -1
+		left 1
+		right 1
+		top 1
+		bottom 1
 	}
 }
 
@@ -193,7 +194,7 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "mako"
-// spawn-at-startup "daemonize $(which hydroxide) serve"
+spawn-at-startup "daemonize $(which hydroxide) serve"
 // spawn-at-startup "eww daemon"
 // spawn-at-startup "eww open bar"
 
@@ -268,9 +269,9 @@ window-rule {
 	// match app-id=r#"^org\.wezfurlong\.wezterm$"#
 	// default-column-width {}
 
-        // Set rounded corners for all windows
-        geometry-corner-radius 0
-        clip-to-geometry true
+	// Set rounded corners for all windows
+	geometry-corner-radius 5
+	clip-to-geometry true
 }
 
 // Example: block out two password managers from screen capture.
@@ -302,7 +303,7 @@ binds {
 
 	// Suggested binds for running programs: terminal, app launcher, screen locker.
 	Mod+Return { spawn "foot"; }
-	Mod+D { spawn "bash" "-c" "tofi-run | xargs exec"; }
+	Mod+D { spawn "bash" "-c" "tofi-run | xargs bash -c"; }
 	Mod+G { spawn "zen"; }
 	Super+Alt+L { spawn "swaylock"; }
 
@@ -320,18 +321,18 @@ binds {
 	Mod+Up    { focus-window-up; }
 	Mod+Right { focus-column-right; }
 	Mod+H     { focus-column-left; }
-	Mod+U     { focus-window-down; }
-	Mod+I     { focus-window-up; }
-	Mod+S     { focus-column-right; }
+	Mod+J     { focus-window-down; }
+	Mod+K     { focus-window-up; }
+	Mod+L     { focus-column-right; }
 
 	Mod+Shift+Left  { move-column-left; }
 	Mod+Shift+Down  { move-window-down; }
 	Mod+Shift+Up    { move-window-up; }
 	Mod+Shift+Right { move-column-right; }
 	Mod+Shift+H     { move-column-left; }
-	Mod+Shift+T     { move-window-down; }
-	Mod+Shift+N     { move-window-up; }
-	Mod+Shift+S     { move-column-right; }
+	Mod+Shift+J     { move-window-down; }
+	Mod+Shift+K     { move-window-up; }
+	Mod+Shift+L     { move-column-right; }
 
 	// Alternative commands that move across workspaces when reaching
 	// the first or last window in a column.
@@ -350,9 +351,9 @@ binds {
 	Mod+Ctrl+Up    { focus-monitor-up; }
 	Mod+Ctrl+Right { focus-monitor-right; }
 	Mod+Ctrl+H     { focus-monitor-left; }
-	Mod+Ctrl+T     { focus-monitor-down; }
-	Mod+Ctrl+N     { focus-monitor-up; }
-	Mod+Ctrl+S     { focus-monitor-right; }
+	Mod+Ctrl+J     { focus-monitor-down; }
+	Mod+Ctrl+K     { focus-monitor-up; }
+	Mod+Ctrl+L     { focus-monitor-right; }
 
 	Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
 	Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }

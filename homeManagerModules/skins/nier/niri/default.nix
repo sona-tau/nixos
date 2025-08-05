@@ -11,6 +11,10 @@
                 niri
                 swww
                 mako
+				material-design-icons
+				weather-icons
+				gnomeExtensions.gtk4-desktop-icons-ng-ding
+				nixos-icons
             ];
         };
     };
