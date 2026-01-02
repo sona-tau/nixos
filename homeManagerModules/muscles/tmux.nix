@@ -53,15 +53,17 @@ set -g @treemux-tree 'e'
 
 set -g @treemux-tree-nvim-init-file '~/.config/tmux/plugins/treemux/configs/treemux_init.lua'
 set -g @plugin 'kiyoon/treemux'
+
+set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.local/share/tmux/plugins'
             '';
         historyLimit = 10000;
         keyMode = "vi";
         mouse = true;
         newSession = true;
-        plugins = with pkgs; [
-            tmuxPlugins.sensible
-                tmuxPlugins.resurrect
-                tmuxPlugins.continuum
+        plugins = with pkgs.tmuxPlugins; [
+            sensible
+            resurrect
+            continuum
         ];
         prefix = "C-p";
         sensibleOnTop = true;

@@ -81,13 +81,20 @@
             enableVteIntegration = true;
             autocd = true;
             autosuggestion.enable = true;
+			syntaxHighlighting = {
+				enable = true;
+				highlighters = [ "brackets" ];
+			};
             shellAliases = {
                 "compose" = "nvim \"$(mktemp --suffix .md)\"";
                 "config" = "nvim \"~/nixos/hm-modules/rices/\"";
                 "rebuild" = "doas nixos-rebuild -L --flake ~/nixos#fw13 --show-trace";
+				"irssi" = "irssi --config=\"$XDG_CONFIG_HOME\"/irssi/config --home=\"$XDG_DATA_HOME\"/irssi";
                 "ls" = "eza";
                 "rm" = "rm -i";
             };
+			dotDir = "${config.xdg.configHome}/zsh";
+			history.path = "${config.xdg.dataHome}/zsh/zsh_history";
             initExtra = ''~/.local/bin/sh_prompt'';
             envExtra = ''
 # XDG directories
@@ -114,17 +121,27 @@ export COLORTERM=truecolor
 export NIXPKGS_ALLOW_UNFREE=1
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export DOT_SAGE="$XDG_CONFIG_HOME"/sage
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export TERMINFO="$XDG_DATA_HOME"/terminfo
-export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:usr/share/terminfo
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm 
+export OPAMROOT="$XDG_DATA_HOME/opam" 
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export SPICETIFY_CONFIG="$XDG_CONFIG_HOME/spicetify"
+export TERMINFO="$XDG_DATA_HOME"/terminfo
+export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:usr/share/terminfo
 export W3M_DIR="$XDG_DATA_HOME"/w3m
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+export XCOMPOSECACHE="$XDG_CACHE_HOME"/X11/xcompose 
+export XCURSOR_PATH=/urs/share/icons:"$XDG_DATA_HOME"/icons:"$XCURSOR_PATH"
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 . "$XDG_DATA_HOME/cargo/env"
                 '';
         };

@@ -17,19 +17,21 @@
 		coreutils-full  # all the coreutils
 		delta           # diff pager for git
 		discord         # Messaging app
-		du-dust         # check for space in disks
+		dust         # check for space in disks
 		ed              # the best text editor ever made
 		eza             # terminal ls
 		fd              # better version of find
 		feh             # image viewing software
 		ffmpeg          # video editing software
 		file            # check the type of a file
+		firefoxpwa      # manage different PWAs with firefox
 		fortune         # terminal thing
 		gcc             # everything needs this
 		gitui           # Terminal git interface
+		git-lfs
 		gimp            # image editing software
 		glow            # markdown preview
-		gpt4all         # LLM interface
+		# gpt4all         # LLM interface
 		grim slurp      # screenshots
 		gum             # terminal forms
 		has             # check for presence of terminal utilities
@@ -63,8 +65,10 @@
 		taskwarrior-tui # taskwarrior tui
 		taskwarrior3    # terminal todo
 		tealdeer        # man but short
+		tic-80          # fantasy computer emulator
 		tmux            # terminal multiplexer
 		tree            # see files in a dir
+		typst           # Markdown + LaTex = typst compiler
 		unzip           # unzip files
 		ungoogled-chromium # Another browser
 		uutils-coreutils-noprefix   # uutils
@@ -74,5 +78,7 @@
 		xh              # http request utility
 		yt-dlp          # terminal YouTube
 		zathura         # pdf viewer
+		elan            # theorem prover
+		vscodium          # VEE ESS CODE
 	];
 }

@@ -93,7 +93,7 @@ xkb_symbols "mtgap-mod" {
         symbols[Group1]= [r, R]
     };
     key <AC11> {
-        typ= "FOUR_LEVEL",
+        type= "FOUR_LEVEL",
 		symbols[Group1]= [    bracketright,      braceright,      dead_tilde,        NoSymbol ]
 	};
     key <TLDE> { [backslash, bar] };

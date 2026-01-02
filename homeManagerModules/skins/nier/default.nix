@@ -1,5 +1,6 @@
 { ... }: {
     imports = [
+		./apps.nix
         ./sway.nix
         ./browser.nix
         ./foot.nix

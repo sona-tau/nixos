@@ -1,20 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let cfg = config.rice.nier; in
 {
     config = lib.mkIf cfg.enable {
         programs = {
             librewolf.enable = true;
             qutebrowser.enable = true;
-            firefox = {
-                enable = true;
-                policies = {
-                    BlockAboutConfig = true;
-                };
-            };
         };
 
         home.packages = [
-            pkgs.floorp
+            pkgs.floorp-bin
         ];
     };
 }

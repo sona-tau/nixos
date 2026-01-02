@@ -66,7 +66,7 @@
             fcitx5.addons = with pkgs; [
                 fcitx5-anthy
                 fcitx5-gtk
-                fcitx5-configtool
+				qt6Packages.fcitx5-configtool
             ];
 
             ibus.engines = [ pkgs.ibus-engines.anthy ];
@@ -76,12 +76,12 @@
     services = {
         xserver = {
             xkb = {
-                layout = "mtgap-mod";
-				extraLayouts.mtgap-mod = {
+				extraLayouts."mtgap-mod" = {
 					description = "MTGAP Layout (modified)";
 					languages = ["eng"];
 					symbolsFile = ./mtgap-mod.xkb;
 				};
+                layout = "mtgap-mod";
             };
         };
 
@@ -94,7 +94,7 @@
             pulse.enable = true;
 			jack.enable = true;
         };
-        udev.packages = [ pkgs.android-udev-rules ];
+		tailscale.enable = true;
     };
 
     console.useXkbConfig = true;
@@ -155,10 +155,33 @@
             pkgs.pass
             pkgs.git
             pkgs.qemu
-            inputs.zen-browser.packages."${system}".default
-            inputs.zen-browser.packages."${system}".specific
-            inputs.zen-browser.packages."${system}".generic
+			pkgs.jellyfin
+			pkgs.jellyfin-web
+			pkgs.jellyfin-ffmpeg
+			pkgs.just
+			pkgs.firefoxpwa
 			inputs.quickshell.packages."${system}".default
+			(inputs.zen-browser.packages."${system}".default.overrideAttrs (final: prev: {
+				policies = { # find more options here: https://mozilla.github.io/policy-templates/
+					AutofillAddressEnabled = true;
+					AutofillCreditCardEnabled = false;
+					DisableAppUpdate = true;
+					DisableFeedbackCommands = true;
+					DisableFirefoxStudies = true;
+					DisablePocket = true;
+					DisableTelemetry = true;
+					DontCheckDefaultBrowser = true;
+					NoDefaultBookmarks = true;
+					OfferToSaveLogins = false;
+					EnableTrackingProtection = {
+						Value = true;
+						Locked = true;
+						Cryptomining = true;
+						Fingerprinting = true;
+					};
+				};
+				nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
+			 }))
         ];
     };
 
@@ -176,7 +199,7 @@
 			ocr-a
 			apl386
 			bqn386
-        ];
+        ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
         enableDefaultPackages = true;
     };
 
@@ -189,6 +212,11 @@
             enable = true;
             enableSSHSupport = true;
         };
+		firefox = {
+			enable = true;
+			package = pkgs.firefox;
+			nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
+		};
     };
 
     system.stateVersion = "23.11"; # DO NOT CHANGE
@@ -207,7 +235,15 @@
         };
     };
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	nix = {
+		binaryCachePublicKeys = [
+			"hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+		];
+		binaryCaches = [
+			"https://cache.iog.io"
+		];
+		settings.experimental-features = [ "nix-command" "flakes" ];
+	};
 
     # Docker settings
     virtualisation.docker = {
