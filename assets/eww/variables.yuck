@@ -1,0 +1,7 @@
+(defpoll workspaces
+    :interval "10ms"
+    `swaymsg -t get_workspaces sr`)
+
+(defpoll time
+    :interval "1s"
+    `date --iso=seconds`)

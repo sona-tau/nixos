@@ -1,0 +1,10 @@
+* {
+    all: unset;
+    font-family: "IBM Plex Mono";
+}
+
+@import "scss/colors.scss";
+
+@import "scss/battery.scss";
+@import "scss/clock.scss";
+@import "scss/workspaces.scss";
