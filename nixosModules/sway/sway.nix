@@ -22,7 +22,7 @@ in {
 #			enable = true;
 #			settings = {
 #				initial_session = "niri";
-#				user = "diego";
+#				user = "sona";
 #				default_session = {
 #					command = "${pkgs.sway}/bin/sway --config ${swayConfig}";
 #				};

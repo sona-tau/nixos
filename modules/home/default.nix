@@ -1,0 +1,32 @@
+{
+	alacritty = import ./module/home/alacritty.nix;
+	android = import ./module/home/android.nix;
+	applications = import ./module/home/applications.nix;
+	atuin = import ./module/home/atuin.nix;
+	backup = import ./module/home/backup.nix;
+	carapace = import ./module/home/carapace.nix;
+	direnv = import ./module/home/direnv.nix;
+	email = import ./module/home/email.nix;
+	eww = import ./module/home/eww.nix;
+	firefox = import ./module/home/firefox.nix;
+	fonts = import ./module/home/fonts.nix;
+	foot = import ./module/home/foot.nix;
+	fzf = import ./module/home/fzf.nix;
+	gammastep = import ./module/home/gammastep.nix;
+	gtk = import ./module/home/gtk.nix;
+	ime = import ./module/home/ime.nix;
+	minecraft = import ./module/home/minecraft.nix;
+	niri = import ./module/home/niri.nix;
+	nushell = import ./module/home/nushell.nix;
+	quickshell = import ./module/home/quickshell.nix;
+	sh_prompt = import ./module/home/sh_prompt.nix;
+	starship = import ./module/home/starship.nix;
+	sway = import ./module/home/sway.nix;
+	tealdeer = import ./module/home/tealdeer.nix;
+	tmux = import ./module/home/tmux.nix;
+	waybar = import ./module/home/waybar.nix;
+	waypaper = import ./module/home/waypaper.nix;
+	zathura = import ./module/home/zathura.nix;
+	zen-browser = import ./module/home/zen-browser.nix;
+	zsh = import ./module/home/zsh.nix;
+}
