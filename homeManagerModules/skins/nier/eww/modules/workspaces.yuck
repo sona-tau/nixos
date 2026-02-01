@@ -1,9 +1,0 @@
-(defwidget workspaces []
-    (box
-        :class "workspaces"
-        :hexpand true
-        (for workspace in workspaces
-            (button
-                :class "workspace ${workspace.focused ? "focused" : ""}"
-                :onclick "swaymsg workspace ${workspace.name}"
-                ""))))
