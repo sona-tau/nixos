@@ -6,6 +6,7 @@
 		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 		zen-browser.url = "github:0xc000022070/zen-browser-flake";
 		stylix.url = "github:danth/stylix";
+		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
 		niri = {
 			url = "github:sodiboo/niri-flake";
@@ -23,7 +24,7 @@
 		};
 	};
 
-	outputs = inputs@{ self, nixpkgs, home-manager, stylix, ... }: let
+	outputs = inputs@{ self, nixpkgs, home-manager, stylix, nixos-hardware, ... }: let
 		inherit (self) outputs;
 		specialArgs = { inherit inputs outputs; };
 		myLib = (import ./myLib) { inherit inputs outputs nixpkgs; };
@@ -32,13 +33,17 @@
 		# homeManagerModules = import ./modules/home;
 
 		homeConfigurations = with myLib; {
-			"sona" = mkHome "x86_64-linux" ./home/sona.nix [];
+			"sona" = mkHome "x86_64-linux" ./home/sona.nix [
+				stylix.homeModules.stylix
+			];
 		};
 
 		nixosConfigurations = with myLib; {
 			"fw13" = mkSystem "x86_64-linux" ./machine/fw13/configuration.nix [
-				stylix.nixosModules.stylix
+				nixos-hardware.nixosModules.framework-13th-gen-intel
 			];
+			"est" = mkSystem "x86_64-linux" ./machine/est/configuration.nix [ ];
+			"hp" = mkSystem "x86_64-linux" ./machine/hp/configuration.nix [ ];
 		};
 	};
 }

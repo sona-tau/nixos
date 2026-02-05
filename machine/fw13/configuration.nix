@@ -71,7 +71,7 @@
 				extraLayouts."mtgap-mod" = {
 					description = "MTGAP Layout (modified)";
 					languages = ["eng"];
-					symbolsFile = ./mtgap-mod.xkb;
+					symbolsFile = ../../assets/mtgap-mod.xkb;
 				};
 			};
 		};
