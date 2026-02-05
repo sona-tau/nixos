@@ -1,7 +1,7 @@
-{ config, pkgs, lib, inputs, outputs, system, myLib, stylix, ... }: {
+{ config, pkgs, lib, inputs, outputs, system, myLib, stylix, nixos-hardware, ... }: {
 	imports = [
 		./description.nix
-		../../nixosModules
+		../../modules/nixos
 		# outputs.roles.nixos.hello
 	];
 

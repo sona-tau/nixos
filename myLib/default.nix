@@ -75,6 +75,8 @@ in rec {
 			# to pass through arguments to home.nix
 		};
 
+		catIf = x: lst: if x then lst else [ ];
+
 /*
 	# =========================== Helpers ============================ #
 

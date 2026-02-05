@@ -14,7 +14,7 @@ let cfg = config.rice.nier; in
 
         programs.eww = {
             enable = true;
-            configDir = ./eww;
+            configDir = ../../../../assets/eww;
         };
         home = {
             packages = with pkgs; [

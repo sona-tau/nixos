@@ -3,7 +3,7 @@
     ...
 }: {
     imports = [
-        ./stylix
+        # ./stylix
         ./i3.nix
     ];
 
