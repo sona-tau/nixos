@@ -1,0 +1,30 @@
+{ ... }: {
+	imports = [
+		./alacritty.nix
+		./anyrun.nix
+		./sway.nix
+		./atuin.nix
+		./base.nix
+		./niri.nix
+		./direnv.nix
+		./eww.nix
+		./foot.nix
+		./gammastep.nix
+		./gtk.nix
+		./icons.nix
+		./mako.nix
+		./minecraft.nix
+		./noctalia.nix
+		./quickshell.nix
+		./roles
+		./sh-prompt.nix
+		./shell.nix
+		./starship.nix
+		./stylix.nix
+		./tealdeer.nix
+		./tmux.nix
+		./utilities.nix
+		./zathura.nix
+		./zsh.nix
+	];
+}
