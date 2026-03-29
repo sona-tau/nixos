@@ -1,0 +1,2 @@
+(defwidget battery []
+  (label :class "battery" :text "BAT: ${EWW_BATTERY.BAT1.capacity}%"))

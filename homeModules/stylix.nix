@@ -1,0 +1,68 @@
+{ config, lib, inputs, pkgs, ... }: let cfg = config.my.stylix; in {
+	imports = [
+		inputs.stylix.homeModules.stylix
+	];
+	options = {
+		my.stylix = {
+			enable = lib.mkEnableOption "stylix";
+			theme = lib.mkOption {
+				default = "catppuccin";
+				type = lib.types.str;
+				description = "The theme you want to use.";
+			};
+			wallpaper = lib.mkOption {
+				# default = 
+				type = lib.types.path;
+				description = "The wallpaper you want to use.";
+			};
+		};
+	};
+
+	config = lib.mkIf cfg.enable {
+		stylix = {
+			enable = true;
+			autoEnable = true;
+			base16Scheme = if cfg.theme == "zenbones"
+				then import ../assets/themes/zenbones.nix
+				else if cfg.theme == "moonfly"
+				then import ../assets/themes/moonfly.nix
+				else if cfg.theme == "catppuccin"
+				then "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml"
+				else "${pkgs.base16-schemes}/share/themes/${cfg.theme}.yaml";
+
+				image = cfg.wallpaper;
+
+			fonts = {
+				monospace = {
+					package = pkgs.hermit;
+					name = "Hermit";
+				};
+
+				sansSerif = {
+					package = pkgs.dejavu_fonts;
+					name = "DejaVu Sans";
+				};
+
+				serif = {
+					package = pkgs.dejavu_fonts;
+					name = "DejaVu Serif";
+				};
+
+				sizes = {
+					applications = 12;
+					terminal = 13;
+					desktop = 10;
+					popups = 10;
+				};
+			};
+
+			cursor = {
+				name = lib.mkForce "BreezeX-RosePine-Linux";
+				package = lib.mkForce pkgs.rose-pine-cursor;
+				size = 32;
+			};
+
+			# targets.plymouth.enable = false;
+		};
+	};
+}

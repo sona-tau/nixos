@@ -1,0 +1,119 @@
+@define-color foreground #f2f4f8;
+@define-color background #161616;
+@define-color select #393939;
+
+@define-color black #161616;
+@define-color black-bright #262626;
+
+@define-color red #ee5396;
+@define-color red-bright #ff7eb6;
+
+@define-color green #42be65;
+@define-color green-bright #76D090;
+
+@define-color yellow #B7BF43;
+@define-color yellow-bright #CAD076;
+
+@define-color blue #33b1ff;
+@define-color blue-bright #82cfff;
+
+@define-color magenta #78a9ff;
+@define-color magenta-bright #be95ff;
+
+@define-color cyan #08bdba;
+@define-color cyan-bright #3ddbd9;
+
+@define-color white #f2f4f8;
+@define-color white-bright #fff;
+
+@define-color gray #525252;
+@define-color gray-bright #dde1e6;
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Iosevka Elite, sans-serif;
+    font-size: 12px;
+}
+
+#wireplumber,
+#backlight,
+#clock,
+#battery,
+#network
+{
+    margin: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    color: @foreground;
+    background-color: @black-bright;
+    border-radius: 4px;
+    border: 1px;
+    border-color: @white;
+}
+
+#wireplumber {
+}
+
+#wireplumber.muted {
+    color: #f53c3c;
+}
+
+window#waybar {
+	background: rgba(0,0,0,0);
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+/*
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+*/
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    padding-left: 1.0em;
+}
+
+#battery {
+}
+
+#battery.charging, #battery.plugged {
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#backlight {
+	padding-right: 0.5em;
+}
+
+#network {
+	padding-right: 5px;
+}
+
+#network.disconnected {
+}

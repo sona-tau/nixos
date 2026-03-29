@@ -1,0 +1,143 @@
+xkb_symbols "mtgap-mod" {
+	include "us(basic)"
+    name[group1]="English (MTGAP Modified)";
+    key  <ESC> { [semicolon] };
+    key <AE11> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [q, Q]
+    };
+    key <AE12> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [z, Z]
+    };
+    key <AD01> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [y,Y]
+    };
+    key <AD02> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [p,P]
+    };
+    key <AD03> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [o,O]
+    };
+    key <AD04> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [u,U]
+    };
+    key <AD05> { [minus, underscore] };
+    key <AD06> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [k, K]
+    };
+    key <AD07> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [d, D]
+    };
+    key <AD08> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [l, L]
+    };
+    key <AD09> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [c, C]
+    };
+    key <AD10> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [w, W]
+    };
+    key <AD11> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [x, X]
+    };
+    key <AD12> { [           slash,        question ] };
+    key <AC01> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [i, I]
+    };
+    key <AC02> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [n, N]
+    };
+    key <AC03> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [               e,               E ]
+    };
+    key <AC04> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [a, A]
+    };
+    key <AC05> {
+        type= "FOUR_LEVEL",
+        symbols[Group1]= [           comma,            less,    dead_cedilla,      dead_caron ]
+    };
+    key <AC06> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [m, M]
+    };
+    key <AC07> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [h, H]
+    };
+    key <AC08> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [t, T]
+    };
+    key <AC09> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [s, S]
+    };
+    key <AC10> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [r, R]
+    };
+    key <AC11> {
+        type= "FOUR_LEVEL",
+		symbols[Group1]= [    bracketright,      braceright,      dead_tilde,        NoSymbol ]
+	};
+    key <TLDE> { [backslash, bar] };
+    key <LFSH> {         [         Shift_L ] };
+    key <BKSL> {
+		type= "FOUR_LEVEL",
+		symbols[Group1]= [colon, semicolon,     dead_ogonek, dead_doubleacute ]
+	};
+    key <AB01> {
+        type= "FOUR_LEVEL",
+		symbols[Group1]= [           grave,      asciitilde,      dead_grave,      dead_tilde ]
+    };
+    key <AB02> { [           equal,            plus ] };
+    key <AB03> {
+        type= "FOUR_LEVEL",
+		symbols[Group1]= [      apostrophe,        quotedbl,      dead_acute,  dead_diaeresis ]
+    };
+    key <AB04> {
+        type= "FOUR_LEVEL",
+		symbols[Group1]= [          period,         greater,   dead_abovedot,  periodcentered ]
+    };
+    key <AB05> { [     bracketleft,       braceleft ] };
+    key <AB06> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [               b,               B ]
+    };
+    key <AB07> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [f, F]
+    };
+    key <AB08> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [g, G]
+    };
+    key <AB09> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [v, V]
+    };
+    key <AB10> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [j, J]
+    };
+    key <CAPS> {
+        type= "ONE_LEVEL",
+        symbols[Group1]= [          Escape ]
+    };
+};
