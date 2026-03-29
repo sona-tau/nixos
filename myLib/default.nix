@@ -17,34 +17,32 @@ in rec {
 	# This will create a nixosConfiguration for a system ${system} with
 	# config specified at ${config} and with additional modules specified by
 	# extraModules.
-	mkSystem = system: config: extraModules:
+	mkSystem = { system, user, hostname, nixosModules }:
 		inputs.nixpkgs.lib.nixosSystem {
 			specialArgs = {
 				inherit inputs outputs myLib;
-
-				/*
-				pkgs = import inputs.nixpkgs {
-					system = system;
-
-					config = {
-							allowUnfree = true;
-							allowUnfreePredicate = (_: true);
-							allowUnsupportedSystem = true;
-					};
-				};
-				*/
 			};
 
 			modules = [
-				config
-				# outputs.module.nixos.default
-			] ++ extraModules;
+				../machine/${hostname}/configuration.nix
+				inputs.home-manager.nixosModules.home-manager {
+					home-manager = {
+						extraSpecialArgs = {
+							inherit inputs outputs myLib;
+						};
+						useGlobalPkgs = true;
+						useUserPackages = true;
+						users."${user}" = import ../machine/${hostname}/${user}.nix;
+					};
+				}
+			] ++ nixosModules;
 		};
 
 	# String -> Path -> List Attr
 	# This will create a homeManagerConfiguration for a system ${system} with
 	# config specified at ${config} and with additional modules specified by
 	# extraModules.
+	/*
 	mkHome = system: config: extraModules: let
 		pkgs = inputs.nixpkgs.legacyPackages.${system};
 		in inputs.home-manager.lib.homeManagerConfiguration {
@@ -74,6 +72,7 @@ in rec {
 			# Optionally use extraSpecialArgs
 			# to pass through arguments to home.nix
 		};
+		*/
 
 		catIf = x: lst: if x then lst else [ ];
 

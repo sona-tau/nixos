@@ -33,6 +33,8 @@
 			initContent = lib.mkIf config.my.roles.zen.enable ''fortune ~/.local/share/fortune/zen'';
 
 			envExtra = ''
+#  Wayland
+export QT_QPA_PLATFORM=wayland
 # XDG directories
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
