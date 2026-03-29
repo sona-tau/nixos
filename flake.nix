@@ -7,6 +7,10 @@
 		zen-browser.url = "github:0xc000022070/zen-browser-flake";
 		stylix.url = "github:danth/stylix";
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+		noctalia = {
+			url = "github:noctalia-dev/noctalia-shell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 
 		niri = {
 			url = "github:sodiboo/niri-flake";
@@ -24,26 +28,34 @@
 		};
 	};
 
-	outputs = inputs@{ self, nixpkgs, home-manager, stylix, nixos-hardware, ... }: let
+	outputs = inputs@{ self, nixpkgs, home-manager, stylix, nixos-hardware, noctalia, ... }: let
 		inherit (self) outputs;
 		specialArgs = { inherit inputs outputs; };
 		myLib = (import ./myLib) { inherit inputs outputs nixpkgs; };
 	in {
-		# nixosModules = import ./modules/nixos;
-		# homeManagerModules = import ./modules/home;
-
-		homeConfigurations = with myLib; {
-			"sona" = mkHome "x86_64-linux" ./home/sona.nix [
-				stylix.homeModules.stylix
-			];
-		};
-
 		nixosConfigurations = with myLib; {
-			"fw13" = mkSystem "x86_64-linux" ./machine/fw13/configuration.nix [
-				nixos-hardware.nixosModules.framework-13th-gen-intel
-			];
-			"est" = mkSystem "x86_64-linux" ./machine/est/configuration.nix [ ];
-			"hp" = mkSystem "x86_64-linux" ./machine/hp/configuration.nix [ ];
+			"fw13" = mkSystem {
+				user = "sona";
+				system = "x86_64-linux";
+				hostname = "fw13";
+				nixosModules = [
+					nixos-hardware.nixosModules.framework-13th-gen-intel 
+				];
+			};
+
+			"est" = mkSystem {
+				system = "x86_64-linux"; 
+				config = ./machine/est/configuration.nix;
+				homeModules = [ ];
+				nixosModules = [ ];
+			};
+
+			"hp" = mkSystem {
+				system = "x86_64-linux";
+				config = ./machine/hp/configuration.nix; 
+				homeModules = [ ];
+				nixosModules = [ ];
+			};
 		};
 	};
 }

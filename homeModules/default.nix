@@ -26,5 +26,6 @@
 		./utilities.nix
 		./zathura.nix
 		./zsh.nix
+		./wallpapers.nix
 	];
 }

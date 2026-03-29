@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, outputs, system, myLib, stylix, nixos-hardware, ... }: {
 	imports = [
 		./description.nix
-		../../modules/nixos
+		../../nixosModules
 		# outputs.roles.nixos.hello
 	];
 
@@ -63,6 +63,8 @@
 		getty.autologinUser = "sona";
 		openssh.enable = true;
 		tailscale.enable = true;
+		power-profiles-daemon.enable = true;
+		upower.enable = true;
 
 		xserver = {
 			xkb = {
@@ -151,28 +153,7 @@
 			pkgs.jellyfin-ffmpeg
 			pkgs.just
 			pkgs.firefoxpwa
-			inputs.quickshell.packages."${system}".default
-			(inputs.zen-browser.packages."${system}".default.overrideAttrs (final: prev: {
-				policies = { # find more options here: https://mozilla.github.io/policy-templates/
-					AutofillAddressEnabled = true;
-					AutofillCreditCardEnabled = false;
-					DisableAppUpdate = true;
-					DisableFeedbackCommands = true;
-					DisableFirefoxStudies = true;
-					DisablePocket = true;
-					DisableTelemetry = true;
-					DontCheckDefaultBrowser = true;
-					NoDefaultBookmarks = true;
-					OfferToSaveLogins = false;
-					EnableTrackingProtection = {
-						Value = true;
-						Locked = true;
-						Cryptomining = true;
-						Fingerprinting = true;
-					};
-				};
-				nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
-			 }))
+			inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 		];
 	};
 
@@ -228,7 +209,13 @@
 
 	nix.settings = {
 		substituters = [ "https://cache.iog.io" ];
+		extra-substituters = [
+			"https://noctalia.cachix.org"
+		];
 		trusted-public-keys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
+		extra-trusted-public-keys = [
+			"noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+		];
 
 		experimental-features = [
 			"nix-command"

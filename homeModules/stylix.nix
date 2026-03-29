@@ -10,6 +10,11 @@
 				type = lib.types.str;
 				description = "The theme you want to use.";
 			};
+			wallpaper = lib.mkOption {
+				# default = 
+				type = lib.types.path;
+				description = "The wallpaper you want to use.";
+			};
 		};
 	};
 
@@ -25,7 +30,7 @@
 				then "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml"
 				else "${pkgs.base16-schemes}/share/themes/${cfg.theme}.yaml";
 
-			image = ../assets/wp/lock-in_large.png;
+				image = cfg.wallpaper;
 
 			fonts = {
 				monospace = {

@@ -11,6 +11,7 @@
 		sway.enable = true;
 		foot.enable = true;
 		noctalia.enable = true;
+		wallpapers.enable = true;
 
 		roles = {
 			terminal.pkgSet.enable = true;
@@ -38,6 +39,7 @@
 		stylix = {
 			enable = true;
 			theme = "oxocarbon-dark";
+			wallpaper = ../../assets/media/full/wall2.png;
 		};
 		starship.enable = true;
 		atuin.enable = true;
@@ -50,6 +52,6 @@
 		username = "sona";
 		homeDirectory = "/home/sona";
 		stateVersion = "23.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
-		file."/home/sona/.xkb/symbols/mtgap-mod".source = ../assets/mtgap-mod.xkb;
+		file."/home/sona/.xkb/symbols/mtgap-mod".source = ../../assets/mtgap-mod.xkb;
 	};
 }

@@ -82,6 +82,7 @@
 				inkscape        # vector editing software
 				nemo            # file picker
 				neovide         # gui-nvim
+				libnotify       # notification daemon
 				obsidian        # for my Wiki
 				pavucontrol     # audio controller
 				rawtherapee     # image editing software
