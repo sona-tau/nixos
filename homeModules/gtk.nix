@@ -8,6 +8,7 @@
 			variant = "mocha";
 			accents = [ "mauve" ];
 		}; in {
+			home.packages = [ pkgs.dconf ];
 			enable = true;
 			theme = {
 				name = lib.mkForce catppuccin_name;
