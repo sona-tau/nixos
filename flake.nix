@@ -7,6 +7,7 @@
 		zen-browser.url = "github:0xc000022070/zen-browser-flake";
 		stylix.url = "github:danth/stylix";
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+		flake-parts.url = "github:hercules-ci/flake-parts";
 
 		noctalia = {
 			url = "github:noctalia-dev/noctalia-shell";
@@ -30,33 +31,16 @@
 	};
 
 	# The `inputs@` part binds all of the parameters here to `inputs`
-	outputs = inputs@{ self, nixpkgs, home-manager, stylix, nixos-hardware, noctalia, ... }: let
-		inherit (self) outputs;
-		specialArgs = { inherit inputs outputs; };
-		myLib = (import ./myLib) { inherit inputs outputs nixpkgs; };
-	in {
-		nixosConfigurations = with myLib; {
-			"fw13" = mkSystem {
-				user = "sona";
-				system = "x86_64-linux";
-				hostname = "fw13";
-				nixosModules = [
-					nixos-hardware.nixosModules.framework-13th-gen-intel 
-				];
-			};
+	outputs = inputs@{ flake-parts, ... }:
+		flake-parts.lib.mkFlake { inherit inputs; } {
+		systems = [ "x86_64-linux" ];
 
-			"est" = mkSystem {
-				system = "x86_64-linux"; 
-				config = ./machine/est/configuration.nix;
-				homeModules = [ ];
-				nixosModules = [ ];
-			};
+		imports = let
+			lib = inputs.nixpkgs.lib;
+			modulesPath = ./modules;
+		in lib.fileSystem.listFilesRecursive modulesPath
+			|> lib.filter (lib.hasSuffix ".nix")
 
-			"hp" = mkSystem {
-				system = "x86_64-linux";
-				config = ./machine/hp/configuration.nix; 
-				homeModules = [ ];
-				nixosModules = [ ];
 			};
 		};
 	};
