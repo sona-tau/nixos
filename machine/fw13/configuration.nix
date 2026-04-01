@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, outputs, system, myLib, stylix, nixos-hardware, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
 	imports = [
 		./description.nix
 		../../nixosModules
