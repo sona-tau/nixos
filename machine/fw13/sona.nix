@@ -1,8 +1,4 @@
 { config, outputs, stylix, pkgs, ... }: {
-	imports = [
-		../../homeModules
-	];
-
 	programs.home-manager.enable = true;
 
 	my = {

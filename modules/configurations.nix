@@ -18,9 +18,38 @@
 						extraSpecialArgs = {
 							inherit inputs;
 						};
+
 						users."sona" = {
-							imports = [
-								config.flake.modules.homeManager.base
+							imports = with config.flake.modules.homeManager; [
+								alacritty
+								anyrun
+								atuin
+								base
+								browsers
+								direnv
+								eww
+								foot
+								gammastep
+								gtk
+								icons
+								mako
+								minecraft
+								niri
+								noctalia
+								quickshell
+								sh-prompt
+								shell
+								starship
+								stylix
+								sway
+								tealdeer
+								tmux
+								utilities
+								wallpapers
+								wayland
+								zathura
+								zen
+								zsh
 								../machine/fw13/sona.nix
 							];
 						};

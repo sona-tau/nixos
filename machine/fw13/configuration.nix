@@ -1,7 +1,6 @@
 { config, pkgs, lib, inputs, ... }: {
 	imports = [
 		./description.nix
-		../../nixosModules
 		# outputs.roles.nixos.hello
 	];
 

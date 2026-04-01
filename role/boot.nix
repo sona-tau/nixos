@@ -1,5 +1,0 @@
-{ ... }: {
-	imports = [
-		outputs.nixosModules.plymouth
-	];
-}
