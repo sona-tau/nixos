@@ -1,21 +1,27 @@
 { config, inputs, ... }: {
 	flake.nixosConfigurations = {
-		"fw13" = {
+		"fw13" = inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
+			specialArgs = {
+				inherit inputs;
+			};
 			modules = [
 				inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 				inputs.home-manager.nixosModules.home-manager
 				config.flake.modules.nixos.base
-				./machine/fw13/configuration.nix
+				../machine/fw13/configuration.nix
 				{
 					home-manager = {
 						useGlobalPkgs = true;
 						useUserPackages = true;
 						backupFileExtension = ".bak";
+						extraSpecialArgs = {
+							inherit inputs;
+						};
 						users."sona" = {
 							imports = [
 								config.flake.modules.homeManager.base
-								./machine/fw13/sona.nix
+								../machine/fw13/sona.nix
 							];
 						};
 					};

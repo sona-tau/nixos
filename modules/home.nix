@@ -1,3 +1,3 @@
 { ... }: {
-	flake.modules.homeManager.base.imports = [ ./homeModules/default.nix ];
+	flake.modules.homeManager.base.imports = [ ../homeModules/default.nix ];
 }

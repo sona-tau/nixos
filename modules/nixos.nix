@@ -1,3 +1,3 @@
 { ... }: {
-	flake.modules.nixos.base.imports = [ ./nixosModules/default.nix ];
+	flake.modules.nixos.base.imports = [ ../nixosModules/default.nix ];
 }
