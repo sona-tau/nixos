@@ -1,14 +1,10 @@
 { ... }: {
-	flake.modules.homeManager.zen = { config, lib, pkgs, ... }: let cfg = config.my.roles.zen; in {
-		options = {
-			my.roles.zen.enable = lib.mkEnableOption "The day arrives naturally";
+	flake.modules.homeManager.zen = { config, ... }: {
+		home.file."${config.xdg.dataHome}" = {
+			source = ../assets/fortune;
+			recursive = true;
 		};
 
-		config = lib.mkIf cfg.enable {
-			home.file."${config.xdg.dataHome}" = {
-				source = ../assets/fortune;
-				recursive = true;
-			};
-		};
+		programs.zsh.initContent = ''fortune ~/.local/share/fortune/zen'';
 	};
 }
