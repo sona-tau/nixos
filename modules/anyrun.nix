@@ -1,10 +1,10 @@
 { ... }: {
-	flake.modules.homeManager.anyrun = { config, lib, pkgs, ... }: let cfg = config.my.anyrun; in {
+	flake.modules.homeManager.anyrun = { config, lib, pkgs, ... }: {
 		config.programs.anyrun = {
 			config = {
-				x = { fraction = 0.5; };
-				y = { fraction = 0.3; };
-				width = { fraction = 0.3; };
+				x.fraction = 0.5;
+				y.fraction = 0.3;
+				width.fraction = 0.3;
 				hideIcons = false;
 				ignoreExclusiveZones = false;
 				layer = "overlay";

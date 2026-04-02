@@ -1,10 +1,5 @@
 { ... }: {
-	flake.modules.homeManager.foot = { config, pkgs, lib, ... }: let cfg = config.my.foot; in {
-		options = {
-			my.foot.enable = lib.mkEnableOption "foot";
-		};
-
-		config = lib.mkIf cfg.enable {
+	flake.modules.homeManager.foot = { pkgs, ... }: {
 			programs.foot = {
 				enable = true;
 				server.enable = true;
@@ -49,6 +44,5 @@
 					};
 				};
 			};
-		};
 	};
 }

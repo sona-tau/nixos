@@ -1,10 +1,6 @@
 { ... }: {
-	flake.modules.homeManager.zathura = { config, lib, ... }: let cfg = config.my.zathura; in {
-		options = {
-			my.zathura.enable = lib.mkEnableOption "zathura";
-		};
-
-		config.programs.zathura = lib.mkIf cfg.enable {
+	flake.modules.homeManager.zathura = { ... }: {
+		programs.zathura = {
 			enable = true;
 			options = {
 				"recolor" = true;

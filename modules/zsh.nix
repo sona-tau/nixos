@@ -1,10 +1,7 @@
 { ... }: {
-	flake.modules.homeManager.zsh = { config, lib, ... }: let cfg = config.my.zsh; in {
-		options.my.zsh.enable = lib.mkEnableOption "zsh";
-
-		config = lib.mkIf cfg.enable {
-			programs.zsh = {
-				enable = true;
+	flake.modules.homeManager.zsh = { config, lib, ... }: {
+		programs.zsh = {
+			enable = true;
 				enableCompletion = true;
 				enableVteIntegration = true;
 				autocd = true;
@@ -31,7 +28,6 @@
 				};
 
 				# initExtra = ''~/.local/bin/sh_prompt'';
-				initContent = lib.mkIf config.my.roles.zen.enable ''fortune ~/.local/share/fortune/zen'';
 
 				envExtra = ''
 #  Wayland
@@ -87,7 +83,6 @@ export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 . "$XDG_DATA_HOME/cargo/env"
 				'';
-			};
 		};
 	};
 }

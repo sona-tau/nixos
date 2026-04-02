@@ -1,10 +1,5 @@
 { ... }: {
-	flake.modules.homeManager.tmux = { config, pkgs, lib, ... }: let cfg = config.my.tmux; in {
-		options = {
-			my.tmux.enable = lib.mkEnableOption "tmux";
-		};
-
-		config = lib.mkIf cfg.enable {
+	flake.modules.homeManager.tmux = { pkgs, ... }: {
 			programs.fzf.tmux.enableShellIntegration = true;
 
 			programs.tmux = {
@@ -49,6 +44,5 @@
 					better-mouse-mode
 				];
 			};
-		};
 	};
 }

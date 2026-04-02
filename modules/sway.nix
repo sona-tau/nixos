@@ -1,8 +1,5 @@
 { ... }: {
-	flake.modules.homeManager.sway = { config, pkgs, lib, hostname, ... }: let cfg = config.my.sway; in {
-		options.my.sway.enable = lib.mkEnableOption "sway";
-
-		config = lib.mkIf cfg.enable {
+	flake.modules.homeManager.sway = { config, pkgs, lib, ... }: {
 			home.packages = with pkgs; [ (lib.hiPrio swayfx) ];
 			wayland.windowManager.sway = {
 				enable = true;
@@ -70,6 +67,5 @@
 					'';
 				swaynag.enable = true;
 			};
-		};
 	};
 }
