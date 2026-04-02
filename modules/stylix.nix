@@ -6,7 +6,6 @@
 
 		options = {
 			my.stylix = {
-				enable = lib.mkEnableOption "stylix";
 				theme = lib.mkOption {
 					default = "catppuccin";
 					type = lib.types.str;
@@ -20,7 +19,7 @@
 			};
 		};
 
-		config = lib.mkIf cfg.enable {
+		config = {
 			stylix = {
 				enable = true;
 				autoEnable = true;
