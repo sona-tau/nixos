@@ -2,13 +2,6 @@
 	programs.home-manager.enable = true;
 
 	my = {
-		shell = "zsh";
-		zathura.enable = true;
-		sway.enable = true;
-		foot.enable = true;
-		noctalia.enable = true;
-		wallpapers.enable = true;
-
 		roles = {
 			terminal.pkgSet.enable = true;
 			browsers.pkgSet.enable = true;
@@ -16,32 +9,17 @@
 			lean.pkgSet.enable = true;
 			fun.pkgSet.enable = true;
 			writing.pkgSet.enable = true;
-			wayland.enable = true;
-			browsers.enable = true;
+			wayland.pkgSet.enable = true;
 			email.pkgSet.enable = true;
 			llm.pkgSet.enable = true;
-
-			zen = {
-				enable = true;
-				pkgSet.enable = true;
-			};
-
-			base = {
-				enable = true;
-				pkgSet.enable = true;
-			};
+			zen.pkgSet.enable = true;
+			base.pkgSet.enable = true;
 		};
 
 		stylix = {
-			enable = true;
 			theme = "oxocarbon-dark";
 			wallpaper = ../../assets/media/full/wall2.png;
 		};
-		starship.enable = true;
-		atuin.enable = true;
-		direnv.enable = true;
-		tealdeer.enable = true;
-		tmux.enable = true;
 	};
 
 	home = {
