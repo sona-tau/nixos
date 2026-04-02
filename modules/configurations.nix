@@ -25,26 +25,19 @@
 						users."sona" = {
 							imports = with config.flake.modules.homeManager; [
 								alacritty
-								anyrun
 								atuin
 								base
 								browsers
 								direnv
-								eww
-								foot
-								gammastep
 								gtk
 								icons
 								mako
 								minecraft
-								niri
 								noctalia
-								quickshell
 								sh-prompt
 								shell
 								starship
 								stylix
-								sway
 								tealdeer
 								tmux
 								utilities
@@ -59,21 +52,94 @@
 					};
 				}
 			];
-		};
-		/*
-		"est" = mkSystem {
-			system = "x86_64-linux"; 
-			config = ./machine/est/configuration.nix;
-			homeModules = [ ];
-			nixosModules = [ ];
-		};
-
-		"hp" = mkSystem {
+		});
+		"est" = withSystem "x86_64-linux" ({ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
-			config = ./machine/hp/configuration.nix; 
-			homeModules = [ ];
-			nixosModules = [ ];
-		};
-		*/
+
+			specialArgs = {
+				inherit inputs;
+			};
+
+			modules = [
+				inputs.home-manager.nixosModules.home-manager
+				config.flake.modules.nixos.base
+				../machine/est/configuration.nix
+				{
+					home-manager = {
+						useGlobalPkgs = true;
+						useUserPackages = true;
+						backupFileExtension = ".bak";
+						extraSpecialArgs = {
+							inherit inputs;
+						};
+
+						users."sona" = {
+							imports = with config.flake.modules.homeManager; [
+								atuin
+								base
+								direnv
+								gaming
+								gtk
+								icons
+								mako
+								noctalia
+								sh-prompt
+								shell
+								starship
+								stylix
+								tealdeer
+								tmux
+								utilities
+								wallpapers
+								wayland
+								zen
+								zsh
+								../machine/est/sona.nix
+							];
+						};
+					};
+				}
+			];
+		});
+
+		"hp" = withSystem "x86_64-linux" ({ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+			system = "x86_64-linux";
+
+			specialArgs = {
+				inherit inputs;
+			};
+
+			modules = [
+				inputs.home-manager.nixosModules.home-manager
+				config.flake.modules.nixos.base
+				../machine/hp/configuration.nix
+				{
+					home-manager = {
+						useGlobalPkgs = true;
+						useUserPackages = true;
+						backupFileExtension = ".bak";
+						extraSpecialArgs = {
+							inherit inputs;
+						};
+
+						users."sona" = {
+							imports = with config.flake.modules.homeManager; [
+								atuin
+								base
+								direnv
+								sh-prompt
+								shell
+								starship
+								tealdeer
+								tmux
+								utilities
+								zsh
+								../machine/hp/sona.nix
+							];
+						};
+					};
+				}
+			];
+		});
 	};
 }
