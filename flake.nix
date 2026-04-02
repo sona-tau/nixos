@@ -8,6 +8,7 @@
 		stylix.url = "github:danth/stylix";
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 		flake-parts.url = "github:hercules-ci/flake-parts";
+		import-tree.url = "github:vic/import-tree";
 
 		noctalia = {
 			url = "github:noctalia-dev/noctalia-shell";
