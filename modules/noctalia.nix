@@ -1,14 +1,10 @@
 { ... }: {
-	flake.modules.homeManager.noctalia = { config, lib, pkgs, inputs, ... }: let cfg = config.my.noctalia; in {
+	flake.modules.homeManager.noctalia = { lib, inputs, ... }: {
 		imports = [
 			inputs.noctalia.homeModules.default
 		];
 
-		options.my.noctalia.enable = lib.mkEnableOption "noctalia";
-
-		config = lib.mkIf cfg.enable {
-
-			programs.noctalia-shell = lib.mkForce {
+		programs.noctalia-shell = lib.mkForce {
 				enable = true;
 				settings = {
 					settingsVersion = 0;
@@ -18,7 +14,7 @@
 						monitors = [ ];
 						density = "default";
 						showOutline = false;
-						showCapsule = true;
+						showCapsule = false;
 						capsuleOpacity = 1;
 						capsuleColorKey = "none";
 						widgetSpacing = 6;
@@ -39,9 +35,6 @@
 						showOnWorkspaceSwitch = true;
 						widgets = {
 							left = [
-							{
-								id = "Launcher";
-							}
 							{
 								id = "Clock";
 							}
@@ -115,14 +108,14 @@
 						shadowDirection = "bottom_right";
 						shadowOffsetX = 2;
 						shadowOffsetY = 3;
-						language = "";
+						language = "en";
 						allowPanelsOnScreenWithoutBar = true;
 						showChangelogOnStartup = true;
 						telemetryEnabled = false;
 						enableLockScreenCountdown = true;
 						lockScreenCountdownDuration = 10000;
 						autoStartAuth = false;
-						allowPasswordWithFprintd = false;
+						allowPasswordWithFprintd = true;
 						clockStyle = "custom";
 						clockFormat = "hh\nmm";
 						passwordChars = false;
@@ -156,8 +149,8 @@
 						reverseScroll = false;
 					};
 					ui = {
-						fontDefault = "";
-						fontFixed = "";
+						fontDefault = "IBM Plex Sans Light";
+						fontFixed = "Hermit";
 						fontDefaultScale = 1;
 						fontFixedScale = 1;
 						tooltipsEnabled = true;
@@ -356,7 +349,7 @@
 						externalMonitor = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
 					};
 					noctaliaPerformance = {
-						disableWallpaper = true;
+						disableWallpaper = false;
 						disableDesktopWidgets = true;
 					};
 					dock = {
@@ -486,8 +479,8 @@
 						backgroundOpacity = 1;
 						enabledTypes = [
 							0
-								1
-								2
+							1
+							2
 						];
 						monitors = [ ];
 					};
@@ -495,11 +488,11 @@
 						volumeStep = 5;
 						volumeOverdrive = false;
 						spectrumFrameRate = 30;
-						visualizerType = "linear";
-						spectrumMirrored = true;
+						visualizerType = "wave";
+						spectrumMirrored = false;
 						mprisBlacklist = [ ];
 						preferredPlayer = "";
-						volumeFeedback = false;
+						volumeFeedback = true;
 						volumeFeedbackSoundFile = "";
 					};
 					brightness = {
@@ -570,7 +563,6 @@
 						monitorWidgets = [ ];
 					};
 				};
-			};
 		};
 	};
 }
