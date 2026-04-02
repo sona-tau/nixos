@@ -1,6 +1,6 @@
-{ config, inputs, ... }: {
+{ config, inputs, withSystem, ... }: {
 	flake.nixosConfigurations = {
-		"fw13" = withSystem "x86_64-linux" ({ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+		"fw13" = withSystem "x86_64-linux" (perSystem@{ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 
 			specialArgs = {
@@ -19,7 +19,7 @@
 						backupFileExtension = ".bak";
 						extraSpecialArgs = {
 							inherit inputs;
-							zen-browser = pkgs.zen-browser;
+							zen-browser = perSystem.config.packages.zen-browser;
 						};
 
 						users."sona" = {
