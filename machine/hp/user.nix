@@ -1,10 +1,10 @@
-{ config, pkgs, ... }: {
+{ homeModules, ... }: {
 	programs.home-manager.enable = true;
 
-	my.roles = {
-		terminal.pkgSet.enable = true;
-		base.pkgSet.enable = true;
-	};
+	imports = with homeModules; [
+		base
+		terminal
+	];
 
 	home = {
 		username = "sona";
