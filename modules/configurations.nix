@@ -1,145 +1,56 @@
-{ config, inputs, withSystem, ... }: {
+{ config, inputs, withSystem, ... }: let
+	mkHomeManager = extraSpecialArgs: {
+		useGlobalPkgs = true;
+		useUserPackages = true;
+		backupFileExtension = ".bak";
+		extraSpecialArgs = {
+			inherit inputs;
+			homeModules = config.flake.modules.homeManager;
+		} // extraSpecialArgs;
+	};
+in {
 	flake.nixosConfigurations = {
-		"fw13" = withSystem "x86_64-linux" (perSystem@{ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+		"fw13" = withSystem "x86_64-linux" (perSystem@{ ... }: inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
-
-			specialArgs = {
-				inherit inputs;
-			};
-
+			specialArgs = { inherit inputs; };
 			modules = [
 				inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 				inputs.home-manager.nixosModules.home-manager
 				config.flake.modules.nixos.base
-				../machine/fw13/configuration.nix
-				{
-					home-manager = {
-						useGlobalPkgs = true;
-						useUserPackages = true;
-						backupFileExtension = ".bak";
-						extraSpecialArgs = {
-							inherit inputs;
-							zen-browser = perSystem.config.packages.zen-browser;
-						};
-
-						users."sona" = {
-							imports = with config.flake.modules.homeManager; [
-								alacritty
-								atuin
-								base
-								browsers
-								direnv
-								gtk
-								icons
-								mako
-								minecraft
-								noctalia
-								sh-prompt
-								shell
-								starship
-								stylix
-								tealdeer
-								tmux
-								utilities
-								wallpapers
-								wayland
-								zathura
-								zen
-								zsh
-								../machine/fw13/sona.nix
-							];
-						};
-					};
-				}
+				config.flake.modules.nixos.common
+				../machine/fw13/os.nix
+				{ home-manager = (mkHomeManager { zen-browser = perSystem.config.packages.zen-browser; }) // {
+					users."sona".imports = [ ../machine/fw13/user.nix ];
+				}; }
 			];
 		});
-		"est" = withSystem "x86_64-linux" ({ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+
+		"est" = inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
-
-			specialArgs = {
-				inherit inputs;
-			};
-
+			specialArgs = { inherit inputs; };
 			modules = [
 				inputs.home-manager.nixosModules.home-manager
 				config.flake.modules.nixos.base
-				../machine/est/configuration.nix
-				{
-					home-manager = {
-						useGlobalPkgs = true;
-						useUserPackages = true;
-						backupFileExtension = ".bak";
-						extraSpecialArgs = {
-							inherit inputs;
-						};
-
-						users."sona" = {
-							imports = with config.flake.modules.homeManager; [
-								atuin
-								base
-								direnv
-								gaming
-								gtk
-								icons
-								mako
-								noctalia
-								sh-prompt
-								shell
-								starship
-								stylix
-								tealdeer
-								tmux
-								utilities
-								wallpapers
-								wayland
-								zen
-								zsh
-								../machine/est/sona.nix
-							];
-						};
-					};
-				}
+				config.flake.modules.nixos.common
+				../machine/est/os.nix
+				{ home-manager = (mkHomeManager {}) // {
+					users."sona".imports = [ ../machine/est/user.nix ];
+				}; }
 			];
-		});
+		};
 
-		"hp" = withSystem "x86_64-linux" ({ pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+		"hp" = inputs.nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
-
-			specialArgs = {
-				inherit inputs;
-			};
-
+			specialArgs = { inherit inputs; };
 			modules = [
 				inputs.home-manager.nixosModules.home-manager
 				config.flake.modules.nixos.base
-				../machine/hp/configuration.nix
-				{
-					home-manager = {
-						useGlobalPkgs = true;
-						useUserPackages = true;
-						backupFileExtension = ".bak";
-						extraSpecialArgs = {
-							inherit inputs;
-						};
-
-						users."sona" = {
-							imports = with config.flake.modules.homeManager; [
-								atuin
-								base
-								direnv
-								sh-prompt
-								shell
-								starship
-								tealdeer
-								tmux
-								utilities
-								zsh
-								../machine/hp/sona.nix
-							];
-						};
-					};
-				}
+				config.flake.modules.nixos.common
+				../machine/hp/os.nix
+				{ home-manager = (mkHomeManager {}) // {
+					users."sona".imports = [ ../machine/hp/user.nix ];
+				}; }
 			];
-		});
+		};
 	};
 }
