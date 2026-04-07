@@ -24,6 +24,6 @@
 	home = {
 		username = "sona";
 		homeDirectory = "/home/sona";
-		stateVersion = "24.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
+		stateVersion = "23.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
 	};
 }
