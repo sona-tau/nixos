@@ -4,9 +4,14 @@
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
 	boot = {
+		loader = {
+			systemd-boot.enable = true;
+			efi.canTouchEfiVariables = true;
+		};
+
 		kernelPackages = pkgs.linuxPackages_hardened;
 		supportedFilesystems.zfs = true;
-		kernelModules = [ "cdrom" ];
+		kernelModules = [ "cdrom" "sr_mod" "sg" "zfs" ];
 	};
 
 	networking = {
