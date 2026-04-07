@@ -17,11 +17,12 @@
 	networking = {
 		hostName = "hp";
 		hostId = "924e4a77";
+
+		firewall.trustedInterfaces = [ "tailscale0" ];
 	};
 
 	users.users."sona" = {
 		packages = with pkgs; [
-			caddy
 			aerc
 			aria2
 			borgbackup
@@ -161,14 +162,35 @@
 
 		openssh.settings.AcceptEnv = [ "GIT_PROTOCOL" ];
 
-		jellyfin = {
+		dnsmasq = {
 			enable = true;
-			openFirewall = true;
+
+			settings = {
+				interface = "tailscale0";
+				address = "/.hp/100.96.176.98";
+				no-resolv = true;
+				no-hosts = true;
+			};
 		};
+
+		caddy = {
+			enable = true;
+
+			virtualHosts = {
+				"http://forgejo.hp".extraConfig     = "reverse_proxy localhost:3000";
+				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
+				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
+				"http://traccar.hp".extraConfig     = "reverse_proxy localhost:8082";
+				"http://netdata.hp".extraConfig     = "reverse_proxy localhost:19999";
+				"http://homeassistant.hp".extraConfig = "reverse_proxy localhost:8123";
+				"http://radicale.hp".extraConfig    = "reverse_proxy localhost:5232";
+			};
+		};
+
+		jellyfin.enable = true;
 
 		home-assistant = {
 			enable = true;
-			openFirewall = true;
 
 			extraComponents = [
 				"esphome"
@@ -183,9 +205,8 @@
 		immich = {
 			enable = true;
 			port = 2283;
-			host = "0.0.0.0";
+			host = "127.0.0.1";
 			mediaLocation = "/var/lib/immich";
-			openFirewall = true;
 			machine-learning.enable = true;
 		};
 
@@ -202,7 +223,10 @@
 					THEMES = "catppuccin-latte-rosewater,catppuccin-latte-flamingo,catppuccin-latte-pink,catppuccin-latte-mauve,catppuccin-latte-red,catppuccin-latte-maroon,catppuccin-latte-peach,catppuccin-latte-yellow,catppuccin-latte-green,catppuccin-latte-teal,catppuccin-latte-sky,catppuccin-latte-sapphire,catppuccin-latte-blue,catppuccin-latte-lavender,catppuccin-frappe-rosewater,catppuccin-frappe-flamingo,catppuccin-frappe-pink,catppuccin-frappe-mauve,catppuccin-frappe-red,catppuccin-frappe-maroon,catppuccin-frappe-peach,catppuccin-frappe-yellow,catppuccin-frappe-green,catppuccin-frappe-teal,catppuccin-frappe-sky,catppuccin-frappe-sapphire,catppuccin-frappe-blue,catppuccin-frappe-lavender,catppuccin-macchiato-rosewater,catppuccin-macchiato-flamingo,catppuccin-macchiato-pink,catppuccin-macchiato-mauve,catppuccin-macchiato-red,catppuccin-macchiato-maroon,catppuccin-macchiato-peach,catppuccin-macchiato-yellow,catppuccin-macchiato-green,catppuccin-macchiato-teal,catppuccin-macchiato-sky,catppuccin-macchiato-sapphire,catppuccin-macchiato-blue,catppuccin-macchiato-lavender,catppuccin-mocha-rosewater,catppuccin-mocha-flamingo,catppuccin-mocha-pink,catppuccin-mocha-mauve,catppuccin-mocha-red,catppuccin-mocha-maroon,catppuccin-mocha-peach,catppuccin-mocha-yellow,catppuccin-mocha-green,catppuccin-mocha-teal,catppuccin-mocha-sky,catppuccin-mocha-sapphire,catppuccin-mocha-blue,catppuccin-mocha-lavender";
 				};
 
-				server.SSH_PORT = lib.head config.services.openssh.ports;
+				server = {
+					ROOT_URL = "http://forgejo.hp";
+					SSH_PORT = lib.head config.services.openssh.ports;
+				};
 
 				actions = {
 					ENABLED = true;
