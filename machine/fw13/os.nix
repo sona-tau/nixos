@@ -16,9 +16,7 @@
 	networking = {
 		hostName = "fw13";
 
-		extraHosts = ''
-			127.0.0.1 localhost.localdomain localhost
-		'';
+		extraHosts = ''127.0.0.1 localhost.localdomain localhost'';
 	};
 
 	i18n = {
@@ -73,13 +71,20 @@
 	};
 
 	users.users."sona" = {
-		extraGroups = [ "plugdev" "adbusers" "docker" ];
-		packages = with pkgs; [ helix ];
+		packages = with pkgs; [
+			neovim
+			git
+			curl
+		];
+
+		extraGroups = [
+			"plugdev"
+			"adbusers"
+			"docker"
+		];
 	};
 
-	nixpkgs.config.permittedInsecurePackages = [
-		"quickjs-2025-09-13-2"
-	];
+	nixpkgs.config.permittedInsecurePackages = [ "quickjs-2025-09-13-2" ];
 
 	environment = {
 		variables.GLFW_IM_MODULE = "ibus";
@@ -92,13 +97,13 @@
 			ed
 			just
 			firefoxpwa
-			jellyfin
-			jellyfin-web
-			jellyfin-ffmpeg
+			inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 		];
 	};
 
 	fonts = {
+		enableDefaultPackages = true;
+
 		packages = with pkgs; [
 			cozette
 			scientifica
@@ -113,7 +118,6 @@
 			bqn386
 			hermit
 		] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-		enableDefaultPackages = true;
 	};
 
 	programs = {
