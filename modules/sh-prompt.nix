@@ -1,14 +1,9 @@
 { ... }: {
-	flake.modules.homeManager.sh-prompt = { config, lib, ... }: let cfg = config.my.sh-prompt; in {
-		options = {
-			my.sh-prompt.enable = lib.mkEnableOption "shell prompt that asks you to convert hex to decimal";
-		};
+	flake.modules.homeManager.sh-prompt = { ... }: {
+		home.file.".local/bin/sh_prompt" = {
+			executable = true;
 
-		config = lib.mkIf cfg.enable {
-			home.file.".local/bin/sh_prompt" = {
-				executable = true;
-
-				text = ''
+			text = ''
 #!/usr/bin/env bash
 # dependencies: gum
 set -e
@@ -23,8 +18,7 @@ do
 	gum log -l "error" "Try again."
 	val="$(gum input --header="What is 0x$hex in decimal?")"
 done
-				'';
-			};
+			'';
 		};
 	};
 }

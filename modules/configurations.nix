@@ -16,12 +16,16 @@ in {
 			modules = [
 				inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 				inputs.home-manager.nixosModules.home-manager
-				config.flake.modules.nixos.base
-				config.flake.modules.nixos.common
+				perSystem.config.flake.modules.nixos.base
+				perSystem.config.flake.modules.nixos.common
 				../machine/fw13/os.nix
-				{ home-manager = (mkHomeManager { zen-browser = perSystem.config.packages.zen-browser; }) // {
-					users."sona".imports = [ ../machine/fw13/user.nix ];
-				}; }
+				{
+					home-manager = (mkHomeManager {
+						zen-browser = perSystem.config.packages.zen-browser;
+					}) // {
+						users."sona".imports = [ ../machine/fw13/user.nix ];
+					};
+				}
 			];
 		});
 
@@ -33,9 +37,11 @@ in {
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/est/os.nix
-				{ home-manager = (mkHomeManager {}) // {
-					users."sona".imports = [ ../machine/est/user.nix ];
-				}; }
+				{
+					home-manager = (mkHomeManager {}) // {
+						users."sona".imports = [ ../machine/est/user.nix ];
+					};
+				}
 			];
 		};
 
@@ -47,9 +53,11 @@ in {
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/hp/os.nix
-				{ home-manager = (mkHomeManager {}) // {
-					users."sona".imports = [ ../machine/hp/user.nix ];
-				}; }
+				{
+					home-manager = (mkHomeManager {}) // {
+						users."sona".imports = [ ../machine/hp/user.nix ];
+					};
+				}
 			];
 		};
 	};

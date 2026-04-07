@@ -7,7 +7,7 @@
 				settings = {
 					main = {
 						pad = "10x10";
-						theme = "moonfly";
+						# theme = "moonfly";
 					};
 
 					bell = {

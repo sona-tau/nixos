@@ -31,14 +31,6 @@
 		};
 	};
 
-	# The `inputs@` part binds all of the parameters here to `inputs`
-	outputs = inputs@{ flake-parts, ... }:
-		flake-parts.lib.mkFlake { inherit inputs; } {
-			systems = [ "x86_64-linux" ];
-
-			imports = let
-				lib = inputs.nixpkgs.lib;
-				modulesPath = ./modules;
-			in lib.filter (lib.hasSuffix ".nix") (lib.filesystem.listFilesRecursive modulesPath);
-		};
+	outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; }
+		(inputs.import-tree ./modules);
 }
