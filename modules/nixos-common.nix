@@ -85,6 +85,8 @@
 			};
 		};
 
+		sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
 		nix = {
 			package = pkgs.nixVersions.stable;
 			settings.experimental-features = [ "nix-command" "flakes" ];

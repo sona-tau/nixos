@@ -16,6 +16,7 @@ in {
 			modules = [
 				inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 				inputs.home-manager.nixosModules.home-manager
+				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/fw13/os.nix
@@ -34,6 +35,7 @@ in {
 			specialArgs = { inherit inputs; };
 			modules = [
 				inputs.home-manager.nixosModules.home-manager
+				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/est/os.nix
@@ -50,6 +52,7 @@ in {
 			specialArgs = { inherit inputs; };
 			modules = [
 				inputs.home-manager.nixosModules.home-manager
+				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/hp/os.nix

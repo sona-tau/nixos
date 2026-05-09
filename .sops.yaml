@@ -1,0 +1,23 @@
+keys:
+  # Machine host keys (derived from /etc/ssh/ssh_host_ed25519_key)
+  - &hp   age1ujdlljqpna9e8tmk4ymns6mm6gnq8ac892mn4tuljsgnkzdt7y7qsru9h4
+  # TODO: add est and fw13 host keys when provisioning those machines
+  # - &est  age1...
+  # - &fw13 age1...
+
+  # User key (derived from ~/.ssh/id_ed25519)
+  - &sona age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
+
+creation_rules:
+  # hp-specific secrets: decryptable by hp host key and by sona's key
+  - path_regex: secrets/hp\.yaml$
+    key_groups:
+      - age:
+          - *hp
+          - *sona
+
+  # Shared secrets (e.g. cross-machine keys): sona's key only
+  - path_regex: secrets/common\.yaml$
+    key_groups:
+      - age:
+          - *sona
