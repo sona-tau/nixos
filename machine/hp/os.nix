@@ -203,6 +203,7 @@
 				"http://git.hp".extraConfig     = "reverse_proxy localhost:3000";
 				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
 				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
+				"http://navidrome.hp".extraConfig   = "reverse_proxy localhost:4533";
 				"http://traccar.hp".extraConfig     = "reverse_proxy localhost:8082";
 				"http://netdata.hp".extraConfig     = "reverse_proxy localhost:19999";
 				"http://homeassistant.hp".extraConfig = "reverse_proxy localhost:8123";
@@ -216,6 +217,16 @@
 		};
 
 		jellyfin.enable = true;
+
+		navidrome = {
+			enable = true;
+
+			settings = {
+				MusicFolder = "/storage/storage/Music";
+				Port = 4533;
+				Address = "127.0.0.1";
+			};
+		};
 
 		home-assistant = {
 			enable = true;
