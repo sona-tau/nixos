@@ -71,6 +71,7 @@
 			immich-cli
 			smartmontools
 			tmux
+			spotdl
 		] ++ (with pkgs.python313Packages; [
 			zlib-ng
 			isal
