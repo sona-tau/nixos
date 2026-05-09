@@ -14,8 +14,8 @@ Every decision in this config should serve three pillars:
 ### ~~Disable unfinished/unused services~~ ✓ done
 lidarr, sonarr, radarr, jellyseerr, qbittorrent are commented out in `machine/hp/os.nix`.
 
-### Finish traccar (port 8082)
-Family members depend on this. Make it a priority. Put behind reverse proxy with TLS.
+### ~~Finish traccar (port 8082)~~ ✓ done
+Running behind Caddy at traccar.hp. Registration disabled. Owner's phone confirmed tracking.
 
 ---
 
