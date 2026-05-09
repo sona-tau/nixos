@@ -16,8 +16,8 @@ in {
 			modules = [
 				inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 				inputs.home-manager.nixosModules.home-manager
-				perSystem.config.flake.modules.nixos.base
-				perSystem.config.flake.modules.nixos.common
+				config.flake.modules.nixos.base
+				config.flake.modules.nixos.common
 				../machine/fw13/os.nix
 				{
 					home-manager = (mkHomeManager {

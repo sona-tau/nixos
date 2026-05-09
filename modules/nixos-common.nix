@@ -21,13 +21,23 @@
 		};
 
 		services = {
-			openssh.enable = true;
+			openssh = {
+				enable = true;
+
+				settings = {
+					PasswordAuthentication = false;
+					KbdInteractiveAuthentication = false;
+					PermitRootLogin = "no";
+				};
+			};
+
 			tailscale.enable = true;
 		};
 
 		nixpkgs.config = {
 			allowUnfree = true;
 			allowUnsupportedSystem = true;
+			permittedInsecurePackages = [ "quickjs-2025-09-13-2" ];
 		};
 
 		environment = {
