@@ -84,7 +84,25 @@
 		# sonarr.enable = true;    # TODO: not finished
 		# radarr.enable = true;    # TODO: not finished
 		# jellyseerr.enable = true; # TODO: not finished
-		traccar.enable = true;
+		syncthing = {
+			enable = true;
+			user = "sona";
+			dataDir = "/home/sona/sync";
+			configDir = "/home/sona/.config/syncthing";
+			openDefaultPorts = true;
+		};
+		traccar = {
+			enable = true;
+
+			settings = {
+				# Used in notification links
+				"web.url" = "http://traccar.hp";
+				# Disable open registration — accounts created by admin only
+				"server.registration" = "false";
+				# Disable unnecessary map tile proxying
+				"web.origin" = "*";
+			};
+		};
 		logrotate.checkConfig = false; # Required by hardened profile
 
 		smartd = {
@@ -170,6 +188,11 @@
 				address = "/.hp/100.96.176.98";
 				no-resolv = true;
 				no-hosts = true;
+				server = [
+					"100.100.100.100"
+					"1.1.1.1"
+					"8.8.8.8"
+				];
 			};
 		};
 
@@ -177,13 +200,18 @@
 			enable = true;
 
 			virtualHosts = {
-				"http://forgejo.hp".extraConfig     = "reverse_proxy localhost:3000";
+				"http://git.hp".extraConfig     = "reverse_proxy localhost:3000";
 				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
 				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
 				"http://traccar.hp".extraConfig     = "reverse_proxy localhost:8082";
 				"http://netdata.hp".extraConfig     = "reverse_proxy localhost:19999";
 				"http://homeassistant.hp".extraConfig = "reverse_proxy localhost:8123";
 				"http://radicale.hp".extraConfig    = "reverse_proxy localhost:5232";
+				"http://syncthing.hp".extraConfig    = ''
+					reverse_proxy localhost:8384 {
+						header_up Host localhost
+					}
+				'';
 			};
 		};
 
