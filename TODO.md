@@ -19,13 +19,10 @@ Family members depend on this. Make it a priority. Put behind reverse proxy with
 
 ---
 
-## Reverse proxy — nginx on hp
-**Status:** Caddy was attempted before and was painful. Try nginx instead.
-Nothing on hp should be directly port-exposed. Target state:
-- **Tailscale-only (internal):** netdata, radicale, home-assistant, radarr, sonarr, lidarr,
-  jellyseerr, traccar, the binary cache
-- **Publicly exposed via reverse proxy + TLS:** Forgejo, Immich, Jellyfin, Traccar (for family)
-`services.nginx` in NixOS is well-supported and straightforward to declare.
+## ~~Reverse proxy~~ ✓ done
+Caddy is in use on hp. All services are tailnet-only — no public exposure.
+Current virtual hosts: git.hp, immich.hp, jellyfin.hp, traccar.hp, netdata.hp,
+homeassistant.hp, radicale.hp, syncthing.hp.
 
 ---
 
