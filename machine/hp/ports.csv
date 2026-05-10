@@ -1,4 +1,8 @@
 port,Title
+3001,Grafana
+9090,Prometheus
+9100,node_exporter
+9633,smartctl_exporter
 19999,netdata
 2283,Immich
 3000,Forgejo

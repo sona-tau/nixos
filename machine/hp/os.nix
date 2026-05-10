@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-	imports = [ ./hardware.nix ];
+	imports = [ ./hardware.nix ./monitoring.nix ];
 
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
@@ -202,6 +202,7 @@
 
 			virtualHosts = {
 				"http://git.hp".extraConfig     = "reverse_proxy localhost:3000";
+				"http://grafana.hp".extraConfig     = "reverse_proxy localhost:3001";
 				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
 				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
 				"http://navidrome.hp".extraConfig   = "reverse_proxy localhost:4533";
