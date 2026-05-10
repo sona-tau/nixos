@@ -21,7 +21,7 @@ Running behind Caddy at traccar.hp. Registration disabled. Owner's phone confirm
 
 ## ~~Reverse proxy~~ ✓ done
 Caddy is in use on hp. All services are tailnet-only — no public exposure.
-Current virtual hosts: git.hp, immich.hp, jellyfin.hp, traccar.hp, netdata.hp,
+Current virtual hosts: git.hp, immich.hp, jellyfin.hp, navidrome.hp, traccar.hp, netdata.hp,
 homeassistant.hp, radicale.hp, syncthing.hp.
 
 ---
@@ -60,11 +60,9 @@ Forgejo on hp is the source of truth. GitHub and Tangled are read-only public mi
 Forgejo's mirroring feature. Never push to GitHub directly.
 Set up Forgejo Actions for CI (`nix flake check` on every push).
 
-## SSH hardening — key-only authentication
-**Status:** not started, should be done soon.
-Disable password authentication across all machines:
-`services.openssh.settings.PasswordAuthentication = false`
-Goes in common.nix since it applies everywhere. Pairs with sops-nix for key management.
+## ~~SSH hardening — key-only authentication~~ ✓ done
+`PasswordAuthentication`, `KbdInteractiveAuthentication`, and `PermitRootLogin` are all locked
+down in `modules/nixos-common.nix`. Applies to all three machines.
 
 ## systemd service hardening — hp server
 **Status:** not started.
@@ -109,6 +107,53 @@ operational gain over SSH + rebuild is small given the current setup.
 ## Automated flake updates
 A scheduled systemd timer that runs `nix flake update` and opens a PR on Forgejo,
 keeping inputs current without manual effort.
+
+## Monitoring — Prometheus + Grafana
+**Status:** not started, high priority. Currently using netdata; considering a switch for more
+control over data and dashboards. Inspiration: https://github.com/ibizaman/selfhostblocks
+`services.prometheus` + `services.grafana` in NixOS are well-supported.
+Expose via Caddy at grafana.hp. Replace or run alongside netdata until stable.
+
+## Glance — homepage dashboard
+**Status:** not started, high priority.
+A single-page homepage aggregating: Prometheus/Grafana stats widgets, RSS feeds, news.
+`services.glance` is in nixpkgs. Expose at glance.hp (or hp/ root).
+
+## Readeck — read-it-later
+**Status:** not started, high priority.
+Self-hosted Pocket/Instapaper alternative. Good for the HN backlog.
+Available as `pkgs.readeck`. Expose at readeck.hp.
+
+## Pinchflat — YouTube media manager
+**Status:** not started, high priority.
+Declarative YouTube subscriptions/downloads. Replaces ad-hoc yt-dlp scripts.
+NixOS module available. Expose UI at pinchflat.hp. Store media alongside Jellyfin/Navidrome.
+
+## *arr stack — media automation
+**Status:** commented out (lidarr, sonarr, radarr, jellyseerr). Interesting but lower priority.
+Services are already in nixpkgs — just need enabling + configuration + Caddy virtual hosts.
+Pairs with qbittorrent (also commented out) and Pinchflat for a complete media pipeline.
+
+## Firefly III — personal finance
+**Status:** not started.
+Self-hosted budgeting/transaction tracker. NixOS module via `services.firefly-iii`.
+Expose at firefly.hp. Needs a database (postgres preferred).
+
+## Vaultwarden — password manager
+**Status:** not started.
+Bitwarden-compatible self-hosted vault. `services.vaultwarden` in nixpkgs.
+Expose at vault.hp. High value: removes dependency on external password manager.
+
+## Beets — music library metadata
+**Status:** incomplete. Songs were moved to /storage/storage/Music without metadata tagging.
+Run beets import on the library to tag tracks correctly before Navidrome scrapes them again.
+Config can be declared via `programs.beets` in home-manager.
+
+## spotdl — headless Spotify sync
+**Status:** blocked by Spotify rate limit. Ran `spotdl --user-auth` on laptop to complete OAuth,
+but got a rate limit error (86400 second / 24 hour cooldown) immediately before any songs
+downloaded. Copy `~/.spotdl/credentials.json` from laptop to hp once the cooldown expires, then
+retry — spotdl will run headlessly with saved credentials.
 
 ## treefmt-nix — declarative formatting
 **Status:** blocked — all mainstream Nix formatters (nixfmt, alejandra, nixpkgs-fmt) use spaces,

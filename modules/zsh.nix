@@ -81,7 +81,6 @@ export XCOMPOSECACHE="$XDG_CACHE_HOME"/X11/xcompose
 export XCURSOR_PATH=/urs/share/icons:"$XDG_DATA_HOME"/icons:"$XCURSOR_PATH"
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-. "$XDG_DATA_HOME/cargo/env"
 				'';
 		};
 	};
