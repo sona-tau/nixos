@@ -8,6 +8,7 @@
 
 	systemd.tmpfiles.rules = [
 		"d /storage/storage/YouTube 0750 pinchflat media - -"
+		"L /storage/storage/Music/YouTube - - - - /storage/storage/YouTube"
 	];
 
 	services.pinchflat = {
