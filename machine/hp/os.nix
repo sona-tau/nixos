@@ -227,7 +227,7 @@
 			enable = true;
 
 			settings = {
-				MusicFolder = "/storage/storage/Music";
+				MusicFolder = "/storage/storage";
 				Port = 4533;
 				Address = "127.0.0.1";
 			};
