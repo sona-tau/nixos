@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-	imports = [ ./hardware.nix ./monitoring.nix ./glance.nix ./readeck.nix ];
+	imports = [ ./hardware.nix ./monitoring.nix ./glance.nix ./readeck.nix ./pinchflat.nix ];
 
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
@@ -205,6 +205,7 @@
 				"http://grafana.hp".extraConfig     = "reverse_proxy localhost:3001";
 				"http://glance.hp".extraConfig      = "reverse_proxy localhost:8085";
 				"http://readeck.hp".extraConfig     = "reverse_proxy localhost:8090";
+				"http://pinchflat.hp".extraConfig   = "reverse_proxy localhost:8945";
 				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
 				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
 				"http://navidrome.hp".extraConfig   = "reverse_proxy localhost:4533";
