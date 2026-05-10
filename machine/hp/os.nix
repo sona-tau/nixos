@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-	imports = [ ./hardware.nix ./monitoring.nix ./glance.nix ./readeck.nix ./pinchflat.nix ];
+	imports = [ ./hardware.nix ./monitoring.nix ./glance.nix ./readeck.nix ./pinchflat.nix ./beets.nix ];
 
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
