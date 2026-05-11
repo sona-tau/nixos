@@ -27,9 +27,12 @@
 			import = {
 				move = true;
 				write = true;
+				singletons = true;
 			};
 
-			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" ];
+			match.strong_rec_thresh = 0.49;
+
+			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" "fromfilename" ];
 
 			fetchart.auto = true;
 			embedart.auto = true;
