@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, ... }: {
 	users.groups.media = {};
 
 	users.users = {
@@ -16,5 +16,10 @@
 		port = 8945;
 		mediaDir = "/storage/storage/YouTube";
 		selfhosted = true;
+	};
+
+	systemd.services.pinchflat.serviceConfig = {
+		Group = lib.mkForce "media";
+		UMask = "0002";
 	};
 }
