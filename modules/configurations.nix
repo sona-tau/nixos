@@ -56,6 +56,10 @@ in {
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				../machine/hp/os.nix
+				../services/monitoring.nix
+				../services/glance.nix
+				../services/readeck.nix
+				../services/pinchflat.nix
 				{
 					home-manager = (mkHomeManager {}) // {
 						users."sona".imports = [ ../machine/hp/user.nix ];

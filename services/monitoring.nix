@@ -40,10 +40,15 @@
 		grafana = {
 			enable = true;
 
-			settings.server = {
-				http_addr = "127.0.0.1";
-				http_port = 3001;
-				domain = "grafana.hp";
+			settings = {
+				server = {
+					http_addr = "127.0.0.1";
+					http_port = 3001;
+					domain = "grafana.hp";
+				};
+
+				# TODO: move to sops secret once sops-nix is wired in
+				security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
 			};
 
 			provision = {

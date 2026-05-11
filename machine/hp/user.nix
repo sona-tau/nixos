@@ -1,4 +1,4 @@
-{ homeModules, ... }: {
+{ homeModules, pkgs, ... }: {
 	programs.home-manager.enable = true;
 
 	imports = with homeModules; [
@@ -10,5 +10,32 @@
 		username = "sona";
 		homeDirectory = "/home/sona";
 		stateVersion = "24.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
+
+		packages = [ pkgs.chromaprint ];
+	};
+
+	programs.beets = {
+		enable = true;
+
+		settings = {
+			library = "/storage/storage/.beets/library.db";
+			directory = "/storage/storage/Music";
+
+			move = true;
+			copy = false;
+
+			import = {
+				move = true;
+				write = true;
+			};
+
+			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" ];
+
+			fetchart.auto = true;
+			embedart.auto = true;
+			lyrics.auto = false;
+			lastgenre.auto = true;
+			chroma.auto = true;
+		};
 	};
 }

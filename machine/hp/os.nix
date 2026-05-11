@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-	imports = [ ./hardware.nix ./monitoring.nix ./glance.nix ./readeck.nix ./pinchflat.nix ./beets.nix ];
+	imports = [ ./hardware.nix ];
 
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
@@ -227,7 +227,7 @@
 			enable = true;
 
 			settings = {
-				MusicFolder = "/storage/storage";
+				MusicFolder = "/storage/storage/Music";
 				Port = 4533;
 				Address = "127.0.0.1";
 			};
