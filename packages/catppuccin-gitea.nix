@@ -7,6 +7,7 @@
 		hash = "sha256-HP4Ap4l2K1BWP1zWdCKYS5Y5N+JcKAcXi+Hx1g6MVwc=";
 	};
 
+	sourceRoot = ".";
 	dontBuild = true;
 
 	installPhase = ''
