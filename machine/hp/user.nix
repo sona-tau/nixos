@@ -18,6 +18,7 @@
 		enable = true;
 
 		settings = {
+			include = [ "~/.config/beets/secrets.yaml" ];
 			library = "/storage/storage/.beets/library.db";
 			directory = "/storage/storage/Music";
 
@@ -41,11 +42,12 @@
 			chroma.auto = true;
 
 			spotify = {
-				source_weight = 0.7;
-				# client_id and client_secret: set via `beet config -e` or add to sops
+				data_source_mismatch_penalty = 0.7;
+				# client_id and client_secret live in ~/.config/beets/spotify-secrets.yaml
+				# which is included below via extraConfig
 			};
 
-			deezer.source_weight = 0.7;
+			deezer.data_source_mismatch_penalty = 0.7;
 		};
 	};
 }
