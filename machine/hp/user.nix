@@ -32,13 +32,20 @@
 
 			match.strong_rec_thresh = 0.49;
 
-			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" "fromfilename" ];
+			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" "fromfilename" "spotify" "deezer" ];
 
 			fetchart.auto = true;
 			embedart.auto = true;
 			lyrics.auto = false;
 			lastgenre.auto = true;
 			chroma.auto = true;
+
+			spotify = {
+				source_weight = 0.7;
+				# client_id and client_secret: set via `beet config -e` or add to sops
+			};
+
+			deezer.source_weight = 0.7;
 		};
 	};
 }
