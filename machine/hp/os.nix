@@ -1,4 +1,7 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let
+	catppuccin-gitea = pkgs.callPackage ../../packages/catppuccin-gitea.nix {};
+in {
 	imports = [ ./hardware.nix ];
 
 	system.stateVersion = "25.05"; # DO NOT CHANGE
@@ -280,81 +283,22 @@
 		};
 	};
 
-	systemd.tmpfiles.rules = [
-		"d '${config.services.forgejo.stateDir}/public' - forgejo forgejo - -"
-		"d '${config.services.forgejo.stateDir}/public/assets' - forgejo forgejo - -"
-		"d '${config.services.forgejo.stateDir}/public/assets/css' - forgejo forgejo - -"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-blue-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-blue-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-flamingo-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-flamingo-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-blue.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-blue.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-flamingo.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-flamingo.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-green.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-green.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-lavender.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-lavender.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-maroon.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-maroon.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-mauve.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-mauve.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-peach.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-peach.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-pink.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-pink.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-red.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-red.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-rosewater.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-rosewater.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-sapphire.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-sapphire.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-sky.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-sky.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-teal.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-teal.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-frappe-yellow.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-frappe-yellow.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-green-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-green-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-blue.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-blue.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-flamingo.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-flamingo.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-green.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-green.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-lavender.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-lavender.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-maroon.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-maroon.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-mauve.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-mauve.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-peach.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-peach.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-pink.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-pink.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-red.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-red.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-rosewater.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-rosewater.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-sapphire.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-sapphire.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-sky.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-sky.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-teal.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-teal.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-latte-yellow.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-latte-yellow.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-lavender-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-lavender-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-blue.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-blue.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-flamingo.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-flamingo.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-green.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-green.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-lavender.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-lavender.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-maroon.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-maroon.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-mauve.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-mauve.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-peach.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-peach.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-pink.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-pink.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-red.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-red.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-rosewater.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-rosewater.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-sapphire.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-sapphire.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-sky.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-sky.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-teal.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-teal.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-macchiato-yellow.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-macchiato-yellow.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-maroon-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-maroon-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mauve-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mauve-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-blue.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-blue.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-flamingo.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-flamingo.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-green.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-green.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-lavender.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-lavender.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-maroon.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-maroon.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-mauve.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-mauve.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-peach.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-peach.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-pink.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-pink.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-red.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-red.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-rosewater.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-rosewater.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-sapphire.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-sapphire.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-sky.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-sky.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-teal.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-teal.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-mocha-yellow.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-mocha-yellow.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-peach-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-peach-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-pink-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-pink-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-red-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-red-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-rosewater-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-rosewater-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-sapphire-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-sapphire-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-sky-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-sky-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-teal-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-teal-auto.css}"
-		"C+ '${config.services.forgejo.stateDir}/public/assets/css/theme-catppuccin-yellow-auto.css' - forgejo forgejo - ${../../assets/forgejo-css/catppuccin-gitea/theme-catppuccin-yellow-auto.css}"
-	];
+	systemd.services.forgejo-themes = {
+		description = "Copy catppuccin-gitea themes into Forgejo public assets";
+		wantedBy = [ "forgejo.service" ];
+		before = [ "forgejo.service" ];
+
+		serviceConfig = {
+			Type = "oneshot";
+			User = "forgejo";
+		};
+
+		script = ''
+			install -d ${config.services.forgejo.stateDir}/public/assets/css
+			cp ${catppuccin-gitea}/*.css ${config.services.forgejo.stateDir}/public/assets/css/
+		'';
+	};
+
 
 	nix = {
 		optimise.automatic = true;
