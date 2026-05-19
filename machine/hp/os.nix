@@ -214,7 +214,11 @@ in {
 				"http://navidrome.hp".extraConfig   = "reverse_proxy localhost:4533";
 				"http://traccar.hp".extraConfig     = "reverse_proxy localhost:8082";
 				"http://netdata.hp".extraConfig     = "reverse_proxy localhost:19999";
-				"http://homeassistant.hp".extraConfig = "reverse_proxy localhost:8123";
+				"http://homeassistant.hp".extraConfig = ''
+					reverse_proxy localhost:8123 {
+						header_up Host localhost
+					}
+				'';
 				"http://radicale.hp".extraConfig    = "reverse_proxy localhost:5232";
 				"http://syncthing.hp".extraConfig    = ''
 					reverse_proxy localhost:8384 {
@@ -244,9 +248,18 @@ in {
 				"met"
 				"isal"
 				"radio_browser"
+				"caldav"
+				"traccar"
 			];
 
-			config.default_config = {};
+			config = {
+				default_config = {};
+
+				http = {
+					use_x_forwarded_for = true;
+					trusted_proxies = [ "127.0.0.1" "::1" ];
+				};
+			};
 		};
 
 		immich = {
