@@ -60,6 +60,7 @@ in {
 				../services/glance.nix
 				../services/readeck.nix
 				../services/pinchflat.nix
+				../services/firefly.nix
 				{
 					home-manager = (mkHomeManager {}) // {
 						users."sona".imports = [ ../machine/hp/user.nix ];
