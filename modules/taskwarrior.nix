@@ -29,13 +29,48 @@
 			context.evening.read=(+evening or (-morning -afternoon -evening -night))
 			context.night.read=(+night or (-morning -afternoon -evening -night))
 
+			# --- UDAs ---
+			uda.estimate.type=numeric
+			uda.estimate.label=Est(min)
+
 			# --- display ---
 			color=on
 			confirmation=yes
 			dateformat=Y-M-D
-			report.next.columns=id,start.age,priority,project,tags,scheduled,due,until,description,urgency
-			report.next.labels=ID,Active,P,Project,Tags,Sched,Due,Until,Description,Urg
+			report.next.columns=id,start.age,priority,project,tags,scheduled,due,until,estimate,description,urgency
+			report.next.labels=ID,Active,P,Project,Tags,Sched,Due,Until,Est,Description,Urg
 		'';
+
+		taskAdd = pkgs.writeShellApplication {
+			name = "task-add";
+			runtimeInputs = with pkgs; [ gum taskwarrior3 ];
+			text = ''
+				DESCRIPTION="$(gum input --header="Description:")"
+				DUE="$(gum input --header="Due:" --value="today")"
+				PRIORITY="$(gum choose --header="Priority:" "H" "M" "L")"
+				ESTIMATE="$(gum choose --header="Estimate (minutes):" "15" "30" "60" "120" "240")"
+
+				PROJECT=""
+				if gum confirm "Does this belong to a project?"; then
+					PROJECT="$(gum input --header="Project:")"
+				fi
+
+				TAGS=""
+				if gum confirm "Does this have any tags?"; then
+					TAGS="$(gum input --header="Tags (space-separated):")"
+				fi
+
+				ID="$(task add "$DESCRIPTION" due:"$DUE" priority:"$PRIORITY" estimate:"$ESTIMATE" | grep -oE '[0-9]+')"
+
+				[[ -n "$PROJECT" ]] && task "$ID" modify project:"$PROJECT"
+
+				if [[ -n "$TAGS" ]]; then
+					for tag in $TAGS; do
+						task "$ID" modify +"$tag"
+					done
+				fi
+			'';
+		};
 
 		contextSwitchScript = pkgs.writeShellScript "task-context-switch"
 			''hour=$(date +%-H)
@@ -49,6 +84,7 @@
 		home.packages = with pkgs; [
 			taskwarrior3
 			taskwarrior-tui
+			taskAdd
 		];
 
 		# Write taskrc only on first install
