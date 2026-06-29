@@ -9,6 +9,7 @@
 input {
 	keyboard {
 		xkb {
+			// layout "us"
 			layout "mtgap-mod"
 		}
 	}
@@ -73,6 +74,11 @@ output "eDP-1" {
 	// If the position is unset or results in an overlap, the output is instead placed
 	// automatically.
 	//position x=1280 y=0
+}
+
+output "*" {
+	scale 2.0
+	transform "normal"
 }
 
 cursor {
