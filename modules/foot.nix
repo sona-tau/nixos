@@ -1,5 +1,5 @@
 { ... }: {
-	flake.modules.homeManager.foot = { pkgs, ... }: {
+	flake.modules.homeManager.foot = { config, pkgs, ... }: {
 			programs.foot = {
 				enable = true;
 				server.enable = true;

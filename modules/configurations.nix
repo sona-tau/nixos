@@ -65,6 +65,8 @@ in {
 				config.flake.modules.nixos.fidi
 				config.flake.modules.nixos.kubo
 				config.flake.modules.nixos.metube
+				config.flake.modules.nixos.grocy
+				config.flake.modules.nixos.monica
 				../machine/hp/hardware.nix
 				../machine/hp/os.nix
 				{
