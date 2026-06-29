@@ -10,7 +10,7 @@ in {
 			efi.canTouchEfiVariables = true;
 		};
 
-		kernelPackages = pkgs.linuxPackages_6_12;
+		kernelPackages = pkgs.linuxPackages_6_12_hardened;
 		supportedFilesystems.zfs = true;
 		kernelModules = [ "cdrom" "sr_mod" "sg" "zfs" ];
 		zfs.forceImportRoot = false;
