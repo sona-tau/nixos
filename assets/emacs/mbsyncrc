@@ -1,0 +1,22 @@
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User sona@stau.space
+PassCmd "pass mail/protonmail-bridge"
+SSLType STARTTLS
+
+IMAPStore protonmail-remote
+Account protonmail
+
+MaildirStore protonmail-local
+SubFolders Verbatim
+Path ~/Mail/
+Inbox ~/Mail/Inbox
+
+Channel protonmail
+Far :protonmail-remote:
+Near :protonmail-local:
+Patterns *
+Create Near
+Expunge Near
+SyncState *

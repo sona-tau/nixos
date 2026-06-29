@@ -47,6 +47,7 @@
 			hostsblock      # block ads at the /etc/hosts
 			lsof            # lsof to check outbound connections
 			luajitPackages.lua-lsp  # lua-lsp for NeoVim
+			mosh            # mobile shell, roaming-friendly ssh
 			mpv             # video playing software
 			nh              # nicer nixos-rebuild / home-manager wrapper
 			nnn             # terminal file manager

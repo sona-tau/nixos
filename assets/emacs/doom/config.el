@@ -4,10 +4,8 @@
 ;; sync' after modifying this file!
 
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
+(setq user-full-name "Sona Tau Estrada Rivera"
+      user-mail-address "sona@stau.space")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -91,6 +89,20 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(after! mu4e
+  (setq mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval 300
+        mu4e-maildir (expand-file-name "~/Mail")
+        mu4e-drafts-folder "/Drafts"
+        mu4e-sent-folder "/Sent"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-sent-messages-behavior 'delete
+        smtpmail-smtp-server "127.0.0.1"
+        smtpmail-smtp-service 1025
+        smtpmail-stream-type 'starttls
+        message-send-mail-function #'smtpmail-send-it))
 
 (use-package! org-fragtog
   :hook (org-mode . org-fragtog-mode))
