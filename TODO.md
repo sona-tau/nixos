@@ -139,6 +139,14 @@ Pairs with qbittorrent (also commented out) and Pinchflat for a complete media p
 Self-hosted budgeting/transaction tracker. NixOS module via `services.firefly-iii`.
 Expose at firefly.hp. Needs a database (postgres preferred).
 
+### Transaction import
+USAA supports CSV export (manual download from website). Import via Firefly III Data Importer (FIDI).
+GoCardless (automatic open banking) does not cover US banks. Plaid and SimpleFIN (~$15/yr) are
+options for automation later, but manual CSV is the baseline.
+- Set up FIDI as a companion service (`services/fidi.nix`) — no nixpkgs module, needs custom derivation or container
+- Configure a CSV import profile for USAA's export format
+- Optionally wire to SimpleFIN for scheduled automatic pulls
+
 ## Vaultwarden — password manager
 **Status:** not started.
 Bitwarden-compatible self-hosted vault. `services.vaultwarden` in nixpkgs.
@@ -165,3 +173,106 @@ tab-supporting formatter appears.
 - Single-line options at the top of attrsets
 - Multiline options preceded by one empty line
 - Options nested as deep as possible
+
+---
+
+## Life Dashboard — Home Assistant
+
+A time-gated HA dashboard that shifts throughout the day. Sections visible at wake-up differ from
+midday, evening, and night. Covers five domains: Technology, Health, Finance, Wellbeing, Social/Hobbies.
+
+**Time gates (rough schedule):**
+- Wake-up (6–9am): appointments today, finance summary
+- Morning (5–7am): skincare/hair routine, meal suggestions
+- Daytime: server status, geofences, Anki due, Readeck queue
+- Evening (6–8pm): meal suggestions, today's workout, evening routine
+- Night (9pm+): nighttime skincare, day summary
+
+**Locked decisions:**
+- Finance backbone: Firefly III (via `services/firefly.nix` + PostgreSQL)
+- Sleep data: Sleep as Android → HA native integration (Polar Flow deferred)
+- Bloodwork: manual YAML per lab visit (Phase 8a), OCR pipeline later (Phase 8b)
+- Contact tracking: manual HA button per person to stamp last-contacted
+- Anki: local Anki + AnkiConnect add-on; HA REST sensor over Tailscale
+
+### Phase 0 — Infrastructure prerequisites
+**Status:** in progress. Unblocks all REST sensor and finance work.
+- ~~`services/firefly.nix`~~ ✓ done — Firefly III NixOS service, second PostgreSQL DB, Caddy vhost at firefly.hp
+- `services/grocy.nix` — Grocy household manager: meals/recipes, shopping list, medications, stock
+  `services.grocy` in nixpkgs. Caddy vhost at grocy.hp. Covers Phases 1 (pills), 5 (meals/shopping), 9 (stock).
+- `services/monica.nix` — Monica personal CRM: contact frequency, interaction log, upcoming activities
+  `services.monica` in nixpkgs. Caddy vhost at monica.hp. Covers Phase 6 (friends & family).
+- sops-nix secrets: HA long-lived access token + Firefly API key + Grocy API key + Monica API key
+
+### Phase 1 — HA foundations
+**Status:** not started. Pure HA UI config. Delivers immediate visible value.
+- Wire CalDAV calendar entities: Radicale → HA integration
+- Wire Traccar geofence/zone entities (`traccar` already in `extraComponents`)
+- Confirm Met.no weather entity active
+- Pill tracker: Grocy medication tracking (stock count, last-taken, reorder threshold)
+  Surface in HA via Grocy API REST sensors. Dependency: Phase 0 (Grocy running).
+- Deliverable: test Lovelace view with calendar, weather, pill tracker
+
+### Phase 2 — Technology section
+**Status:** not started. Dependency: Phase 0 (sops, for Tailscale API key).
+- HA REST sensors against Prometheus HTTP API: CPU, memory, ZFS pool health, disk
+- HA REST sensor against Tailscale API for active tailnet machines
+- Traccar geofence badge display
+- New config: sensor block in `machine/hp/os.nix` or `services/ha-sensors.nix`
+
+### Phase 3 — Finance section
+**Status:** not started. Dependency: Phase 0 (Firefly III running).
+- Manually populate Firefly III: accounts, recurring bills, subscriptions, income
+- HA REST sensors: balance, spendable-today, upcoming bills (Firefly API v1)
+- Subscriptions + income markdown card (next 5 recurring transactions)
+- Jobs/scholarships: RSS feeds added to Glance + iframe or sensor in HA
+
+### Phase 4 — Health: sleep and appointments
+**Status:** not started. Pure HA config. Dependency: Phase 1 (CalDAV entities).
+- Sleep as Android → HA webhook/MQTT integration (HACS or built-in)
+  Entities: sleep_duration, sleep_efficiency, sleep_phase
+- Template sensors: next appointment per doctor type (H-doctor, dentist, therapist)
+- Health Lovelace view: calendar card, sleep stats, appointment sensors
+
+### Phase 5 — Wellbeing: routines, meals, workout
+**Status:** not started. Pure HA config. Parallel with Phase 4.
+- Skincare/hair routines: `input_boolean` per step, conditional cards (5–9am / 9pm+)
+- Workout schedule: `command_line` sensor reading `/var/lib/hass/workout_schedule.yaml`
+- Meal suggestions: Grocy recipe database + meal plan feature
+  Surface in HA via Grocy API (today's planned meal, upcoming suggestions).
+  Grocy also handles the shopping list natively; sync to HA `todo` entity or iframe.
+  Dependency: Phase 0 (Grocy running).
+
+### Phase 6 — Friends and family
+**Status:** not started. Dependency: Phase 0 (Monica running) + Phase 1 (CalDAV entities).
+- Monica personal CRM as the data backend: log interactions, set contact frequency goals,
+  track upcoming activities per person. Monica handles the "last contacted" and overdue logic natively.
+- HA REST sensors against Monica API: overdue contacts count, next upcoming activity
+- Upcoming activities card from Radicale social calendar (or Monica's own calendar feed)
+- Dashboard: Monica iframe or summary cards with overdue alerts
+
+### Phase 7 — Hobbies: Anki and calligraphy
+**Status:** not started. Dependency: Tailscale (already operational).
+- AnkiConnect REST sensor → fw13/est over Tailscale (port 8765)
+  Graceful degradation via `availability_template` when Anki is closed
+- Calligraphy: `command_line` sensor + `counter` helper + `/var/lib/hass/calligraphy.yaml`
+  Rotates through exercise list; counter increments at midnight
+
+### Phase 8 — Health: bloodwork
+**Status:** not started. Most complex pipeline.
+- Define YAML schema: `/var/lib/hass/bloodwork/<date>.yaml`
+  Fields: date, markers [{name, value, unit, low, high}]
+- Phase 8a (manual): populate YAML files from lab papers by hand
+  command_line sensors for latest values, binary in_range sensors, trend graphs
+- Phase 8b (OCR): NixOS systemd oneshot using tesseract + parser script
+  Input: photo dropped in watched dir → output: new dated YAML file
+  New config: `services/bloodwork-ocr.nix` or block in `machine/hp/os.nix`
+
+### Phase 9 — Time-gated dashboard and polish
+**Status:** not started. Assembly phase — all data sources must exist first.
+- Template sensor: `time_of_day` returning wake_up|morning|daytime|evening|night
+- Conditional cards wrapping each section, gated on `time_of_day` sensor
+- Readeck REST sensor: unread article count (Readeck API at 127.0.0.1:8090)
+- Stock items: Grocy product stock tracking (dehumidifiers, pencils, paper, etc.)
+  HA REST sensor for low-stock products via Grocy API. Alert automation on threshold breach.
+- Final master dashboard replaces all test views from earlier phases
