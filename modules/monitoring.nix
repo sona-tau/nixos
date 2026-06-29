@@ -1,5 +1,18 @@
 { ... }: {
-	flake.modules.nixos.monitoring = { ... }: {
+	flake.modules.nixos.monitoring = { config, ... }: {
+		sops.secrets."grafana/secret-key".sopsFile = ../secrets/hp.yaml;
+
+		sops.templates."grafana.env" = {
+			content = ''
+				GF_SECURITY_SECRET_KEY=${config.sops.placeholder."grafana/secret-key"}
+			'';
+			owner = "grafana";
+			mode = "0400";
+		};
+
+		systemd.services.grafana.serviceConfig.EnvironmentFile =
+			config.sops.templates."grafana.env".path;
+
 		services = {
 			prometheus = {
 				enable = true;
@@ -48,8 +61,7 @@
 						domain = "grafana.hp";
 					};
 
-					# TODO: move to sops secret once sops-nix is wired in
-					security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
+					security.secret_key = "$__env{GF_SECURITY_SECRET_KEY}";
 				};
 
 				provision = {

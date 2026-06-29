@@ -48,8 +48,10 @@
 			luajitPackages.lua-lsp  # lua-lsp for NeoVim
 			mpv             # video playing software
 			nnn             # terminal file manager
+			openssl         # key and cert generation
 			pass            # password manager
 			python3         # python
+			sops            # secrets editor (age-encrypted yaml)
 			unzip           # unzip files
 			uutils-coreutils-noprefix   # uutils
 		];

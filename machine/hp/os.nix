@@ -80,7 +80,7 @@ in {
 		]);
 	};
 
-	environment.systemPackages = with pkgs; [ ed sops zfs ];
+	environment.systemPackages = with pkgs; [ ed zfs ];
 
 	services = {
 		# lidarr.enable = true;    # TODO: not finished
