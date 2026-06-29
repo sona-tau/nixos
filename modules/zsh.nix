@@ -24,7 +24,7 @@
 					"turbostat" = "doas turbostat --interval 5 --quiet";
 					"compose" = "nvim \"$(mktemp --suffix .md)\"";
 					"config" = "neovide \"~/nixos/\"";
-					"rebuild" = "doas nixos-rebuild -L --flake ~/nixos --show-trace";
+					"rebuild" = "doas env HOME=/root nixos-rebuild -L --flake ~/nixos --show-trace";
 					"fuck" = "doas";
 					"FUCK" = "doas";
 					"FUCKING" = "doas";

@@ -62,6 +62,7 @@
 
 		programs = {
 			zsh.enable = true;
+			mosh.enable = true;
 
 			gnupg.agent = {
 				enable = true;

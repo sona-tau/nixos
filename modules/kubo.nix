@@ -19,6 +19,10 @@
 				Paths = [ "/ipfs" "/ipns" "/api" ];
 				UseSubdomains = false;
 			};
+
+			# nixpkgs bug: kubo module reads Mounts.fuseAllowOther (wrong case) at eval time;
+			# declaring it prevents the attribute-missing error.
+			settings.Mounts.fuseAllowOther = false;
 		};
 
 	};

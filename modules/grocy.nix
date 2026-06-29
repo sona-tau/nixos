@@ -25,7 +25,10 @@
 		# The nginx group must still exist because grocy's system user defaults to group = "nginx".
 		services.nginx.enable = lib.mkForce false;
 		users.groups.nginx = {};
-		users.users.nginx.isSystemUser = lib.mkDefault true;
+		users.users.nginx = {
+			isSystemUser = lib.mkDefault true;
+			group        = "nginx";
+		};
 
 		services.caddy.virtualHosts."http://grocy.hp".extraConfig = ''
 			root * ${config.services.grocy.package}/public

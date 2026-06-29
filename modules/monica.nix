@@ -23,7 +23,10 @@
 		# Preserve the nginx group and user to satisfy monica's internal user configuration.
 		services.nginx.enable = lib.mkForce false;
 		users.groups.nginx = {};
-		users.users.nginx.isSystemUser = lib.mkDefault true;
+		users.users.nginx = {
+			isSystemUser = lib.mkDefault true;
+			group        = "nginx";
+		};
 
 		services.caddy.virtualHosts."http://monica.hp".extraConfig = ''
 			root * ${monicaPkg}/public

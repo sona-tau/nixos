@@ -290,20 +290,21 @@ in {
 		};
 	};
 
-	services.gitea-actions-runner.instances.hp = {
-		enable = true;
-		name   = "hp";
-		url    = "http://localhost:3000";
+	services.gitea-actions-runner = {
+		package = pkgs.forgejo-runner;
 
-		tokenFile = config.sops.templates."gitea-runner-token.env".path;
+		instances.hp = {
+			enable    = true;
+			name      = "hp";
+			url       = "http://localhost:3000";
+			tokenFile = config.sops.templates."gitea-runner-token.env".path;
+			labels    = [ "native:host" ];
 
-		# run jobs directly on the host — no container runtime needed
-		labels = [ "native:host" ];
-
-		hostPackages = with pkgs; [
-			bash coreutils curl gawk gitMinimal gnused nodejs wget
-			nix
-		];
+			hostPackages = with pkgs; [
+				bash coreutils curl gawk gitMinimal gnused nodejs wget
+				nix
+			];
+		};
 	};
 
 	sops.secrets = {
@@ -321,9 +322,9 @@ in {
 		mode  = "0400";
 	};
 
+	# root-owned is fine — systemd reads EnvironmentFile as root before DynamicUser switch
 	sops.templates."gitea-runner-token.env" = {
 		content = "TOKEN=${config.sops.placeholder."forgejo/runner-token"}";
-		owner   = "gitea-runner";
 		mode    = "0400";
 	};
 
