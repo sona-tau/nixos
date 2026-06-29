@@ -55,10 +55,10 @@ All machines on the tailnet can point to it as a substituter, eliminating redund
 across fw13, est, and hp. Serve it through the reverse proxy.
 
 ## Forgejo as canonical git remote
-**Status:** was doing this before, stopped — resume it.
-Forgejo on hp is the source of truth. GitHub and Tangled are read-only public mirrors via
-Forgejo's mirroring feature. Never push to GitHub directly.
-Set up Forgejo Actions for CI (`nix flake check` on every push).
+**Status:** in progress. ROOT_URL set to `http://forgejo.hp`. Push mirrors to GitHub
+(sona-tau) and Tangled (@stau.space) to be configured in Forgejo UI per repo.
+Each machine's `origin` remote should point to `http://forgejo.hp/sona/<repo>`.
+Set up Forgejo Actions for CI (`nix flake check` on every push) — not yet done.
 
 ## ~~SSH hardening — key-only authentication~~ ✓ done
 `PasswordAuthentication`, `KbdInteractiveAuthentication`, and `PermitRootLogin` are all locked
@@ -77,13 +77,10 @@ Run `nix flake check` on every push via Forgejo Actions (GitHub Actions-compatib
 Goal: anything on the live public repo evaluates correctly out of the box, enforced automatically
 rather than by discipline. Keeps ci self-hosted on hp.
 
-## CPU/power management — fw13
-**Status:** investigate before implementing.
-`fw13/os.nix` already enables `power-profiles-daemon`. Noctalia's energy saver/balanced/performance
-modes likely hook into this. `auto-cpufreq` conflicts with `power-profiles-daemon` — do not run
-both. `thermald` (thermal throttling) is complementary and safe to add alongside either.
-Decision: keep power-profiles-daemon (noctalia already works with it), add thermald for thermal
-safety.
+## ~~CPU/power management — fw13~~ ✓ done
+`power-profiles-daemon` kept (noctalia hooks into it). Added: `thermald`, `powerManagement.powertop.enable`,
+kernel params (`nvme.noacpi=1`, `pcie_aspm=force`, `mem_sleep_default=deep`), and a systemd service
+capping battery charge at 80% via sysfs. `powertop` available for manual auditing.
 
 ## Impermanence
 **Status:** backburner — some services (Jellyfin, Home Assistant) are easier to configure
@@ -92,6 +89,49 @@ Revisit if the number of manually managed services decreases.
 
 ## Home Assistant
 **Status:** backburner — not yet set up well enough to be worth declaring in Nix.
+
+## Obsidian → zk + Neovim migration
+**Status:** in progress — `zk` and `pandoc` added to `writing.nix`, Obsidian removed from `wayland.nix`.
+
+### zk basics
+`zk` is a CLI zettelkasten tool. It indexes a directory of markdown files and queries over them.
+
+```bash
+zk init ~/notes         # initialize a notebook (one-time)
+zk new -t "title"       # create a new note (opens in $EDITOR)
+zk edit path/note.md    # open a note in $EDITOR
+zk list                 # list all notes
+zk list --tag foo       # list notes tagged #foo
+zk list --match "query" # fuzzy full-text search
+zk list --linked-by path/note.md   # notes that link TO this note
+zk list --link-to path/note.md     # notes this note links TO
+```
+
+Set `$ZK_NOTEBOOK_DIR` to your notes directory so `zk` finds it from anywhere.
+
+### Replacing Obsidian Dataview queries
+
+Dataview in Obsidian works on YAML frontmatter. Keep using YAML frontmatter in your notes — `zk` reads it natively and you can also query it with `yq`.
+
+**Dataview pattern → zk/shell equivalent:**
+
+| Obsidian Dataview | zk / shell |
+|---|---|
+| `TABLE file.name WHERE contains(tags, "todo")` | `zk list --tag todo` |
+| `WHERE status = "open"` | `zk list --match "status: open"` or `grep -r "status: open" ~/notes` |
+| `WHERE file.mtime >= date(today) - dur(7 days)` | `zk list --created-after "1 week ago"` |
+| Tasks inside note bodies (`- [ ] task`) | `grep -r '^\- \[ \]' ~/notes` |
+
+For a combined query (e.g. "open tasks tagged work created this week"):
+```bash
+zk list --tag work --created-after "1 week ago" --format "{{title}}: {{path}}"
+```
+
+### On task sync (phone ↔ laptop)
+
+Taskwarrior sync between phone and laptop is possible via `taskd` (self-hosted sync server) running on `hp`. This is cleaner than todo.txt and avoids starting over. Investigate `vit` (TUI for taskwarrior) as a Neovim-adjacent editing interface. Taskwarrior + taskd on hp = declarable, syncable, no Electron.
+
+---
 
 ## Dotfiles consolidation
 Neovim, tmux, zsh likely have config living in `~/.config` or `assets/` outside the module
