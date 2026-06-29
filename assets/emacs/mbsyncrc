@@ -2,7 +2,7 @@ IMAPAccount protonmail
 Host 127.0.0.1
 Port 1143
 User sona@stau.space
-PassCmd "pass mail/protonmail-bridge"
+PassCmd "pass proton/bridge-password"
 SSLType STARTTLS
 
 IMAPStore protonmail-remote
