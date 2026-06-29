@@ -129,7 +129,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 # paths
-export PATH="$HOME/.local/bin:$XDG_DATA_HOME/cargo/bin:$HOME/.cabal/bin:/opt/texlive/2023/bin/x86_64-linux:$PATH"
+export PATH="$HOME/.local/bin:$XDG_DATA_HOME/cargo/bin:$HOME/.cabal/bin:/opt/texlive/2023/bin/x86_64-linux:$HOME/.config/emacs/bin:$PATH"
 
 # global env vars
 export EDITOR="nvim"

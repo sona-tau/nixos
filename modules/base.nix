@@ -22,6 +22,7 @@
 			htop            # h top
 			bunnyfetch      # cute system info display
 			busybox         # install helpful terminal utilities
+			(lib.hiPrio less)  # busybox less lacks -r; override with GNU less
 			calcure         # calendar
 			coreutils-full  # all the coreutils
 			delta           # diff pager for git
