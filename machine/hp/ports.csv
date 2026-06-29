@@ -10,10 +10,13 @@ port,Title
 2283,Immich
 3000,Forgejo
 5056,Jellyseerr
+5001,Kubo (IPFS API/WebUI)
 5232,Radicale
 7878,radarr
 8080,qBittorrent
 8082,Traccar GUI
+8086,MeTube
+8087,FIDI (Firefly Data Importer)
 8096,Jellyfin
 8123,home-assistant
 8686,lidarr
