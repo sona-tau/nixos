@@ -64,7 +64,7 @@
 					size = 32;
 				};
 
-				# targets.plymouth.enable = false;
+				targets.kde.enable = false;
 			};
 		};
 	};
