@@ -1,5 +1,5 @@
 { config, ... }: {
-	flake.modules.homeManager.base = { pkgs, ... }: {
+	flake.modules.homeManager.base = { pkgs, lib, ... }@hmArgs: {
 		imports = with config.flake.modules.homeManager; [
 			shell
 			zsh
@@ -27,6 +27,7 @@
 			delta           # diff pager for git
 			dust            # check for space in disks
 			ed              # the best text editor ever made
+			entr            # run command on file change (watch→rebuild loop)
 			eza             # terminal ls
 			fd              # better version of find
 			ffmpeg          # video editing software
@@ -46,12 +47,16 @@
 			lsof            # lsof to check outbound connections
 			luajitPackages.lua-lsp  # lua-lsp for NeoVim
 			mpv             # video playing software
-			neovim          # the second best text editor ever made
 			nnn             # terminal file manager
 			pass            # password manager
 			python3         # python
 			unzip           # unzip files
 			uutils-coreutils-noprefix   # uutils
 		];
+
+		# Expose PASSWORD_STORE_DIR to the systemd user session so GUI apps
+		# (like protonmail-bridge) can find pass without being launched from zsh
+		systemd.user.sessionVariables.PASSWORD_STORE_DIR =
+			"${hmArgs.config.xdg.dataHome}/pass";
 	};
 }

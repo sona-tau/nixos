@@ -19,7 +19,7 @@
 					Fingerprinting = true;
 				};
 			};
-			nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
+			# nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
 		});
 	};
 }

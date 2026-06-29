@@ -3,7 +3,7 @@
 		config.home.packages = [
 			pkgs.librewolf
 			pkgs.qutebrowser
-			pkgs.firefoxpwa
+			# pkgs.firefoxpwa
 			pkgs.ungoogled-chromium
 			zen-browser
 		];

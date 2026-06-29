@@ -23,7 +23,6 @@
 			nemo            # file picker
 			neovide         # gui-nvim
 			libnotify       # notification daemon
-			obsidian        # for my Wiki
 			pavucontrol     # audio controller
 			rawtherapee     # image editing software
 			spotify         # music streaming service
