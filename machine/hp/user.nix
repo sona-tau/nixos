@@ -14,6 +14,8 @@
 		packages = [ pkgs.chromaprint ];
 	};
 
+	programs.zsh.shellAliases.ipfs = "ipfs --api /ip4/127.0.0.1/tcp/5001";
+
 	programs.beets = {
 		enable = true;
 
