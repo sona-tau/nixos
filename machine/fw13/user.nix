@@ -4,7 +4,11 @@
 	imports = with homeModules; [
 		base
 		alacritty
+		bluesky
 		browsers
+		kagi
+		keyring
+		offline-docs
 		email
 		fun
 		gtk
@@ -12,12 +16,16 @@
 		lean
 		llm
 		mako
+		neovim
+		emacs
+		taskwarrior
 		minecraft
 		noctalia
 		stylix
 		terminal
 		wallpapers
 		wayland
+		w3m
 		webdev
 		writing
 		zathura
@@ -26,7 +34,7 @@
 
 	my.stylix = {
 		theme = "oxocarbon-dark";
-		wallpaper = ../../assets/media/full/wall2.png;
+		wallpaper = ../../assets/media/full/EvaUnits_oxocarbon-dark_hald8_GaussianRBF_lum1_shape96_near16.png;
 	};
 
 	home = {
