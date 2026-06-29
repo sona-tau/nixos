@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   eval:
-    runs-on: native
+    runs-on: native:host
     steps:
       - uses: actions/checkout@v4
 
