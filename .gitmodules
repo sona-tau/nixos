@@ -1,0 +1,3 @@
+[submodule "assets/nvim"]
+	path = assets/nvim
+	url = ssh://git@git.gay/sona/nvim.git
