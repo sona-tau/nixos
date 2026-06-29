@@ -6,7 +6,6 @@
             mu    # for email stuff
             isync # for email stuff
             texlive.combined.scheme-medium
-            dvisvgm
             cmake  # vterm compilation
             gnumake  # vterm compilation
 		];

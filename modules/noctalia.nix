@@ -4,7 +4,7 @@
 			inputs.noctalia.homeModules.default
 		];
 
-		programs.noctalia-shell = lib.mkForce {
+		programs.noctalia = lib.mkForce {
 				enable = true;
 				settings = {
 					settingsVersion = 0;
