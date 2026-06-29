@@ -2,8 +2,6 @@
 let
 	catppuccin-gitea = pkgs.callPackage ../../packages/catppuccin-gitea.nix {};
 in {
-	imports = [ ./hardware.nix ];
-
 	system.stateVersion = "25.05"; # DO NOT CHANGE
 
 	boot = {
@@ -12,9 +10,10 @@ in {
 			efi.canTouchEfiVariables = true;
 		};
 
-		kernelPackages = pkgs.linuxPackages_hardened;
+		kernelPackages = pkgs.linuxPackages_latest;
 		supportedFilesystems.zfs = true;
 		kernelModules = [ "cdrom" "sr_mod" "sg" "zfs" ];
+		zfs.forceImportRoot = false;
 	};
 
 	networking = {
@@ -81,7 +80,7 @@ in {
 		]);
 	};
 
-	environment.systemPackages = with pkgs; [ ed zfs ];
+	environment.systemPackages = with pkgs; [ ed sops zfs ];
 
 	services = {
 		# lidarr.enable = true;    # TODO: not finished
@@ -131,21 +130,6 @@ in {
 		};
 
 		# qbittorrent — TODO: rarely used, prefer aria2c; re-enable when needed
-
-		netdata = {
-			enable = true;
-
-			package = pkgs.netdata.override {
-				withCloudUi = true;
-			};
-
-			config.global = {
-				"memory mode" = "ram";
-				"debug log" = "none";
-				"access log" = "none";
-				"error log" = "syslog";
-			};
-		};
 
 		radicale = {
 			enable = true;
@@ -208,18 +192,25 @@ in {
 				"http://grafana.hp".extraConfig     = "reverse_proxy localhost:3001";
 				"http://glance.hp".extraConfig      = "reverse_proxy localhost:8085";
 				"http://readeck.hp".extraConfig     = "reverse_proxy localhost:8090";
+				"http://ipfs.hp".extraConfig        = ''
+					handle /ipfs/* {
+						reverse_proxy localhost:8080 {
+							header_up Host ipfs.hp
+						}
+					}
+					handle /ipns/* {
+						reverse_proxy localhost:8080 {
+							header_up Host ipfs.hp
+						}
+					}
+					reverse_proxy localhost:5001
+				'';
 				"http://pinchflat.hp".extraConfig   = "reverse_proxy localhost:8945";
 				"http://immich.hp".extraConfig      = "reverse_proxy localhost:2283";
 				"http://jellyfin.hp".extraConfig    = "reverse_proxy localhost:8096";
 				"http://navidrome.hp".extraConfig   = "reverse_proxy localhost:4533";
 				"http://traccar.hp".extraConfig     = "reverse_proxy localhost:8082";
-				"http://netdata.hp".extraConfig     = "reverse_proxy localhost:19999";
-				"http://homeassistant.hp".extraConfig = ''
-					reverse_proxy localhost:8123 {
-						header_up Host localhost
-					}
-				'';
-				"http://radicale.hp".extraConfig    = "reverse_proxy localhost:5232";
+"http://radicale.hp".extraConfig    = "reverse_proxy localhost:5232";
 				"http://syncthing.hp".extraConfig    = ''
 					reverse_proxy localhost:8384 {
 						header_up Host localhost
@@ -240,33 +231,11 @@ in {
 			};
 		};
 
-		home-assistant = {
-			enable = true;
-
-			extraComponents = [
-				"esphome"
-				"met"
-				"isal"
-				"radio_browser"
-				"caldav"
-				"traccar"
-			];
-
-			config = {
-				default_config = {};
-
-				http = {
-					use_x_forwarded_for = true;
-					trusted_proxies = [ "127.0.0.1" "::1" ];
-				};
-			};
-		};
-
 		immich = {
 			enable = true;
 			port = 2283;
 			host = "127.0.0.1";
-			mediaLocation = "/var/lib/immich";
+			mediaLocation = "/storage/immich";  # was /var/lib/immich
 			machine-learning.enable = true;
 		};
 
@@ -284,7 +253,7 @@ in {
 				};
 
 				server = {
-					ROOT_URL = "http://forgejo.hp";
+					ROOT_URL = "http://git.hp";
 					SSH_PORT = lib.head config.services.openssh.ports;
 				};
 
@@ -301,10 +270,7 @@ in {
 		wantedBy = [ "forgejo.service" ];
 		before = [ "forgejo.service" ];
 
-		serviceConfig = {
-			Type = "oneshot";
-			User = "forgejo";
-		};
+		serviceConfig.Type = "oneshot";
 
 		script = ''
 			install -d ${config.services.forgejo.stateDir}/public/assets/css
@@ -323,4 +289,21 @@ in {
 			options = "--delete-older-than 30d";
 		};
 	};
+
+	sops.secrets = {
+		"navidrome/lastfm-api-key".sopsFile = ../../secrets/hp.yaml;
+		"navidrome/lastfm-secret".sopsFile  = ../../secrets/hp.yaml;
+	};
+
+	sops.templates."navidrome-lastfm.env" = {
+		content = ''
+			ND_LASTFM_APIKEY=${config.sops.placeholder."navidrome/lastfm-api-key"}
+			ND_LASTFM_SECRET=${config.sops.placeholder."navidrome/lastfm-secret"}
+		'';
+		owner = "navidrome";
+		mode  = "0400";
+	};
+
+	systemd.services.navidrome.serviceConfig.EnvironmentFile =
+		config.sops.templates."navidrome-lastfm.env".path;
 }
