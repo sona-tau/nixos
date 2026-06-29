@@ -64,7 +64,7 @@ in {
 				config.flake.modules.nixos.firefly
 				config.flake.modules.nixos.fidi
 				config.flake.modules.nixos.kubo
-				config.flake.modules.nixos.metube
+				# config.flake.modules.nixos.metube  # WIP: fetcherVersion 3 migration on feat/metube
 				config.flake.modules.nixos.grocy
 				config.flake.modules.nixos.monica
 				../machine/hp/hardware.nix
