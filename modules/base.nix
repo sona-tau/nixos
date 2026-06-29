@@ -48,6 +48,7 @@
 			lsof            # lsof to check outbound connections
 			luajitPackages.lua-lsp  # lua-lsp for NeoVim
 			mpv             # video playing software
+			nh              # nicer nixos-rebuild / home-manager wrapper
 			nnn             # terminal file manager
 			openssl         # key and cert generation
 			pass            # password manager

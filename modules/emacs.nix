@@ -1,5 +1,5 @@
 { ... }: {
-	flake.modules.homeManager.emacs = { lib, pkgs, ... }: {
+	flake.modules.homeManager.emacs = { config, lib, pkgs, ... }: {
 		home.packages = with pkgs; [
 			symbola # used for fonts emacs can't render
 			emacs-pgtk
@@ -10,5 +10,9 @@
             cmake  # vterm compilation
             gnumake  # vterm compilation
 		];
+
+		xdg.configFile."doom".source =
+			config.lib.file.mkOutOfStoreSymlink
+				"${config.home.homeDirectory}/nixos/assets/emacs/doom";
 	};
 }
