@@ -290,9 +290,26 @@ in {
 		};
 	};
 
+	services.gitea-actions-runner.instances.hp = {
+		enable = true;
+		name   = "hp";
+		url    = "http://localhost:3000";
+
+		tokenFile = config.sops.templates."gitea-runner-token.env".path;
+
+		# run jobs directly on the host — no container runtime needed
+		labels = [ "native:host" ];
+
+		hostPackages = with pkgs; [
+			bash coreutils curl gawk gitMinimal gnused nodejs wget
+			nix
+		];
+	};
+
 	sops.secrets = {
-		"navidrome/lastfm-api-key".sopsFile = ../../secrets/hp.yaml;
-		"navidrome/lastfm-secret".sopsFile  = ../../secrets/hp.yaml;
+		"navidrome/lastfm-api-key".sopsFile  = ../../secrets/hp.yaml;
+		"navidrome/lastfm-secret".sopsFile   = ../../secrets/hp.yaml;
+		"forgejo/runner-token".sopsFile      = ../../secrets/hp.yaml;
 	};
 
 	sops.templates."navidrome-lastfm.env" = {
@@ -302,6 +319,12 @@ in {
 		'';
 		owner = "navidrome";
 		mode  = "0400";
+	};
+
+	sops.templates."gitea-runner-token.env" = {
+		content = "TOKEN=${config.sops.placeholder."forgejo/runner-token"}";
+		owner   = "gitea-runner";
+		mode    = "0400";
 	};
 
 	systemd.services.navidrome.serviceConfig.EnvironmentFile =

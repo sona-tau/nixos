@@ -148,26 +148,13 @@ operational gain over SSH + rebuild is small given the current setup.
 A scheduled systemd timer that runs `nix flake update` and opens a PR on Forgejo,
 keeping inputs current without manual effort.
 
-## Monitoring — Prometheus + Grafana
-**Status:** not started, high priority. Currently using netdata; considering a switch for more
-control over data and dashboards. Inspiration: https://github.com/ibizaman/selfhostblocks
-`services.prometheus` + `services.grafana` in NixOS are well-supported.
-Expose via Caddy at grafana.hp. Replace or run alongside netdata until stable.
+## ~~Monitoring — Prometheus + Grafana~~ ✓ done
 
-## Glance — homepage dashboard
-**Status:** not started, high priority.
-A single-page homepage aggregating: Prometheus/Grafana stats widgets, RSS feeds, news.
-`services.glance` is in nixpkgs. Expose at glance.hp (or hp/ root).
+## ~~Glance — homepage dashboard~~ ✓ done
 
-## Readeck — read-it-later
-**Status:** not started, high priority.
-Self-hosted Pocket/Instapaper alternative. Good for the HN backlog.
-Available as `pkgs.readeck`. Expose at readeck.hp.
+## ~~Readeck — read-it-later~~ ✓ done
 
-## Pinchflat — YouTube media manager
-**Status:** not started, high priority.
-Declarative YouTube subscriptions/downloads. Replaces ad-hoc yt-dlp scripts.
-NixOS module available. Expose UI at pinchflat.hp. Store media alongside Jellyfin/Navidrome.
+## ~~Pinchflat — YouTube media manager~~ ✓ done
 
 ## *arr stack — media automation
 **Status:** commented out (lidarr, sonarr, radarr, jellyseerr). Interesting but lower priority.

@@ -1,0 +1,17 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  eval:
+    runs-on: native
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: eval fw13
+        run: nix eval .#nixosConfigurations.fw13.config.system.build.toplevel.drvPath
+
+      - name: eval est
+        run: nix eval .#nixosConfigurations.est.config.system.build.toplevel.drvPath
+
+      - name: eval hp
+        run: nix eval .#nixosConfigurations.hp.config.system.build.toplevel.drvPath
