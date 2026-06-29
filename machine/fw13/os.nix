@@ -9,6 +9,12 @@
 			theme = "blahaj";
 			themePackages = [ pkgs.plymouth-blahaj-theme ];
 		};
+
+		kernelParams = [
+			"nvme.noacpi=1"           # NVMe power saving
+			"pcie_aspm=force"         # PCIe Active State Power Management
+			"mem_sleep_default=deep"  # S3 deep sleep (better suspend power draw)
+		];
 	};
 
 	networking = {
@@ -44,9 +50,17 @@
 		};
 	};
 
+	console.useXkbConfig = true;
+
+	powerManagement.powertop.enable = true;
+
 	services = {
 		getty.autologinUser = "sona";
+		gnome.gnome-keyring.enable = true;
+		fprintd.enable = true;
+		fwupd.enable = true;
 		power-profiles-daemon.enable = true;
+		thermald.enable = true;
 		upower.enable = true;
 
 		xserver.xkb = {
@@ -68,6 +82,16 @@
 		};
 	};
 
+	systemd.services.battery-charge-limit = {
+		description = "Set battery charge limit to 80%";
+		wantedBy = [ "multi-user.target" ];
+		serviceConfig = {
+			Type = "oneshot";
+			RemainAfterExit = true;
+			ExecStart = "${pkgs.bash}/bin/bash -c 'echo 80 > /sys/class/power_supply/BAT1/charge_control_end_threshold'";
+		};
+	};
+
 	users.users."sona" = {
 		packages = with pkgs; [
 			neovim
@@ -78,7 +102,9 @@
 		extraGroups = [
 			"plugdev"
 			"adbusers"
-			"docker"
+			"seat"
+			"video"
+			"input"
 		];
 	};
 
@@ -91,10 +117,12 @@
 			borgbackup
 			onedrive
 			pass
+			powertop
+			linuxPackages.turbostat    # Intel RAPL power/freq per-core breakdown (works where powertop doesn't)
 			qemu
 			ed
 			just
-			firefoxpwa
+			# firefoxpwa
 			inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 		];
 	};
@@ -108,21 +136,28 @@
 			ipafont
 			dejavu_fonts
 			ipaexfont
-			nasin-nanpa
-			linja-pi-pu-lukin
 			ibm-plex
 			ocr-a
 			apl386
 			bqn386
 			hermit
+			# toki pona
+			nasin-nanpa
+			nasin-nanpa-helvetica
+			nasin-nanpa-ucsur
+			linja-pi-pu-lukin
+			hunspellDicts.tok
 		] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 	};
+
+	security.pki.certificateFiles = [ ../../assets/certs/protonmail-bridge.pem ];
+	security.pam.services.doas.fprintAuth = true;
 
 	programs = {
 		firefox = {
 			enable = true;
 			package = pkgs.firefox;
-			nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
+			# nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
 		};
 	};
 
