@@ -1,13 +1,14 @@
 { ... }: {
-	flake.modules.homeManager.neovim = { config, pkgs, ... }: {
-		programs.neovim = {
-			enable = true;
-			defaultEditor = true;
-			viAlias = true;
-			vimAlias = true;
-		};
+	flake.modules.homeManager.neovim = { lib, pkgs, ... }: {
+		home.packages = [ pkgs.neovim ];
 
-		xdg.configFile."nvim".source =
-			config.lib.file.mkOutOfStoreSymlink "/home/sona/nixos/assets/nvim";
+		# programs.neovim generates its own init.lua and writes it through any
+		# symlink at ~/.config/nvim, overwriting the real config. Plain package
+		# install avoids this; lazy.nvim handles all plugin management anyway.
+		home.activation.nvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ]
+			''if [[ -d "$HOME/.config/nvim" && ! -L "$HOME/.config/nvim" ]]; then
+				rm -rf "$HOME/.config/nvim"
+			fi
+			ln -sfn /home/sona/nixos/assets/nvim "$HOME/.config/nvim"'';
 	};
 }
