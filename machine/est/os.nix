@@ -1,6 +1,4 @@
 { pkgs, lib, ... }: {
-	imports = [ ./hardware.nix ];
-
 	system.stateVersion = "23.11"; # DO NOT CHANGE
 
 	boot = {

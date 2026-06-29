@@ -19,6 +19,7 @@ in {
 				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
+				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{
 					home-manager = (mkHomeManager {
@@ -38,6 +39,7 @@ in {
 				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
+				../machine/est/hardware.nix
 				../machine/est/os.nix
 				{
 					home-manager = (mkHomeManager {}) // {
@@ -55,12 +57,16 @@ in {
 				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
+				config.flake.modules.nixos.monitoring
+				config.flake.modules.nixos.glance
+				config.flake.modules.nixos.readeck
+				config.flake.modules.nixos.pinchflat
+				config.flake.modules.nixos.firefly
+				config.flake.modules.nixos.fidi
+				config.flake.modules.nixos.kubo
+				config.flake.modules.nixos.metube
+				../machine/hp/hardware.nix
 				../machine/hp/os.nix
-				../services/monitoring.nix
-				../services/glance.nix
-				../services/readeck.nix
-				../services/pinchflat.nix
-				../services/firefly.nix
 				{
 					home-manager = (mkHomeManager {}) // {
 						users."sona".imports = [ ../machine/hp/user.nix ];
