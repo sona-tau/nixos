@@ -23,6 +23,7 @@
 			stylix = {
 				enable = true;
 				autoEnable = true;
+				overlays.enable = false;
 				base16Scheme = if cfg.theme == "zenbones"
 					then import ../assets/themes/zenbones.nix
 					else if cfg.theme == "moonfly"
@@ -35,24 +36,24 @@
 
 				fonts = {
 					monospace = {
-						package = pkgs.hermit;
-						name = "Hermit";
+						package = pkgs.mno16;
+						name = "Mno16";
 					};
 
 					sansSerif = {
-						package = pkgs.dejavu_fonts;
-						name = "DejaVu Sans";
+						package = pkgs.vegur;
+						name = "Vegur";
 					};
 
 					serif = {
-						package = pkgs.dejavu_fonts;
-						name = "DejaVu Serif";
+						package = pkgs.medio;
+						name = "Medio";
 					};
 
 					sizes = {
-						applications = 12;
+						applications = 13;
 						terminal = 13;
-						desktop = 10;
+						desktop = 13;
 						popups = 10;
 					};
 				};

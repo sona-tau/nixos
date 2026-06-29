@@ -6,8 +6,8 @@
 
 				settings = {
 					main = {
-						pad = "10x10";
-						# theme = "moonfly";
+						pad = "0x0";
+						include = "${config.xdg.configHome}/foot/colors.ini";
 					};
 
 					bell = {
