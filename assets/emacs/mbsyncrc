@@ -4,6 +4,7 @@ Port 1143
 User sona@stau.space
 PassCmd "pass proton/bridge-password"
 SSLType STARTTLS
+CertificateFile /home/sona/nixos/assets/certs/protonmail-bridge.pem
 
 IMAPStore protonmail-remote
 Account protonmail

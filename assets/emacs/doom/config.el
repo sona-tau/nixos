@@ -1,35 +1,6 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
 (setq user-full-name "Sona Tau Estrada Rivera"
       user-mail-address "sona@stau.space")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
 (use-package doom-themes
   :ensure t
   :custom
@@ -56,7 +27,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+;;(setq org-directory "~/org-roam/")
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -99,13 +70,11 @@
         mu4e-trash-folder "/Trash"
         mu4e-refile-folder "/Archive"
         mu4e-sent-messages-behavior 'delete
+        mu4e-change-filenames-when-moving t
         smtpmail-smtp-server "127.0.0.1"
         smtpmail-smtp-service 1025
         smtpmail-stream-type 'starttls
         message-send-mail-function #'smtpmail-send-it))
-
-(use-package! org-fragtog
-  :hook (org-mode . org-fragtog-mode))
 
 (use-package! org
   :config
@@ -121,3 +90,42 @@
   (defengine wikipedia  "https://en.wikipedia.org/wiki/Special:Search?search=%s" :keybinding "w")
   (defengine nixpkgs    "https://search.nixos.org/packages?query=%s" :keybinding "n")
   (defengine hoogle     "https://hoogle.haskell.org/?hoogle=%s"      :keybinding "h"))
+
+(custom-theme-set-faces!
+  'doom-one
+  '(org-level-8 :inherit outline-3 :height 1.0)
+  '(org-level-7 :inherit outline-3 :height 1.0)
+  '(org-level-6 :inherit outline-3 :height 1.1)
+  '(org-level-5 :inherit outline-3 :height 1.2)
+  '(org-level-4 :inherit outline-3 :height 1.3)
+  '(org-level-3 :inherit outline-3 :height 1.4)
+  '(org-level-2 :inherit outline-2 :height 1.5)
+  '(org-level-1 :inherit outline-1 :height 1.6)
+  '(org-document-title :height 1.0 :bold t :underline nil))
+
+(map! :leader
+      :desc "Comment line" "-" #'comment-line)
+
+(setq org-directory "~/org/")
+(setq org-modern-table-vertical 1)
+(setq org-modern-table t)
+;; (add-hook 'org-mode-hook #'hl-todo-mode)
+(setq confirm-kill-emacs nil)
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
