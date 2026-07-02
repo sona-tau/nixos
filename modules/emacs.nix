@@ -18,5 +18,26 @@
 		home.file.".mbsyncrc".source =
 			config.lib.file.mkOutOfStoreSymlink
 				"${config.home.homeDirectory}/nixos/assets/emacs/mbsyncrc";
+
+		systemd.user.services.mbsync = {
+			Unit = {
+				Description = "Sync mail via mbsync";
+				After = [ "network.target" ];
+			};
+			Service = {
+				Type = "oneshot";
+				ExecStart = "${pkgs.isync}/bin/mbsync -a";
+				Environment = [ "PATH=${lib.makeBinPath [ pkgs.pass pkgs.gnupg ]}" ];
+			};
+		};
+
+		systemd.user.timers.mbsync = {
+			Unit.Description = "Periodic mbsync mail fetch";
+			Timer = {
+				OnCalendar = "*:0/5";
+				Persistent = true;
+			};
+			Install.WantedBy = [ "timers.target" ];
+		};
 	};
 }
