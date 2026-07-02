@@ -19,6 +19,7 @@ in {
 				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
+				config.flake.modules.nixos.niri
 				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{
