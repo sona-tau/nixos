@@ -16,6 +16,11 @@ in {
 		zfs.forceImportRoot = false;
 	};
 
+	xdg.portal = {
+		enable = true;
+		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+	};
+
 	networking = {
 		hostName = "hp";
 		hostId = "924e4a77";
