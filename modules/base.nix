@@ -15,13 +15,12 @@
 			bat             # le pager
 			bc              # calculator
 			borgbackup      # backup software
-			perkeep         # backup software
+			perkeep         # backup software #TODO: consider whether this should get removed
 			rclone          # copying stuff
 			brightnessctl   # brightness manager
 			btop            # b top
 			htop            # h top
 			bunnyfetch      # cute system info display
-			busybox         # install helpful terminal utilities
 			(lib.hiPrio less)  # busybox less lacks -r; override with GNU less
 			calcure         # calendar
 			coreutils-full  # all the coreutils
@@ -56,7 +55,11 @@
 			python3         # python
 			sops            # secrets editor (age-encrypted yaml)
 			unzip           # unzip files
-			uutils-coreutils-noprefix   # uutils
+			diffutils
+			findutils
+			gnused
+			gnutar
+			plan9port
 		];
 
 		# Expose PASSWORD_STORE_DIR to the systemd user session so GUI apps
