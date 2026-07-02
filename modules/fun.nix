@@ -5,7 +5,6 @@
 			cowsay          # cow say
 			steam           # video games
 			tic-80          # fantasy computer emulator
-			vesktop         # discord emulator
 		];
 	};
 }
