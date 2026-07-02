@@ -90,7 +90,7 @@
 
 		nix = {
 			package = pkgs.nixVersions.stable;
-			settings.experimental-features = [ "nix-command" "flakes" ];
+			settings.experimental-features = [ "nix-command" "ca-derivations" "flakes" ];
 			extraOptions = ''warn-dirty = false'';
 		};
 	};
