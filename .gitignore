@@ -1,0 +1,5 @@
+# emacs cache files
+assets/emacs/doom/eln-cache/
+
+# Sometimes .bak files will get created as build artifacts
+*.bak

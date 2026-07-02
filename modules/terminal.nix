@@ -28,6 +28,7 @@
 			yt-dlp          # terminal YouTube
 			ytfzf           # YouTube TUI (browse/play via fzf + mpv)
 			lnav            # Log file viewer
+      croc            # Send and receive files in a simple way
 		];
 	};
 }
