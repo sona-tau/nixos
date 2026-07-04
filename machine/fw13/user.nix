@@ -34,7 +34,7 @@
 
 	my.stylix = {
 		theme = "oxocarbon-dark";
-		wallpaper = ../../assets/media/full/EvaUnits_oxocarbon-dark_hald8_GaussianRBF_lum1_shape96_near16.png;
+    wallpaper = ../../assets/astero-20190608.jpg;
 	};
 
 	home = {

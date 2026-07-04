@@ -32,7 +32,7 @@
 					then "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml"
 					else "${pkgs.base16-schemes}/share/themes/${cfg.theme}.yaml";
 
-					image = cfg.wallpaper;
+				image = lib.mkIf (cfg ? wallpaper) cfg.wallpaper;
 
 				fonts = {
 					monospace = {
