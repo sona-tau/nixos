@@ -40,7 +40,10 @@
 			fetchart.auto = true;
 			embedart.auto = true;
 			lyrics.auto = false;
-			lastgenre.auto = true;
+			lastgenre = {
+				auto = true;
+				separator = ",";
+			};
 			chroma.auto = true;
 
 			spotify = {
