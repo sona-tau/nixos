@@ -1,8 +1,14 @@
 { ... }: {
 	flake.modules.nixos.firefly = { config, ... }: {
-		sops.secrets."firefly-iii/app-key" = {
-			sopsFile = ../secrets/hp.yaml;
-			owner = config.services.firefly-iii.user;
+		sops.secrets = {
+			"firefly-iii-data-importer/personal-access-token" = {
+				sopsFile = ../secrets/hp.yaml;
+				owner = config.services.firefly-iii-data-importer.user;
+			};
+			"firefly-iii/app-key" = {
+				sopsFile = ../secrets/hp.yaml;
+				owner = config.services.firefly-iii.user;
+			};
 		};
 
 		services = {
@@ -56,7 +62,7 @@
 					file_server
 				'';
 				"http://fidi.hp".extraConfig = "reverse_proxy localhost:8087";
-
+			};
 		};
 	};
 }
