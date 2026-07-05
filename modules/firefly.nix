@@ -18,10 +18,14 @@
 
 				settings = {
 					APP_ENV = "local";
-					APP_URL = "http://firefly.hp";
-					FIREFLY_III_ACCESS_TOKEN = config.sops.secrets."firefly-iii-data-importer/personal-access-token";
+					APP_DEBUG = true;
+					LOG_LEVEL = "debug";
+					LOG_CHANNEL = "stack";
+
+					FIREFLY_III_ACCESS_TOKEN = config.sops.secrets."firefly-iii-data-importer/personal-access-token".path;
 				};
 			};
+
 			firefly-iii = {
 				enable = true;
 
