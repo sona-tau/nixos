@@ -10,7 +10,7 @@ in {
 			efi.canTouchEfiVariables = true;
 		};
 
-		kernelPackages = pkgs.linuxPackages_6_12_hardened;
+		kernelPackages = pkgs.linuxPackagesFor (pkgs.linuxKernel.kernels.linux_6_18);
 		supportedFilesystems.zfs = true;
 		kernelModules = [ "cdrom" "sr_mod" "sg" "zfs" ];
 		zfs.forceImportRoot = false;
@@ -92,6 +92,7 @@ in {
 		# sonarr.enable = true;    # TODO: not finished
 		# radarr.enable = true;    # TODO: not finished
 		# jellyseerr.enable = true; # TODO: not finished
+		ipfs.enable = true;
 		syncthing = {
 			enable = true;
 			user = "sona";
