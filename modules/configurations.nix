@@ -2,7 +2,7 @@
 	mkHomeManager = extraSpecialArgs: {
 		useGlobalPkgs = true;
 		useUserPackages = true;
-		backupFileExtension = ".bak";
+		backupFileExtension = "bak";
 		extraSpecialArgs = {
 			inherit inputs;
 			homeModules = config.flake.modules.homeManager;
@@ -20,6 +20,7 @@ in {
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				config.flake.modules.nixos.niri
+				config.flake.modules.nixos.wayland
 				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{
