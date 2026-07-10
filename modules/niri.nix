@@ -1,7 +1,7 @@
 { ... }: {
-	flake.modules.homeManager.niri = { pkgs, ... }: {
+	flake.modules.homeManager.niri = { config, pkgs, ... }: {
 		home = {
-			file.".config/niri/config.kdl".source = ../assets/niri/config.kdl;
+			file.".config/niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/assets/niri/config.kdl";
 			packages = [ pkgs.libgbm ];
 		};
 	};

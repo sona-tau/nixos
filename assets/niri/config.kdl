@@ -23,7 +23,7 @@ input {
 		natural-scroll
 		// accel-speed 0.2
 		accel-profile "flat"
-		scroll-factor 0.1
+		scroll-factor 0.5
 	}
 
 	mouse {
@@ -198,7 +198,7 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -318,25 +318,23 @@ binds {
 	Mod+Return { spawn "footclient" "tmux"; }
 	Mod+Shift+Return { spawn "foot"; }
 
-	Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-	Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-	Mod+Comma { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
-	Mod+Shift+C { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
-	Mod+Shift+D { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
-	Mod+E { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
-	Mod+Shift+L { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+	Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+	Mod+S { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+	Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
+	Mod+Shift+C { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+	Mod+Shift+L { spawn "noctalia" "msg" "session" "lock"; }
 
 	Mod+G { spawn "zen"; }
 	Super+Alt+L { spawn "swaylock"; }
 
-	XF86AudioRaiseVolume { spawn "noctalia-shell" "ipc" "call" "volume" "increase"; }
-	XF86AudioPlay { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
-	XF86AudioPrev { spawn "noctalia-shell" "ipc" "call" "media" "previous"; }
-	XF86AudioNext { spawn "noctalia-shell" "ipc" "call" "media" "next"; }
-	XF86AudioLowerVolume { spawn "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-	XF86AudioMute allow-when-locked=true { spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
-	XF86MonBrightnessUp { spawn "noctalia-shell" "ipc" "call" "brightness" "increase"; }
-	XF86MonBrightnessDown { spawn "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+	XF86AudioMute allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
+	XF86AudioLowerVolume { spawn "noctalia" "msg" "volume-down"; }
+	XF86AudioRaiseVolume { spawn "noctalia" "msg" "volume-up"; }
+	XF86AudioPrev { spawn "noctalia" "msg" "media" "previous"; }
+	XF86AudioPlay { spawn "noctalia" "msg" "media" "toggle"; }
+	XF86AudioNext { spawn "noctalia" "msg" "media" "next"; }
+	XF86MonBrightnessDown { spawn "noctalia" "msg" "brightness-down"; }
+	XF86MonBrightnessUp { spawn "noctalia" "msg" "brightness-up"; }
 
 	Mod+Shift+Q { close-window; }
 	Mod+Left  { focus-column-left; }
@@ -456,6 +454,8 @@ debug {
 }
 
 layer-rule {
-	match namespace="^noctalia-overview*"
+	match namespace="^noctalia-backdrop$"
 	place-within-backdrop true
 }
+
+include "noctalia.kdl"

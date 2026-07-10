@@ -34,7 +34,7 @@
 
 	my.stylix = {
 		theme = "oxocarbon-dark";
-    wallpaper = ../../assets/astero-20190608.jpg;
+    # wallpaper = ../../assets/bg.jpg;
 	};
 
 	home = {
