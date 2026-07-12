@@ -31,7 +31,7 @@
 
 
 	fileSystems."/home/sona/omnium-gatherum" = {
-	  device = "fw13:/home/sona/omnium-gatherum";
+	  device = "fw13:/home/sona/Git/omnium-gatherum";
 	  fsType = "nfs4";
 	  options = [
 	    "x-systemd.automount"

@@ -76,7 +76,7 @@
 		nfs.server = {
 			enable = true;
 			exports = ''
-				~/omnium-gatherum  est(rw,nohide,insecure,no_subtree_check,no_root_squash)
+				/home/sona/Git/omnium-gatherum  est(rw,nohide,insecure,no_subtree_check,no_root_squash)
 			'';
 		};
 
@@ -86,6 +86,14 @@
 			alsa.support32Bit = true;
 			pulse.enable = true;
 			jack.enable = true;
+		};
+	};
+
+	networking.firewall = {
+		enable = true;
+		interfaces.tailscale0 = {
+			allowedTCPPorts = [ 2049 ];
+			allowedUDPPorts = [ 2049 ];
 		};
 	};
 
@@ -169,6 +177,7 @@
 	};
 
 	nix.settings = {
+		trusted-users = [ "sona" "root" ];
 		substituters = [ "https://cache.iog.io" ];
 		extra-substituters = [ "https://noctalia.cachix.org" ];
 		trusted-public-keys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
