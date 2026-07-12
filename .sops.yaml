@@ -1,7 +1,7 @@
 keys:
   # Machine host keys (derived from age -C age-keygen)
   - &hp   age1ujdlljqpna9e8tmk4ymns6mm6gnq8ac892mn4tuljsgnkzdt7y7qsru9h4
-  - &fw13 age1rxvhxas7hu4dn6x6vywxdacd8ykzjxlvtufqzh232mvluf30kc8qka4rth
+  - &fw13 age1u9msp0xjlvx2h9wjm9cm396l7uj67szmlrqmm6kv295eknmuyfpsw94snw
   - &est age1dx6jju76dzg0tphzk5a544vr8rd4z8aenj6gy2hrvjhf0nahh9kq3m97c5
 
   # User key (derived from ~/.ssh/id_ed25519)
@@ -20,6 +20,7 @@ creation_rules:
           - *hp
           - *fw13
           - *est
+          - *sona
 
   # Shared secrets (e.g. cross-machine keys): sona's key only
   - path_regex: secrets/common\.yaml$
