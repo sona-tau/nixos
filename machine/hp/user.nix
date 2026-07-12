@@ -45,6 +45,7 @@
         "fromfilename"
         "spotify"
         "deezer"
+        "importfeeds"
       ];
 
       fetchart.auto = true;
@@ -60,6 +61,12 @@
         data_source_mismatch_penalty = 0.7;
         # client_id and client_secret live in ~/.config/beets/spotify-secrets.yaml
         # which is included below via extraConfig
+      };
+      importfeeds = {
+        formats = "m3u_session";
+        dir = "~/playlists";
+        m3u_name = "imported_playlist";
+        absolute_path = "yes";
       };
 
       deezer.data_source_mismatch_penalty = 0.7;
