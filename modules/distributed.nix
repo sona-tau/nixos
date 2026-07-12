@@ -1,5 +1,5 @@
 { ... }: {
-	flake.modules.homeManager = {
+	flake.modules.nixos = {
 		distributed-host = { ... }: {
 			users = {
 				users."nixremote" = {

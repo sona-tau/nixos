@@ -45,6 +45,7 @@ in {
 				config.flake.modules.nixos.common
 				config.flake.modules.nixos.plan9
 				config.flake.modules.nixos.attic
+				config.flake.modules.nixos.distributed-host
 				../machine/est/hardware.nix
 				../machine/est/os.nix
 				{
