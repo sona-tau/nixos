@@ -34,6 +34,11 @@
 			url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+		attic = {
+			url = "github:zhaofengli/attic";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; }
