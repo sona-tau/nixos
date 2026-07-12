@@ -1,58 +1,68 @@
 { homeModules, pkgs, ... }: {
-	programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-	imports = with homeModules; [
-		base
-		terminal
-	];
+  imports = with homeModules; [
+    base
+    terminal
+  ];
 
-	home = {
-		username = "sona";
-		homeDirectory = "/home/sona";
-		stateVersion = "24.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
+  home = {
+    username = "sona";
+    homeDirectory = "/home/sona";
+    stateVersion = "24.11"; # WARNING: DO NOT EVER CHANGE THIS VALUE EVER !
 
-		packages = [ pkgs.chromaprint ];
-	};
+    packages = [ pkgs.chromaprint ];
+  };
 
-	programs.zsh.shellAliases.ipfs = "ipfs --api /ip4/127.0.0.1/tcp/5001";
+  programs.zsh.shellAliases.ipfs = "ipfs --api /ip4/127.0.0.1/tcp/5001";
 
-	programs.beets = {
-		enable = true;
+  programs.beets = {
+    enable = true;
 
-		settings = {
-			include = [ "~/.config/beets/secrets.yaml" ];
-			library = "/storage/storage/.beets/library.db";
-			directory = "/storage/storage/Music";
+    settings = {
+      include = [ "~/.config/beets/secrets.yaml" ];
+      library = "/storage/storage/.beets/library.db";
+      directory = "/storage/storage/Music";
 
-			move = true;
-			copy = false;
+      move = true;
+      copy = false;
 
-			import = {
-				move = true;
-				write = true;
-				singletons = true;
-			};
+      import = {
+        move = true;
+        write = true;
+        singletons = true;
+      };
 
-			match.strong_rec_thresh = 0.49;
+      match.strong_rec_thresh = 0.49;
 
-			plugins = [ "fetchart" "embedart" "lyrics" "lastgenre" "mbsync" "chroma" "fromfilename" "spotify" "deezer" ];
+      plugins = [
+        "fetchart"
+        "embedart"
+        "lyrics"
+        "lastgenre"
+        "mbsync"
+        "chroma"
+        "fromfilename"
+        "spotify"
+        "deezer"
+      ];
 
-			fetchart.auto = true;
-			embedart.auto = true;
-			lyrics.auto = false;
-			lastgenre = {
-				auto = true;
-				separator = ",";
-			};
-			chroma.auto = true;
+      fetchart.auto = true;
+      embedart.auto = true;
+      lyrics.auto = false;
+      lastgenre = {
+        auto = true;
+        separator = ",";
+      };
+      chroma.auto = true;
 
-			spotify = {
-				data_source_mismatch_penalty = 0.7;
-				# client_id and client_secret live in ~/.config/beets/spotify-secrets.yaml
-				# which is included below via extraConfig
-			};
+      spotify = {
+        data_source_mismatch_penalty = 0.7;
+        # client_id and client_secret live in ~/.config/beets/spotify-secrets.yaml
+        # which is included below via extraConfig
+      };
 
-			deezer.data_source_mismatch_penalty = 0.7;
-		};
-	};
+      deezer.data_source_mismatch_penalty = 0.7;
+    };
+  };
 }

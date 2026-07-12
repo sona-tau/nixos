@@ -1,10 +1,10 @@
 { ... }: {
-	flake.modules.homeManager.zathura = { ... }: {
-		programs.zathura = {
-			enable = true;
-			options = {
-				"recolor" = true;
-			};
-		};
-	};
+  flake.modules.homeManager.zathura = { ... }: {
+    programs.zathura = {
+      enable = true;
+      options = {
+        "recolor" = true;
+      };
+    };
+  };
 }

@@ -1,5 +1,1 @@
-{ ... }: {
-	flake.modules.homeManager.gaming = { ... }: {
-		programs.lutris.enable = true;
-	};
-}
+{ ... }: { flake.modules.homeManager.gaming = { ... }: { programs.lutris.enable = true; }; }

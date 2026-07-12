@@ -1,8 +1,13 @@
 { ... }: {
-	flake.modules.homeManager.shell = { config, lib, ... }: let cfg = config.my.shell; in {
-		options.my.shell = lib.mkOption {
-			default = "zsh";
-			type = lib.types.str;
-		};
-	};
+  flake.modules.homeManager.shell =
+    { config, lib, ... }:
+    let
+      cfg = config.my.shell;
+    in
+    {
+      options.my.shell = lib.mkOption {
+        default = "zsh";
+        type = lib.types.str;
+      };
+    };
 }

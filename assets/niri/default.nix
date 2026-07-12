@@ -1,7 +1,7 @@
+{ config, lib, ... }:
+let
+  cfg = config.eva;
+in
 {
-    config,
-    lib,
-    ...
-}: let cfg = config.eva; in {
-    home.file.".config/niri/config.kdl".source = lib.mkIf cfg.enable ./config.kdl;
+  home.file.".config/niri/config.kdl".source = lib.mkIf cfg.enable ./config.kdl;
 }

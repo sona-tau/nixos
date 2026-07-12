@@ -1,12 +1,15 @@
 { ... }: {
-	flake.modules.homeManager.zen = { config, pkgs, ... }: {
-		home.packages = with pkgs; [ fortune cbonsai ];
+  flake.modules.homeManager.zen = { config, pkgs, ... }: {
+    home.packages = with pkgs; [
+      fortune
+      cbonsai
+    ];
 
-		home.file."${config.xdg.dataHome}" = {
-			source = ../assets/fortune;
-			recursive = true;
-		};
+    home.file."${config.xdg.dataHome}" = {
+      source = ../assets/fortune;
+      recursive = true;
+    };
 
-		programs.zsh.initContent = ''fortune ~/.local/share/fortune/zen'';
-	};
+    programs.zsh.initContent = "fortune ~/.local/share/fortune/zen";
+  };
 }

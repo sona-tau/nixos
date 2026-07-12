@@ -1,61 +1,68 @@
 { ... }: {
-	flake.modules.nixos = {
-		distributed-host = { ... }: {
-			users = {
-				users."nixremote" = {
-					isSystemUser = true;
-					group = "nixremote";
-					useDefaultShell = true;
-					openssh.authorizedKeys.keys = [
-						"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDVYH7L4b+9xrjAmlwTAnMOz7F0kdyOKBw6KBrzGO/yk root@fw13"
-					];
-				};
-				groups.nixremote = { };
-			};
+  flake.modules.nixos = {
+    distributed-host = { ... }: {
+      users = {
+        users."nixremote" = {
+          isSystemUser = true;
+          group = "nixremote";
+          useDefaultShell = true;
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDVYH7L4b+9xrjAmlwTAnMOz7F0kdyOKBw6KBrzGO/yk root@fw13"
+          ];
+        };
+        groups.nixremote = { };
+      };
 
-			nix = {
-				nrBuildUsers = 64;
-				settings = {
-					trusted-users = [ "nixremote" ];
-					max-jobs = "auto";
-					cores = 0;
-					min-free = 10 * 1024 * 1024;
-					max-free = 200 * 1024 * 1024;
-				};
-			};
+      nix = {
+        nrBuildUsers = 64;
+        settings = {
+          trusted-users = [ "nixremote" ];
+          max-jobs = "auto";
+          cores = 0;
+          min-free = 10 * 1024 * 1024;
+          max-free = 200 * 1024 * 1024;
+        };
+      };
 
-			systemd.services.nix-daemon.serviceConfig = {
-				MemoryAccounting = true;
-				MemoryMax = "90%";
-				OOMScoreAdjust = 500;
-			};
-		};
+      systemd.services.nix-daemon.serviceConfig = {
+        MemoryAccounting = true;
+        MemoryMax = "90%";
+        OOMScoreAdjust = 500;
+      };
+    };
 
-		distributed-client = { config, lib, pkgs, ... }: {
-			nix = {
-				buildMachines = [
-					{
-						hostName = "est";
-						sshUser = "nixremote";
-						sshKey = "/root/.ssh/nixremote";
-						system = "x86_64-linux";
-						systems = [ "x86_64-linux" ];
-						protocol = "ssh-ng";
-						maxJobs = 8;
-						speedFactor = 2;
-						supportedFeatures = [
-							"nixos-test"
-							"benchmark"
-							"big-parallel"
-							"kvm"
-						];
-						mandatoryFeatures = [];
-					}
-				];
+    distributed-client =
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
+      {
+        nix = {
+          buildMachines = [
+            {
+              hostName = "est";
+              sshUser = "nixremote";
+              sshKey = "/root/.ssh/nixremote";
+              system = "x86_64-linux";
+              systems = [ "x86_64-linux" ];
+              protocol = "ssh-ng";
+              maxJobs = 8;
+              speedFactor = 2;
+              supportedFeatures = [
+                "nixos-test"
+                "benchmark"
+                "big-parallel"
+                "kvm"
+              ];
+              mandatoryFeatures = [ ];
+            }
+          ];
 
-				distributedBuilds = true;
-				settings.builders-use-substitutes = true;
-			};
-		};
-	};
+          distributedBuilds = true;
+          settings.builders-use-substitutes = true;
+        };
+      };
+  };
 }

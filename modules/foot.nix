@@ -1,48 +1,48 @@
 { ... }: {
-	flake.modules.homeManager.foot = { config, pkgs, ... }: {
-			programs.foot = {
-				enable = true;
-				server.enable = true;
+  flake.modules.homeManager.foot = { config, pkgs, ... }: {
+    programs.foot = {
+      enable = true;
+      server.enable = true;
 
-				settings = {
-					main = {
-						pad = "0x0";
-						include = "${config.xdg.configHome}/foot/colors.ini";
-					};
+      settings = {
+        main = {
+          pad = "0x0";
+          include = "${config.xdg.configHome}/foot/colors.ini";
+        };
 
-					bell = {
-						urgent = "no";
-						notify = "no";
-					};
+        bell = {
+          urgent = "no";
+          notify = "no";
+        };
 
-					scrollback = {
-						lines = 100000;
-						multiplier = 3.0;
-					};
+        scrollback = {
+          lines = 100000;
+          multiplier = 3.0;
+        };
 
-					cursor = {
-						style = "underline";
-						underline-thickness = 1;
-					};
+        cursor = {
+          style = "underline";
+          underline-thickness = 1;
+        };
 
-					mouse.hide-when-typing = "yes";
+        mouse.hide-when-typing = "yes";
 
-					key-bindings = {
-						spawn-terminal = "none";
-						scrollback-up-page = "Shift+Page_Up";
-						scrollback-up-half-page = "Control+Shift+Page_Up";
-						scrollback-up-line = "Control+Shift+n";
-						scrollback-down-page = "Shift+Page_Down";
-						scrollback-down-half-page = "Control+Shift+Page_Down";
-						scrollback-down-line = "Control+Shift+t";
-						clipboard-copy = "Control+Shift+c XF86Copy";
-						clipboard-paste = "Control+Shift+v XF86Paste";
-						search-start = "Control+Shift+r";
-						font-increase = "Control+plus Control+equal Control+KP_Add";
-						font-decrease = "Control+minus Control+KP_Subtract";
-						font-reset = "Control+0 Control+KP_0";
-					};
-				};
-			};
-	};
+        key-bindings = {
+          spawn-terminal = "none";
+          scrollback-up-page = "Shift+Page_Up";
+          scrollback-up-half-page = "Control+Shift+Page_Up";
+          scrollback-up-line = "Control+Shift+n";
+          scrollback-down-page = "Shift+Page_Down";
+          scrollback-down-half-page = "Control+Shift+Page_Down";
+          scrollback-down-line = "Control+Shift+t";
+          clipboard-copy = "Control+Shift+c XF86Copy";
+          clipboard-paste = "Control+Shift+v XF86Paste";
+          search-start = "Control+Shift+r";
+          font-increase = "Control+plus Control+equal Control+KP_Add";
+          font-decrease = "Control+minus Control+KP_Subtract";
+          font-reset = "Control+0 Control+KP_0";
+        };
+      };
+    };
+  };
 }

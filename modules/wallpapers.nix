@@ -1,12 +1,12 @@
 { ... }: {
-	flake.modules.homeManager.wallpapers = { ... }: {
+  flake.modules.homeManager.wallpapers = { ... }: {
     /*
-		home.file."Wallpapers" = {
-			enable = true;
-			recursive = true;
-			target = "Media/Pictures/Wallpapers";
-			source = ../assets/media;
-		};
+      		home.file."Wallpapers" = {
+      			enable = true;
+      			recursive = true;
+      			target = "Media/Pictures/Wallpapers";
+      			source = ../assets/media;
+      		};
     */
-	};
+  };
 }
