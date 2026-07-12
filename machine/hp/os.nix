@@ -121,7 +121,7 @@ in {
 			notifications = {
 				mail.enable = false;
 				wall.enable = false;
-				test.enable = true;
+				test = true;
 			};
 		};
 
