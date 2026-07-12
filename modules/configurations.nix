@@ -22,6 +22,7 @@ in {
 				config.flake.modules.nixos.niri
 				config.flake.modules.nixos.wayland
 				config.flake.modules.nixos.plan9
+				config.flake.modules.nixos.attic
 				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{
@@ -43,6 +44,7 @@ in {
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
 				config.flake.modules.nixos.plan9
+				config.flake.modules.nixos.attic
 				../machine/est/hardware.nix
 				../machine/est/os.nix
 				{
@@ -71,6 +73,8 @@ in {
 				config.flake.modules.nixos.grocy
 				config.flake.modules.nixos.monica
 				config.flake.modules.nixos.atticd
+				config.flake.modules.nixos.attic
+				config.flake.modules.nixos.plan9
 				../machine/hp/hardware.nix
 				../machine/hp/os.nix
 				{
