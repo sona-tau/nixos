@@ -1,20 +1,27 @@
 { ... }: {
 	flake.modules.nixos = {
-		attic = { config, pkgs, ... }: let
+		attic = { config, pkgs, lib, ... }: let
 			hostname = config.networking.hostName;
 
 			tokenSecret = if hostname == "hp" then "hp"
 				else if hostname == "est" then "est"
 				else if hostname == "fw13" then "fw13"
 				else throw "Unknown hostname for attic token: ${hostname}";
-
-			postBuildHook = pkgs.writeShellScript "attic-post-build-hook" ''
-				if [ -z "''${OUT_PATHS:-}" ]; then
-					exit 0;
-				fi
-				exec ${pkgs.attic-client}/bin/attic push nixos-cache $OUT_PATHS
-			'';
 		in {
+			systemd.services.attic-watch-store = {
+				description = "Push new /nix/store paths to the hp cache";
+				wantedBy = [ "multi-user.target" ];
+				after = [ "network-online.target" "tailscaled.service" ];
+				wants = [ "network-online.target" ];
+				serviceConfig = {
+					ExecStart = "${pkgs.attic-client}/bin/attic watch-store nixos-cache";
+					Restart = "always";
+					RestartSec = "10s";
+					MemoryMax = "512M";
+					User = "sona";
+				};
+			};
+
 			environment.systemPackages = [ pkgs.attic-client ];
 
 			sops.secrets."attic-token/${tokenSecret}" = {
@@ -34,17 +41,7 @@
 						"nixos-cache:sKr9AzJplaAjlwCzdxxf3jkSs669IvQTvO8W7xIx1Wg="
 					];
 				};
-
-				extraOptions = ''
-					post-build-hook = ${postBuildHook}
-				'';
 			};
-
-			environment.etc."attic/config.toml".text = ''
-				[hp]
-				endpoint = "http://hp.tail-scale.ts.net:8081"
-				token-file = "${config.sops.secrets."attic-token/${tokenSecret}".path}"
-			'';
 		};
 
 		atticd = { config, pkgs, ... }: {
