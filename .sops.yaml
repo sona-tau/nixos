@@ -1,11 +1,8 @@
 keys:
-  # Machine host keys (derived from /etc/ssh/ssh_host_ed25519_key)
+  # Machine host keys (derived from age -C age-keygen)
   - &hp   age1ujdlljqpna9e8tmk4ymns6mm6gnq8ac892mn4tuljsgnkzdt7y7qsru9h4
-  # TODO: add est and fw13 host keys when provisioning those machines
-  # - &est  age1...
-  # - &fw13 age1...
-  - &fw13 age1eyus6pp63xzv2tx7kzc6cq3es5hextxfndsyerptyjlk549gldns0kkwwd
-  - &est age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
+  - &fw13 age1rxvhxas7hu4dn6x6vywxdacd8ykzjxlvtufqzh232mvluf30kc8qka4rth
+  - &est age1dx6jju76dzg0tphzk5a544vr8rd4z8aenj6gy2hrvjhf0nahh9kq3m97c5
 
   # User key (derived from ~/.ssh/id_ed25519)
   - &sona age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
