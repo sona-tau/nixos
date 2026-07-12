@@ -70,6 +70,7 @@ in {
 				# config.flake.modules.nixos.metube  # WIP: fetcherVersion 3 migration on feat/metube
 				config.flake.modules.nixos.grocy
 				config.flake.modules.nixos.monica
+				config.flake.modules.nixos.atticd
 				../machine/hp/hardware.nix
 				../machine/hp/os.nix
 				{

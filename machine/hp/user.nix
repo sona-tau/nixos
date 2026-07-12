@@ -4,6 +4,8 @@
 	imports = with homeModules; [
 		base
 		terminal
+		atticd
+		attic
 	];
 
 	home = {

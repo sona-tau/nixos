@@ -92,7 +92,6 @@ in {
 		# sonarr.enable = true;    # TODO: not finished
 		# radarr.enable = true;    # TODO: not finished
 		# jellyseerr.enable = true; # TODO: not finished
-		ipfs.enable = true;
 		syncthing = {
 			enable = true;
 			user = "sona";
@@ -296,6 +295,7 @@ in {
 		};
 	};
 
+	/*
 	services.gitea-actions-runner = {
 		package = pkgs.forgejo-runner;
 
@@ -312,6 +312,7 @@ in {
 			];
 		};
 	};
+	*/
 
 	sops.secrets = {
 		"navidrome/lastfm-api-key".sopsFile  = ../../secrets/hp.yaml;

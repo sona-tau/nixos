@@ -4,10 +4,11 @@ keys:
   # TODO: add est and fw13 host keys when provisioning those machines
   # - &est  age1...
   # - &fw13 age1...
+  - &fw13 age1eyus6pp63xzv2tx7kzc6cq3es5hextxfndsyerptyjlk549gldns0kkwwd
+  - &est age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
 
   # User key (derived from ~/.ssh/id_ed25519)
   - &sona age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
-  - &fw13 age1eyus6pp63xzv2tx7kzc6cq3es5hextxfndsyerptyjlk549gldns0kkwwd
 
 creation_rules:
   # hp-specific secrets: decryptable by hp host key and by sona's key
@@ -15,12 +16,16 @@ creation_rules:
     key_groups:
       - age:
           - *hp
-          - *fw13
           - *sona
+  - path_regex: secrets/attic\.yaml$
+    key_groups:
+      - age:
+          - *hp
+          - *fw13
+          - *est
 
   # Shared secrets (e.g. cross-machine keys): sona's key only
   - path_regex: secrets/common\.yaml$
     key_groups:
       - age:
           - *sona
-          - *fw13
