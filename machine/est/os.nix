@@ -69,4 +69,6 @@
 		] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 		enableDefaultPackages = true;
 	};
+
+	nix.settings.trusted-users = ["nixremote"];
 }
