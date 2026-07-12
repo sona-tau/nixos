@@ -32,25 +32,30 @@
 		};
 
 		distributed-client = { config, lib, pkgs, ... }: {
-			nix.buildMachines = [
-				{
-					hostName = "builder";
-					system = "x86_64-linux";
-					protocol = "ssh-ng";
-					maxJobs = 6;
-					speedFactor = 2;
-					supportedFeeatures = [
-						"nixos-test"
-						"benchmark"
-						"big-parallel"
-						"kvm"
-					];
-					mandatoryFeatures = [];
-				}
-			];
+			nix = {
+				buildMachines = [
+					{
+						hostName = "est";
+						sshUser = "nixremote";
+						sshKey = "/root/.ssh/nixremote";
+						system = "x86_64-linux";
+						systems = [ "x86_64-linux" ];
+						protocol = "ssh-ng";
+						maxJobs = 8;
+						speedFactor = 2;
+						supportedFeatures = [
+							"nixos-test"
+							"benchmark"
+							"big-parallel"
+							"kvm"
+						];
+						mandatoryFeatures = [];
+					}
+				];
 
-			nix.distributedBuilds = true;
-			nix.settings.builders-use-substitutes = true;
+				distributedBuilds = true;
+				settings.builders-use-substitutes = true;
+			};
 		};
 	};
 }

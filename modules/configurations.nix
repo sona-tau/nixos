@@ -23,6 +23,7 @@ in {
 				config.flake.modules.nixos.wayland
 				config.flake.modules.nixos.plan9
 				config.flake.modules.nixos.attic
+				config.flake.modules.nixos.distributed-client
 				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{
