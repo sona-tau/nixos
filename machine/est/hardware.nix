@@ -29,6 +29,20 @@
 		};
 	};
 
+
+	fileSystems."/home/sona/omnium-gatherum" = {
+	  device = "fw13:/home/sona/omnium-gatherum";
+	  fsType = "nfs4";
+	  options = [
+	    "x-systemd.automount"
+	    "x-systemd.device-timeout=5"
+	    "noauto"
+	    "soft"
+	    "timeo=14"
+	    "retrans=2"
+	  ];
+	};
+
 	fileSystems."/" = {
 		device = "/dev/disk/by-uuid/d0f0b87a-a4b6-4d45-97fd-8499324ed618";
 		fsType = "ext4";

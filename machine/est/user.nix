@@ -14,6 +14,7 @@
 		wallpapers
 		wayland
 		zen
+		plan9
 	];
 
 	my.stylix = {

@@ -41,6 +41,7 @@ in {
 				inputs.sops-nix.nixosModules.sops
 				config.flake.modules.nixos.base
 				config.flake.modules.nixos.common
+				config.flake.modules.nixos.plan9
 				../machine/est/hardware.nix
 				../machine/est/os.nix
 				{
