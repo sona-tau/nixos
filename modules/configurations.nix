@@ -21,6 +21,7 @@ in {
 				config.flake.modules.nixos.common
 				config.flake.modules.nixos.niri
 				config.flake.modules.nixos.wayland
+				config.flake.modules.nixos.plan9
 				../machine/fw13/hardware.nix
 				../machine/fw13/os.nix
 				{

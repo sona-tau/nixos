@@ -73,6 +73,13 @@
 			};
 		};
 
+		nfs.server = {
+			enable = true;
+			exports = ''
+				~/omnium-gatherum  est(rw,nohide,insecure,no_subtree_check,no_root_squash)
+			'';
+		};
+
 		pipewire = {
 			enable = true;
 			alsa.enable = true;
