@@ -1,4 +1,10 @@
 { ... }: {
+
+	flake.modules.homeManager.plan9 = { pkgs, ... }: {
+		programs.zsh.envExtra = ''
+			export PATH="$PATH:${pkgs.plan9port}/plan9/bin"
+		'';
+	};
   flake.modules.nixos.plan9 = { pkgs, ... }: {
     services = {
       xserver = {
@@ -6,7 +12,6 @@
 
         videoDrivers = [ "modesetting" ];
 
-        # Expose variables to graphical systemd user services
         displayManager = {
           startx = {
             enable = true;
@@ -14,7 +19,7 @@
             extraCommands =
               let
                 myXresources = pkgs.writeText "Xresources" ''
-                  								Xft.dpi: 192
+                  								Xft.dpi: 201
                   								
                   							'';
               in
@@ -46,6 +51,7 @@
         touchpad = {
           naturalScrolling = true;
           accelProfile = "flat";
+		  middleEmulation = true;
         };
       };
     };
@@ -76,6 +82,4 @@
       };
     };
   };
-
-  flake.modules.homeManager.plan9 = { pkgs, ... }: { };
 }

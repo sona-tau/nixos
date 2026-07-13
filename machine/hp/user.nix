@@ -4,6 +4,7 @@
   imports = with homeModules; [
     base
     terminal
+	plan9
   ];
 
   home = {
