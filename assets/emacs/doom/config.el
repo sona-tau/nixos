@@ -10,7 +10,7 @@
   ;; for treemacs users
   (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'acme t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -20,6 +20,10 @@
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+
+(use-package acme-theme
+  :config
+  (load-theme 'acme t))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
