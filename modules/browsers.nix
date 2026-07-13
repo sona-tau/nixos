@@ -5,7 +5,7 @@
       pkgs.qutebrowser
       # pkgs.firefoxpwa
       pkgs.ungoogled-chromium
-      # zen-browser
+      zen-browser
     ];
   };
 }
