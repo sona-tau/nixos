@@ -6,15 +6,18 @@
       settings = {
         add_newline = true;
         "$schema" = "https://starship.rs/config-schema.json"; # Get editor completions based on the config schema
-        package.disabled = false; # Disable the package module, hiding it from the prompt completely
+        format = "$character";
+        right_format = "$directory$all";
+        username.format = "[$user]($style)";
 
-        format = lib.concatStrings [
-          "(white)$directory\n"
-          "(white)$character"
-        ];
+        hostname = {
+          format = "[$ssh_symbol](white)[$hostname]($style)";
+          ssh_symbol = "@";
+        };
 
         character = {
           # The name of the module we are configuring is 'character'
+          format = "$symbol.";
           success_symbol = "[λ](green)";
           error_symbol = "[λ](red)";
         };

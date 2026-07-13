@@ -33,6 +33,7 @@
       radicle-node
       radicle-tui
       nixfmt
+      nixd
     ];
   };
 }
