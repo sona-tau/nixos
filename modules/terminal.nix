@@ -34,6 +34,7 @@
       radicle-tui
       nixfmt
       nixd
+      ssh-to-age
     ];
   };
 }
