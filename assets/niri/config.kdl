@@ -4,12 +4,12 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
 // Input device configuration.
-// Find the full list of options on the wiki:
+// INFO:  Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 input {
 	keyboard {
 		xkb {
-			// layout "us"
+			/- layout "us"
 			layout "mtgap-mod"
 		}
 	}
@@ -18,36 +18,35 @@ input {
 	// Omitting settings disables them, or leaves them at their default values.
 	touchpad {
 		tap
-		// dwt
-		// dwtp
+		/- dwt
+		/- dwtap
 		natural-scroll
-		// accel-speed 0.2
+		/- accel-speed 0.2
 		accel-profile "flat"
-		scroll-factor 0.5
+		scroll-factor 0.618033
 	}
 
 	mouse {
-		// natural-scroll
-		// accel-speed 0.2
+		/- natural-scroll
+		/- accel-speed 0.2
 		accel-profile "flat"
 	}
 
 	// Uncomment this to make the mouse warp to the center of newly focused windows.
-	// warp-mouse-to-focus
+	/- warp-mouse-to-focus
 
 	// Focus windows and outputs automatically when moving the mouse into them.
-	// focus-follows-mouse
+	/- focus-follows-mouse
 }
 
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 // The built-in laptop monitor is usually called "eDP-1".
-// Find more information on the wiki:
+// INFO: Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
 output "eDP-1" {
 	// Uncomment this line to disable this output.
-	// off
+	/- off
 
 	// Resolution and, optionally, refresh rate of the output.
 	// The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
@@ -55,10 +54,10 @@ output "eDP-1" {
 	// for the resolution.
 	// If the mode is omitted altogether or is invalid, niri will pick one automatically.
 	// Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-	//mode "1920x1080@120.030"
+	mode "2256x1504@47.998"
 
 	// Scale is a floating-point number, but at the moment only integer values work.
-	scale 2.0
+	scale 1.5
 
 	// Transform allows to rotate the output counter-clockwise, valid values are:
 	// normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -77,7 +76,7 @@ output "eDP-1" {
 }
 
 output "*" {
-	scale 2.0
+	scale 1.0
 	transform "normal"
 }
 
@@ -187,10 +186,10 @@ layout {
 	// Top and bottom struts will simply add outer gaps in addition to the area occupied by
 	// layer-shell panels and regular gaps.
 	struts {
-		left 1
-		right 1
-		top 1
-		bottom 1
+		left 0
+		right 0
+		top 0
+		bottom 0
 	}
 }
 
@@ -199,6 +198,8 @@ layout {
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "noctalia"
+spawn-at-startup "emacs --daemon"
+spawn-at-startup "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -222,38 +223,38 @@ animations {
 	// off
 
 	// Slow down all animations by this factor. Values below 1 speed them up instead.
-	// slowdown 3.0
+	slowdown 1.0
 
 	// Individual animations.
 
 	workspace-switch {
 		duration-ms 300
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	window-open {
 		duration-ms 400
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	window-close {
 		duration-ms 500
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	horizontal-view-movement {
 		duration-ms 200
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	window-movement {
 		duration-ms 200
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	window-resize {
 		duration-ms 200
-		curve "ease-out-quad"
+		curve "ease-out-expo"
 	}
 
 	config-notification-open-close {
