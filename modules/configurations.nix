@@ -45,26 +45,29 @@ in
       }
     );
 
-    "est" = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        inputs.home-manager.nixosModules.home-manager
-        inputs.sops-nix.nixosModules.sops
-        config.flake.modules.nixos.base
-        config.flake.modules.nixos.common
-        config.flake.modules.nixos.plan9
-        config.flake.modules.nixos.attic
-        config.flake.modules.nixos.distributed-host
-        ../machine/est/hardware.nix
-        ../machine/est/os.nix
-        {
-          home-manager = (mkHomeManager { }) // {
-            users."sona".imports = [ ../machine/est/user.nix ];
-          };
-        }
-      ];
-    };
+    "est" = withSystem "x86_64-linux" (
+      perSystem@{ ... }:
+      inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.sops-nix.nixosModules.sops
+          config.flake.modules.nixos.base
+          config.flake.modules.nixos.common
+          config.flake.modules.nixos.plan9
+          config.flake.modules.nixos.attic
+          config.flake.modules.nixos.distributed-host
+          ../machine/est/hardware.nix
+          ../machine/est/os.nix
+          {
+            home-manager = (mkHomeManager { zen-browser = perSystem.config.packages.zen-browser; }) // {
+              users."sona".imports = [ ../machine/est/user.nix ];
+            };
+          }
+        ];
+      }
+    );
 
     "hp" = inputs.nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
