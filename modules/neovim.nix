@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.neovim = { lib, pkgs, ... }: {
     home.packages = [ pkgs.neovim ];
 

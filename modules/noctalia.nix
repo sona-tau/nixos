@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.noctalia = { lib, inputs, ... }: {
     imports = [ inputs.noctalia.homeModules.default ];
 

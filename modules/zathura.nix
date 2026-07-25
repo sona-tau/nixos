@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.modules.homeManager.zathura = { ... }: {
+_: {
+  flake.modules.homeManager.zathura = _: {
     programs.zathura = {
       enable = true;
       options = {

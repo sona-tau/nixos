@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.gtk = { lib, pkgs, ... }: {
     home.packages = [ pkgs.dconf ];
 

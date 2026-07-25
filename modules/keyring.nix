@@ -1,4 +1,4 @@
-{ ... }: {
+{ _ }: {
   flake.modules.homeManager.keyring = { pkgs, ... }: {
     # Run gnome-keyring-daemon as a user service so it's guaranteed to be
     # on the correct D-Bus session regardless of how the session was started.

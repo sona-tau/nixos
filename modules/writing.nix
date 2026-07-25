@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.writing = { pkgs, ... }: {
     home.packages = with pkgs; [
       typst # Markdown + LaTex = typst compiler

@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.tmux = { pkgs, ... }: {
     programs.fzf.tmux.enableShellIntegration = true;
 

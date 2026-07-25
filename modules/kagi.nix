@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.kagi = { pkgs, ... }: {
     home.packages = [
       pkgs.nushell

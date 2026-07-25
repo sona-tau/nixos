@@ -19,7 +19,7 @@ in
 {
   flake.nixosConfigurations = {
     "fw13" = withSystem "x86_64-linux" (
-      perSystem@{ ... }:
+      perSystem:
       inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
@@ -46,7 +46,7 @@ in
     );
 
     "est" = withSystem "x86_64-linux" (
-      perSystem@{ ... }:
+      perSystem:
       inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };

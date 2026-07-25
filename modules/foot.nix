@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.foot = { config, pkgs, ... }: {
     programs.foot = {
       enable = true;

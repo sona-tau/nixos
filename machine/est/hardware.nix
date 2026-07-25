@@ -35,32 +35,36 @@
     };
   };
 
-  fileSystems."/home/sona/omnium-gatherum" = {
-    device = "fw13:/home/sona/Git/omnium-gatherum";
-    fsType = "nfs4";
-    options = [
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=600"
-      "x-systemd.device-timeout=5"
-      "noauto"
-      "soft"
-      "timeo=14"
-      "retrans=2"
-    ];
-  };
+  services.fstrim.enable = true;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d0f0b87a-a4b6-4d45-97fd-8499324ed618";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/home/sona/omnium-gatherum" = {
+      device = "fw13:/home/sona/Git/omnium-gatherum";
+      fsType = "nfs4";
+      options = [
+        "x-systemd.automount"
+        "x-systemd.idle-timeout=600"
+        "x-systemd.device-timeout=5"
+        "noauto"
+        "soft"
+        "timeo=14"
+        "retrans=2"
+      ];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/A45A-AA17";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
+    "/" = {
+      device = "/dev/disk/by-uuid/d0f0b87a-a4b6-4d45-97fd-8499324ed618";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/A45A-AA17";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
   };
 
   swapDevices = [ ];

@@ -1,9 +1,11 @@
 { config, ... }: {
-  flake.modules.nixos.wayland = { ... }: {
-    services.desktopManager.cosmic.enable = true;
-    services.desktopManager.gnome.enable = true;
-    services.gnome.gnome-software.enable = true;
-    services.gnome.core-apps.enable = true;
+  flake.modules.nixos.wayland = _: {
+    services = {
+      desktopManager.cosmic.enable = true;
+      desktopManager.gnome.enable = true;
+      gnome.gnome-software.enable = true;
+      gnome.core-apps.enable = true;
+    };
   };
 
   flake.modules.homeManager.wayland = { pkgs, ... }: {

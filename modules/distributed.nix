@@ -1,6 +1,6 @@
-{ ... }: {
+_: {
   flake.modules.nixos = {
-    distributed-host = { ... }: {
+    distributed-host = _: {
       users = {
         users."nixremote" = {
           isSystemUser = true;

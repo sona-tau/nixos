@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.terminal = { pkgs, ... }: {
     home.packages = with pkgs; [
       cloc # count lines of code
@@ -33,6 +33,9 @@
       radicle-node
       radicle-tui
       nixfmt
+      statix
+      vulnix
+      niv
       nixd
       ssh-to-age
     ];

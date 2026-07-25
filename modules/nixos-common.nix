@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.nixos.common = { pkgs, ... }: {
     users = {
       defaultUserShell = pkgs.zsh;

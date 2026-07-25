@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.modules.nixos.glance = { ... }: {
+_: {
+  flake.modules.nixos.glance = _: {
     services.glance = {
       enable = true;
 

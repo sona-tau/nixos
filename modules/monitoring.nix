@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.nixos.monitoring = { config, ... }: {
     sops.secrets."grafana/secret-key".sopsFile = ../secrets/hp.yaml;
 

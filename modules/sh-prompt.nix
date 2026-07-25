@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.modules.homeManager.sh-prompt = { ... }: {
+_: {
+  flake.modules.homeManager.sh-prompt = _: {
     home.file.".local/bin/sh_prompt" = {
       executable = true;
 

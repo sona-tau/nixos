@@ -1,10 +1,10 @@
-{ ... }: {
+_: {
 
-	flake.modules.homeManager.plan9 = { pkgs, ... }: {
-		programs.zsh.envExtra = ''
-			export PATH="$PATH:${pkgs.plan9port}/plan9/bin"
-		'';
-	};
+  flake.modules.homeManager.plan9 = { pkgs, ... }: {
+    programs.zsh.envExtra = ''
+      			export PATH="$PATH:${pkgs.plan9port}/plan9/bin"
+      		'';
+  };
   flake.modules.nixos.plan9 = { pkgs, ... }: {
     services = {
       xserver = {
@@ -51,7 +51,7 @@
         touchpad = {
           naturalScrolling = true;
           accelProfile = "flat";
-		  middleEmulation = true;
+          middleEmulation = true;
         };
       };
     };

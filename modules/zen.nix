@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.zen = { config, pkgs, ... }: {
     home.packages = with pkgs; [
       fortune

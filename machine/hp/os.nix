@@ -16,7 +16,7 @@ in
       efi.canTouchEfiVariables = true;
     };
 
-    kernelPackages = pkgs.linuxPackagesFor (pkgs.linuxKernel.kernels.linux_6_18);
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_18;
     supportedFilesystems.zfs = true;
     kernelModules = [
       "cdrom"
@@ -333,25 +333,27 @@ in
     	};
   */
 
-  sops.secrets = {
-    "navidrome/lastfm-api-key".sopsFile = ../../secrets/hp.yaml;
-    "navidrome/lastfm-secret".sopsFile = ../../secrets/hp.yaml;
-    "forgejo/runner-token".sopsFile = ../../secrets/hp.yaml;
-  };
+  sops = {
+    secrets = {
+      "navidrome/lastfm-api-key".sopsFile = ../../secrets/hp.yaml;
+      "navidrome/lastfm-secret".sopsFile = ../../secrets/hp.yaml;
+      "forgejo/runner-token".sopsFile = ../../secrets/hp.yaml;
+    };
 
-  sops.templates."navidrome-lastfm.env" = {
-    content = ''
-      			ND_LASTFM_APIKEY=${config.sops.placeholder."navidrome/lastfm-api-key"}
-      			ND_LASTFM_SECRET=${config.sops.placeholder."navidrome/lastfm-secret"}
-      		'';
-    owner = "navidrome";
-    mode = "0400";
-  };
+    templates."navidrome-lastfm.env" = {
+      content = ''
+        ND_LASTFM_APIKEY=${config.sops.placeholder."navidrome/lastfm-api-key"}
+        ND_LASTFM_SECRET=${config.sops.placeholder."navidrome/lastfm-secret"}
+      '';
+      owner = "navidrome";
+      mode = "0400";
+    };
 
-  # root-owned is fine — systemd reads EnvironmentFile as root before DynamicUser switch
-  sops.templates."gitea-runner-token.env" = {
-    content = "TOKEN=${config.sops.placeholder."forgejo/runner-token"}";
-    mode = "0400";
+    # root-owned is fine — systemd reads EnvironmentFile as root before DynamicUser switch
+    templates."gitea-runner-token.env" = {
+      content = "TOKEN=${config.sops.placeholder."forgejo/runner-token"}";
+      mode = "0400";
+    };
   };
 
   systemd.services.navidrome.serviceConfig.EnvironmentFile =

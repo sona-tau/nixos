@@ -1,1 +1,1 @@
-{ ... }: { flake.modules.homeManager.mako = { ... }: { services.mako.enable = true; }; }
+_: { flake.modules.homeManager.mako = _: { services.mako.enable = true; }; }

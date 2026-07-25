@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.niri = { config, pkgs, ... }: {
     home = {
       file.".config/niri/config.kdl".source =
@@ -6,5 +6,5 @@
       packages = [ pkgs.libgbm ];
     };
   };
-  flake.modules.nixos.niri = { ... }: { programs.niri.enable = true; };
+  flake.modules.nixos.niri = _: { programs.niri.enable = true; };
 }

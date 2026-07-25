@@ -30,7 +30,7 @@
     writing
     zathura
     zen
-	plan9
+    plan9
   ];
 
   my.stylix = {

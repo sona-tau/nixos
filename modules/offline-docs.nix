@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.offline-docs = { pkgs, ... }: {
     home.packages = with pkgs; [
       kiwix-tools # Wikipedia (and other ZIM archives) via local HTTP

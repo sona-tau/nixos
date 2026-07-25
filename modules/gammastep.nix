@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.modules.homeManager.gammastep = { ... }: {
+_: {
+  flake.modules.homeManager.gammastep = _: {
     services.gammastep = {
       enable = true;
       dawnTime = "05:48-06:59";

@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.nixos.firefly = { config, ... }: {
     sops.secrets = {
       "firefly-iii-data-importer/personal-access-token" = {

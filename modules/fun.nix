@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.modules.homeManager.fun = { pkgs, ... }: {
     home.packages = with pkgs; [
       cmatrix # will you take the red pill, or the blue pill

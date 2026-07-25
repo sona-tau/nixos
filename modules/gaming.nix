@@ -1,1 +1,9 @@
-{ ... }: { flake.modules.homeManager.gaming = { ... }: { programs.lutris.enable = true; }; }
+_: {
+  flake.modules.homeManager.gaming = { pkgs, ... }: {
+    programs.lutris.enable = true;
+    home.packages = with pkgs; [
+      gamescope
+      opentabletdriver
+    ];
+  };
+}

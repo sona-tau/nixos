@@ -1,5 +1,5 @@
-{ ... }: {
-  flake.modules.homeManager.wallpapers = { ... }: {
+_: {
+  flake.modules.homeManager.wallpapers = _: {
     /*
       		home.file."Wallpapers" = {
       			enable = true;
