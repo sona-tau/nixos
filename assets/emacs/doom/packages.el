@@ -16,6 +16,25 @@
 (package! org-roam)
 (package! hare-mode)
 (package! acme-theme)
+(package! gleam-ts-mode
+  :recipe (:host github
+           :repo "gleam-lang/gleam-mode"
+           :branch "main"
+           :files ("gleam-ts-*.el")))
+
+(package! just-ts-mode
+  :recipe (:host github
+           :repo "leon-barrett/just-ts-mode.el"
+           :branch "main"
+           :files ("just-ts-*.el")))
+
+(package! austral-mode
+  :recipe (:host github
+           :repo "austral/austral"
+           :branch "master"
+           :files ("austral-mode.el")))
+
+(package! nushell-mode :recipe (:host github :repo "mrkkrp/nushell-mode"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

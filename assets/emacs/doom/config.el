@@ -1,6 +1,11 @@
 (setq user-full-name "Sona Tau Estrada Rivera"
       user-mail-address "sona@stau.space")
 
+(setq doom-font (font-spec :family "Mno16" :size 24 :weight 'semi-light)
+     doom-variable-pitch-font (font-spec :family "Mno16" :size 13))
+
+;; (set-face-attribute 'default nil :family "Mno16" :height 120)
+
 (use-package doom-themes
   :ensure t
   :custom
@@ -133,3 +138,20 @@
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
+
+
+
+
+(use-package! gleam-ts-mode
+  :mode (rx ".gleam" eos))
+
+(after! treesit
+  (add-to-list 'auto-mode-alist '("\\.gleam$" . gleam-ts-mode)))
+
+(after! gleam-ts-mode
+  (unless (treesit-language-available-p 'gleam)
+    (gleam-ts-install-grammar)))
+
+(use-package! just-ts-mode)
+(require 'just-ts-mode)
+(just-ts-mode-install-grammar)
