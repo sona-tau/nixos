@@ -8,7 +8,6 @@ keys:
   - &sona age12yh3lms50k0a5jdwmy9r5wuel8h947sd2asgul9al6666wkeevzqgrutnu
 
 creation_rules:
-  # hp-specific secrets: decryptable by hp host key and by sona's key
   - path_regex: secrets/hp\.yaml$
     key_groups:
       - age:
