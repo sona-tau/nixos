@@ -13,7 +13,7 @@ _: {
         mu # for email stuff
         isync # for email stuff
         protonmail-bridge
-        texlive.combined.scheme-medium
+        texliveSmall
         cmake # vterm compilation
         gnumake # vterm compilation
       ];

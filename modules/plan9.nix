@@ -31,7 +31,8 @@ _: {
                 							emacs --daemon &
                 							protonmail-bridge &
 
-                							export font="/mnt/font/Mno16/24a/font"
+                							# export font="/mnt/font/Mno16/24a/font"
+								export font="/lib/font/bit/lucsans/euro.8.font"
                 							exec 9 rio -term alacritty -virtuals 4
                 						'';
           };

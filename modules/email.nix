@@ -70,7 +70,6 @@ _: {
             "text/plain" = "colorize";
             "text/html" = "elinks -dump -dump-color-mode 1 -dump-width 80 -no-numbering -no-references";
           };
-          ui.styleset-name = "dracula";
         };
 
         extraAccounts."Personal" = {

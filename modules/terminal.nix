@@ -17,7 +17,6 @@ _: {
       ncmpcpp # music player
       newsboat # RSS news reader
       pandoc # file converter
-      python3Packages.habitipy # Habitica CLI (hbt command)
       ripgrep # fast grep
       taskwarrior-tui # taskwarrior tui
       taskwarrior3 # terminal todo
